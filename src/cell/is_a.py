@@ -1,19 +1,14 @@
-# ignore_overlength_lines
-
-from random import choice as tj
-from random import randint
-from random import random as u
-from string import ascii_letters as a2z
-
 from hak.one.bool.random.make import f as make_random_bool
 from hak.one.dict.is_a import f as is_dict
 from hak.one.get_datatype import f as detect_type
 from hak.one.list.random.make import f as make_random_list
+from hak.one.number.int.random.make import f as make_random_int
 from hak.one.set.random.make import f as make_random_set
 from hak.one.string.random.make import f as make_random_str
 from hak.one.tuple.random.make import f as make_random_tuple
 from hak.pf import f as pf
 from hak.pxyz import f as pxyz
+from hak.one.number.float.random.make import f as make_random_float
 
 def f(x):
   if not is_dict(x): return False
@@ -29,13 +24,13 @@ def t_false_none():
   return pxyz(x, y, z)
 
 def t_false_int():
-  x = randint(0, 10)
+  x = make_random_int(0, 10)
   y = False
   z = f(x)
   return pxyz(x, y, z)
 
 def t_false_float():
-  x = u()
+  x = make_random_float()
   y = False
   z = f(x)
   return pxyz(x, y, z)
@@ -76,7 +71,7 @@ def t_false_dict_empty():
   z = f(x)
   return pxyz(x, y, z)
 
-def t_false_dict_wrong_number_of_keys():
+def t_false_dict_wrong_k_count():
   x = {'value': 0}
   y = False
   z = f(x)
@@ -99,6 +94,6 @@ def t():
   if not t_false_tuple(): return pf('!t_false_tuple')
   if not t_false_list(): return pf('!t_false_list')
   if not t_false_dict_empty(): return pf('!t_false_dict_empty')
-  if not t_false_dict_wrong_number_of_keys(): return pf('!t_false_dict_wrong_number_of_keys')
+  if not t_false_dict_wrong_k_count(): return pf('!t_false_dict_wrong_k_count')
   if not t_true(): return pf('!t_true')
   return True
