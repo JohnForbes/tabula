@@ -8,27 +8,14 @@ from string import ascii_letters as a2z
 from hak.one.bool.random.make import f as make_random_bool
 from hak.one.dict.is_a import f as is_dict
 from hak.one.get_datatype import f as detect_type
-from hak.one.list.is_a import f as is_list
 from hak.one.list.random.make import f as make_random_list
-from hak.one.number.float.is_a import f as is_float
-from hak.one.number.int.is_a import f as is_int
-from hak.one.set.is_a import f as is_set
 from hak.one.set.random.make import f as make_random_set
-from hak.one.string.is_a import f as is_str
 from hak.one.string.random.make import f as make_random_str
-from hak.one.tuple.is_a import f as is_tup
 from hak.one.tuple.random.make import f as make_random_tuple
 from hak.pf import f as pf
 from hak.pxyz import f as pxyz
 
 def f(x):
-  if x is None: return False
-  if is_int(x): return False
-  if is_float(x): return False
-  if is_str(x): return False
-  if is_set(x): return False
-  if is_tup(x): return False
-  if is_list(x): return False
   if not is_dict(x): return False
   # must be dict from this line onwards
   if len(x) != 2: return False
