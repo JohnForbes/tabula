@@ -3,7 +3,7 @@ from src.table.insert_records import f as insert_records_into_table
 from hak.pxyz import f as pxyz
 
 # row_order
-f = lambda table: table['rows']
+f = lambda table: table['row_order']
 
 def t():
   x = {
