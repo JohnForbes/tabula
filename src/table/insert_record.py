@@ -4,12 +4,12 @@ from hak.one.list.append_if_not_present import f as append_if_not_present
 from src.cell.make import f as make_cell
 
 def f(table, record):
-  max_row_identifier = max(table['rows']) if table['rows'] else -1
+  max_row_identifier = max(table['row_order']) if table['row_order'] else -1
   row_identifier = max_row_identifier+1
-  table['rows'] = table['rows'] + [row_identifier]
+  table['row_order'] = table['row_order'] + [row_identifier]
 
   for (k, v) in record.items():
-    table['columns'] = append_if_not_present(table['columns'], k)
+    table['column_order'] = append_if_not_present(table['column_order'], k)
     table['cells'][(k, row_identifier)] = make_cell(v)
 
   return table
@@ -20,8 +20,8 @@ def t():
     'record': {'a': 0, 'b': 1, 'c': 2}
   }
   y = {
-    'columns': ['a', 'b', 'c'],
-    'rows': [0],
+    'column_order': ['a', 'b', 'c'],
+    'row_order': [0],
     'cells': {
       ('a', 0): make_cell(0),
       ('b', 0): make_cell(1),
