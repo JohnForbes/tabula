@@ -3,10 +3,9 @@ from hak.pxyz import f as pxyz
 from src.cell.make import f as make_cell
 from src.table.insert_record import f as insert_record
 
-def f(table, records):
-  for r in records:
-    table = insert_record(table, r)
-  return table
+f = lambda table, records: (
+  f(insert_record(table, records[0]), records[1:]) if records else table
+)
 
 def t():
   x = {
@@ -18,8 +17,8 @@ def t():
     ]
   }
   y = {
-    'columns': ['a', 'b', 'c'],
-    'rows': [0, 1, 2],
+    'column_order': ['a', 'b', 'c'],
+    'row_order': [0, 1, 2],
     'cells': {
       ('a', 0): make_cell(0),
       ('b', 0): make_cell(1),
@@ -33,4 +32,4 @@ def t():
     }
   }
   z = f(**x)
-  return pxyz(x, y, z)
+  return pxyz(x, y, z, new_line=1)
