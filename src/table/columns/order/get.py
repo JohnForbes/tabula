@@ -1,11 +1,12 @@
 from src.table.make import f as make_table
 from hak.pxyz import f as pxyz
+from src.table.insert_record import f as insert_record
 
 # column_order
-f = lambda x: x['columns']
+f = lambda x: x['column_names']
 
 def t():
-  x = make_table(columns=['a', 'b', 'c'])
+  x = insert_record(make_table(), {'a': 0, 'b': 1, 'c': 2})
   y = ['a', 'b', 'c']
   z = f(x)
   return pxyz(x, y, z)
