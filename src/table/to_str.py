@@ -2,36 +2,20 @@ from hak.pxyz import f as pxyz
 from src.table.insert_records import f as insert_records
 from src.table.make import f as make_table
 from hak.pf import f as pf
-from src.column.to_str import f as column_to_str
-# from src.row.to_str import f as record_to_str
 from src.row.to_str import f as row_to_str
 from src.table.to_header_str import f as table_to_header_str
+from src.table.row_name_to_row import f as row_name_to_row
 
 # __str__
 def f(table):
+  rows = [row_name_to_row(table, row_name) for row_name in table['row_order']]
   return '\n'.join([
     '|---|---|',
-    # '| a | b |',
     table_to_header_str(table),
     '|---|---|',
-    # *[
-    #   '| ' + row_to_str(row) + ' |'
-    #   for row
-    #   in 
-    # ],
-    '| 0 | 1 |',
-    '| 3 | 4 |',
-    '| 6 | 7 |',
+    *['| '+row_to_str(r)+' |' for r in rows],
     '|---|---|',
   ])
-  # return '\n'.join([
-  #   '|---|',
-  #   # '| a |',
-  #   *[column_to_str(column) for column in table['column_order']],
-  #   '|---|',
-  #   *[record_to_str(record) for record in table['records']],
-  #   '|---|',
-  # ])
 
 def t_abc():
   x = {
@@ -76,9 +60,9 @@ def t_ab():
 def t_ac():
   x = {
     'table': insert_records(make_table(), [
-      {'a': 0, 'c': 1},
-      {'a': 3, 'c': 4},
-      {'a': 6, 'c': 7}
+      {'a': 0, 'c': 2},
+      {'a': 3, 'c': 5},
+      {'a': 6, 'c': 8}
     ])
   }
   y = '\n'.join([
@@ -95,6 +79,6 @@ def t_ac():
 
 def t():
   if not t_ab(): return pf('!t_ab')
-  # if not t_ac(): return pf('!t_ac')
+  if not t_ac(): return pf('!t_ac')
   # if not t_abc(): return pf('!t_abc')
   return True
