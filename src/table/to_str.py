@@ -2,18 +2,12 @@ from hak.pf import f as pf
 from hak.pxyz import f as pxyz
 from src.table.insert_records import f as insert_records
 from src.table.make import f as make_table
-from src.table.to_hbar import f as table_to_hbar
-from src.table.to_header_str import f as table_to_header_str
-from src.table.to_rows_str import f as table_to_rows_str
+from src.table.to_hbar import f as hbar
+from src.table.to_header_str import f as head
+from src.table.to_rows_str import f as body
 
 # __str__
-f = lambda x: '\n'.join([
-  table_to_hbar(x),
-  table_to_header_str(x),
-  table_to_hbar(x),
-  table_to_rows_str(x),
-  table_to_hbar(x),
-])
+f = lambda x: '\n'.join([_f(x) for _f in [hbar, head, hbar, body, hbar]])
 
 def t_ab():
   x = insert_records(make_table(), [
