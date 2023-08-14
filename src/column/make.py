@@ -4,9 +4,10 @@ from hak.one.tuple.is_a import f as is_tuple
 from hak.pf import f as pf
 from hak.pxyz import f as pxyz
 from src.column.is_a import f as is_column
+from src.cell.make import f as make_cell
 
-def f(name, values, path=None):
-  y = {'name': name, 'values': values, 'datatype': detect_type(values)}
+def f(name, cells, path=None):
+  y = {'name': name, 'cells': cells}
 
   if path:
     if not any([is_tuple(path), is_str(path)]):
@@ -16,34 +17,46 @@ def f(name, values, path=None):
   return y
 
 def t_a():
-  x = {'name': 'banana', 'values': ['b1', 'b2', 'b3']}
+  x = {'name': 'banana', 'path': None}
+  x['cells'] = [make_cell(v, x['name']) for v in ['b1', 'b2', 'b3']]
   z = f(**x)
   if not is_column(z): return pf(f'not is_column(z); z: {z}')
   return True
 
 def t_d():
-  x = {'name': 'abc', 'values': [0, 1, 2]}
-  y = {'name': 'abc', 'values': [0, 1, 2], 'datatype': 'int', 'path': ()}
+  x = {'name': 'abc'}
+  x['cells'] = [make_cell(v, x['name']) for v in [0, 1, 2]]
+  y = {
+    'name': 'abc',
+    'cells': [make_cell(v, 'abc') for v in [0, 1, 2]],
+    'path': ()
+  }
   z = f(**x)
   return pxyz(x, y, z)
 
 def t_path_as_str():
-  x = {'name': 'abc', 'values': [0, 1, 2], 'path': 'root'}
+  x = {
+    'name': 'abc',
+    'path': 'root'
+  }
+  x['cells'] = [make_cell(v, 'abc') for v in [0, 1, 2]]
   y = {
     'name': 'abc',
-    'values': [0, 1, 2],
-    'datatype': 'int',
+    'cells': [make_cell(v, 'abc') for v in [0, 1, 2]],
     'path': ('root',)
   }
   z = f(**x)
   return pxyz(x, y, z)
 
 def t_path():
-  x = {'name': 'abc', 'values': [0, 1, 2], 'path': ('root', 'branch')}
+  x = {
+    'name': 'abc',
+    'path': ('root', 'branch')
+  }
+  x['cells'] = [make_cell(v, x['name']) for v in [0, 1, 2]]
   y = {
     'name': 'abc',
-    'values': [0, 1, 2],
-    'datatype': 'int',
+    'cells': [make_cell(v, 'abc') for v in [0, 1, 2]],
     'path': ('root', 'branch')
   }
   z = f(**x)
