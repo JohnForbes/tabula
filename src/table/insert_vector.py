@@ -15,7 +15,7 @@ def f(table, vector):
   for v in values:
     row_identifier = row_identifier+1
     result_table['row_order'] = result_table['row_order'] + [row_identifier]
-    result_table['cells'][(name, row_identifier)] = make_cell(v)
+    result_table['cells'][(name, row_identifier)] = make_cell(v, name)
 
   return result_table
 
@@ -30,7 +30,7 @@ def t():
   y = {
     'column_order': ['d'],
     'row_order': [_ for _ in range(10)],
-    'cells': {('d', _): make_cell(_/10) for _ in range(10)}
+    'cells': {('d', _): make_cell(_/10, 'd') for _ in range(10)}
   }
   z = f(**x)
   return pxyz(x, y, z)
