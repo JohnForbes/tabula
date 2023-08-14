@@ -1,6 +1,6 @@
 from hak.pf import f as pf
 from hak.pxyz import f as pxyz
-from src.column.make import f as make_column
+from src.column.make_from_cells import f as make_column
 from src.cell.make import f as make_cell
 
 # width
