@@ -1,6 +1,5 @@
 from hak.one.bool.random.make import f as make_random_bool
 from hak.one.dict.is_a import f as is_dict
-from hak.one.get_datatype import f as detect_type
 from hak.one.list.random.make import f as make_random_list
 from hak.one.number.float.random.make import f as make_random_float
 from hak.one.number.int.random.make import f as make_random_int
@@ -9,10 +8,11 @@ from hak.one.string.random.make import f as make_random_str
 from hak.one.tuple.random.make import f as make_random_tuple
 from hak.pf import f as pf
 from hak.pxyz import f as pxyz
+from src.cell.make import f as make_cell
 
 def f(x):
   if not is_dict(x): return False
-  if len(x) != 2: return False
+  if len(x) != 3: return False
   if 'value' not in x: return False
   return True
 
@@ -77,8 +77,7 @@ def t_false_dict_wrong_k_count():
   return pxyz(x, y, z)
 
 def t_true():
-  x = {'value': 0}
-  x['datatype'] = detect_type(x['value'])
+  x = make_cell(value=0, field_name='i')
   y = True
   z = f(x)
   return pxyz(x, y, z)
