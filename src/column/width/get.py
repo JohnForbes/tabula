@@ -37,7 +37,7 @@ def t_cells_dominant_rate():
       make_rate(3,  7, {'m': 1})
     ]
   )
-  y = 4
+  y = 3
   z = f(x)
   return pxyz(x, y, z)
 
