@@ -12,7 +12,6 @@ from hak.one.number.float.random.make import f as make_random_float
 
 def f(x):
   if not is_dict(x): return False
-  # must be dict from this line onwards
   if len(x) != 2: return False
   if 'value' not in x: return False
   return True
