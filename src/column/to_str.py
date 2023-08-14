@@ -3,25 +3,15 @@ from hak.pf import f as pf
 from hak.pxyz import f as pxyz
 from src.column.make_from_values import f as make_column
 from src.column.width.get import f as get_width
+from src.cell.to_str import f as cell_to_str
 
 def f(x):
-  w = get_width(x) + 2
-
-  _datatype = x['cells'][0]['datatype']
-
-  if   _datatype == 'int':
-    cell_strings = [f" {c['value']:>{get_width(x)}} " for c in x['cells']]
-
-  elif any([_datatype in {'date', 'str'}]):
-    _cells = [str(c['value']) for c in x['cells']]
-    cell_strings = [f" {v:>{get_width(x)}} " for v in _cells]
-
-  else:
-    raise TypeError(f"Unexpected type: {_datatype}")
-  
+  _w = get_width(x)
+  w = _w + 2
+  cell_strings = [f" {cell_to_str(c):>{_w}} " for c in x['cells']]
   return '\n'.join([
     '-'*w,
-    f" {x['name']:>{get_width(x)}} ",
+    f" {x['name']:>{_w}} ",
     '-'*w,
     *cell_strings,
     '-'*w,
@@ -33,7 +23,7 @@ def t_0():
     '---',
     ' a ',
     '---',
-    ' 0 ',
+    '   ',
     '---',
   ])
   z = f(x)
@@ -45,7 +35,7 @@ def t_1():
     '-----',
     ' abc ',
     '-----',
-    '   0 ',
+    '     ',
     '  10 ',
     '  23 ',
     '-----',
@@ -59,7 +49,7 @@ def t_2():
     '------',
     '   ab ',
     '------',
-    '    0 ',
+    '      ',
     '  100 ',
     ' 2300 ',
     '------',
