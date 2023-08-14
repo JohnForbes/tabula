@@ -34,64 +34,57 @@ def f(x):
 #   return ' '*_width + f'{_val_str:>{_width}}'
 
 def t_a():
-  x = {'value': 'a'}
+  x = make_cell(**{'value': 'a', 'field_name': 'A'})
   y = 'a'
-  z = f(make_cell(**x))
+  z = f(x)
   return pxyz(x, y, z)
 
 def t_0():
-  x = {'value': 0}
+  x = make_cell(**{'value': 0, 'field_name': 'i'})
   y = ' '
-  z = f(make_cell(**x))
+  z = f(x)
   return pxyz(x, y, z)
 
 def t_10():
-  x = {'value': 10}
+  x = make_cell(**{'value': 10, 'field_name': 'i'})
   y = '10'
-  z = f(make_cell(**x))
-  return pxyz(x, y, z)
-
-def t_01():
-  x = {'value': 'a'}
-  y = str(x['value'])
-  z = f(make_cell(**x))
+  z = f(x)
   return pxyz(x, y, z)
 
 def t_02():
-  x = {'value': False}
+  x = make_cell(**{'value': False, 'field_name': 'B'})
   y = r('N')
-  z = f(make_cell(**x))
+  z = f(x)
   return pxyz(x, y, z)
 
 def t_03():
-  x = {'value': True}
+  x = make_cell(**{'value': True, 'field_name': 'B'})
   y = g('Y')
-  z = f(make_cell(**x))
+  z = f(x)
   return pxyz(x, y, z)
 
 def t_04():
-  x = {'value': None}
+  x = make_cell(**{'value': None, 'field_name': 'foo'})
   y = ' '
-  z = f(make_cell(**x))
+  z = f(x)
   return pxyz(x, y, z)
 
 def t_05():
-  x = {'value': 1.0}
+  x = make_cell(**{'value': 1.0, 'field_name': 'foo'})
   y = '1.00'
-  z = f(make_cell(**x))
+  z = f(x)
   return pxyz(x, y, z)
 
 def t_06():
-  x = {'value': make_rate(710, 113, {'a': 1})}
+  x = make_cell(**{'value': make_rate(710, 113, {'a': 1}), 'field_name': 'foo'})
   y = '6.28'
-  z = f(make_cell(**x))
+  z = f(x)
   return pxyz(x, y, z)
 
 def t():
   if not t_a(): return pf('t_a failed')
   if not t_0(): return pf('t_0 failed')
   if not t_10(): return pf('t_10 failed')
-  if not t_01(): return pf('t_01 failed')
   if not t_02(): return pf('t_02 failed')
   if not t_03(): return pf('t_03 failed')
   if not t_04(): return pf('t_04 failed')
