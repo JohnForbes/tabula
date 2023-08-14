@@ -121,6 +121,13 @@ def t_true():
   z = f(x)
   return pxyz(x, y, z)
 
+def t_true_a():
+  x = {'name': 'banana', 'path': None}
+  x['cells'] = [make_cell(v, 'banana') for v in ['b1', 'b2', 'b3']]
+  y = True
+  z = f(x)
+  return pxyz(x, y, z)
+
 def t():
   if not t_false_bool(): return pf('!t_false_bool')
   if not t_false_dict_empty(): return pf('!t_false_dict_empty')
@@ -138,4 +145,5 @@ def t():
   if not t_false_zero(): return pf('!t_false_zero')
   if not t_false_cells_not_cells(): return pf('!t_false_cells_not_cells')
   if not t_true(): return pf('!t_true')
+  if not t_true_a(): return pf('!t_true_a')
   return True
