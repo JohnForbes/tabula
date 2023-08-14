@@ -20,15 +20,15 @@ def t():
     'column_order': ['a', 'b', 'c'],
     'row_order': [0, 1, 2],
     'cells': {
-      ('a', 0): make_cell(0),
-      ('b', 0): make_cell(1),
-      ('c', 0): make_cell(2),
-      ('a', 1): make_cell(3),
-      ('b', 1): make_cell(4),
-      ('c', 1): make_cell(5),
-      ('a', 2): make_cell(6),
-      ('b', 2): make_cell(7),
-      ('c', 2): make_cell(8),
+      ('a', 0): make_cell(0, 'a'),
+      ('b', 0): make_cell(1, 'b'),
+      ('c', 0): make_cell(2, 'c'),
+      ('a', 1): make_cell(3, 'a'),
+      ('b', 1): make_cell(4, 'b'),
+      ('c', 1): make_cell(5, 'c'),
+      ('a', 2): make_cell(6, 'a'),
+      ('b', 2): make_cell(7, 'b'),
+      ('c', 2): make_cell(8, 'c'),
     }
   }
   z = f(**x)
