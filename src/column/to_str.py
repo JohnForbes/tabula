@@ -1,8 +1,7 @@
 from datetime import date
 from hak.pf import f as pf
 from hak.pxyz import f as pxyz
-from src.cell.make import f as make_cell
-from src.column.make_from_cells import f as make_column
+from src.column.make_from_values import f as make_column
 from src.column.width.get import f as get_width
 
 def f(x):
@@ -29,7 +28,7 @@ def f(x):
   ])
 
 def t_0():
-  x = make_column('a', [make_cell(0, 'a')])
+  x = make_column('a', [0])
   y = '\n'.join([
     '---',
     ' a ',
@@ -38,10 +37,10 @@ def t_0():
     '---',
   ])
   z = f(x)
-  return pxyz(x, '\n'+y, '\n'+z)
+  return pxyz(x, y, z, new_line=1)
 
 def t_1():
-  x = make_column('abc', [make_cell(v, 'abc') for v in [0, 10, 23]])
+  x = make_column('abc', [0, 10, 23])
   y = '\n'.join([
     '-----',
     ' abc ',
@@ -52,10 +51,10 @@ def t_1():
     '-----',
   ])
   z = f(x)
-  return pxyz(x, '\n'+y, '\n'+z)
+  return pxyz(x, y, z, new_line=1)
 
 def t_2():
-  x = make_column('ab', [make_cell(v, 'ab') for v in [0, 100, 2300]])
+  x = make_column('ab', [0, 100, 2300])
   y = '\n'.join([
     '------',
     '   ab ',
@@ -66,10 +65,10 @@ def t_2():
     '------',
   ])
   z = f(x)
-  return pxyz(x, '\n'+y, '\n'+z)
+  return pxyz(x, y, z, new_line=1)
 
 def t_3():
-  x = make_column('apples', [make_cell(_**_, 'apples') for _ in range(10)])
+  x = make_column('apples', [_**_ for _ in range(10)])
   y = '\n'.join([
     '-----------',
     '    apples ',
@@ -90,14 +89,7 @@ def t_3():
   return pxyz(x, y, z, new_line=True)
 
 def t_4():
-  x = make_column(
-    'animal',
-    [make_cell(v, 'animal') for v in [
-      'dog',
-      'cat',
-      'fox'
-    ]]
-  )
+  x = make_column('animal', ['dog', 'cat', 'fox'])
   y = '\n'.join([
     '--------',
     ' animal ',
@@ -113,11 +105,7 @@ def t_4():
 def t_date():
   x = make_column(
     'date',
-    [
-      make_cell(v, 'date')
-      for v
-      in [date(2023, 1, 1), date(2023, 4, 8), date(2023, 12, 31)]
-    ]
+    [date(2023, 1, 1), date(2023, 4, 8), date(2023, 12, 31)]
   )
   y = '\n'.join([
     '------------',
@@ -129,7 +117,21 @@ def t_date():
     '------------',
   ])
   z = f(x)
-  return pxyz(x, '\n'+y, '\n'+z)
+  return pxyz(x, y, z, new_line=1)
+
+def t_str():
+  x = make_column('animal', ['dog', 'cat', 'fox'])
+  y = '\n'.join([
+    '--------',
+    ' animal ',
+    '--------',
+    '    dog ',
+    '    cat ',
+    '    fox ',
+    '--------',
+  ])
+  z = f(x)
+  return pxyz(x, y, z, new_line=1)
 
 def t():
   if not t_0(): return pf('!t_0')
@@ -138,4 +140,13 @@ def t():
   if not t_3(): return pf('!t_3')
   if not t_4(): return pf('!t_4')
   if not t_date(): return pf('!t_date')
+  if not t_str(): return pf('!t_str')
+
+  # if not t_00(): return pf('!t_00')
+  # if not t_01(): return pf('!t_01')
+  # if not t_date(): return pf('!t_date')
+  # if not t_common_path(): return pf('!t_common_path')
+  # if not t_numbers_let_paths(): return pf('!t_numbers_let_paths')
+  # if not t_numbers_letters_paths(): return pf('!t_numbers_letters_paths')
+  # if not t_numbers_letters_paths_2(): return pf('!t_numbers_letters_paths_2')
   return True
