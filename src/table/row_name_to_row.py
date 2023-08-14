@@ -17,9 +17,9 @@ def t():
     'row_name': 1
   }
   y = {
-    'a': make_cell(3),
-    'b': make_cell(4),
-    'c': make_cell(5),
+    'a': make_cell(3, 'a'),
+    'b': make_cell(4, 'b'),
+    'c': make_cell(5, 'c'),
   }
   z = f(**x)
   return pxyz(x, y, z)
