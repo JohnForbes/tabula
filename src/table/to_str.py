@@ -9,6 +9,7 @@ from datetime import date
 from src.column.make_from_cells import f as make_column
 from src.table.columns.to_str import f as cols_to_str
 from src.table.border.add_left_and_right import f as add_left_and_right_borders
+from hak.one.dict.rate.make import f as make_rate
 
 get_column_cells_from_table = lambda x, column_name: [
   x['cells'][(column_name, row_identifier)]
@@ -98,9 +99,28 @@ def t_date():
   z = f(x)
   return pxyz(x, y, z, new_line=1)
 
+def t_rate():
+  x = insert_records(make_table(), [
+    {'rate': make_rate(0, 10, {'m': 1}), 'b': 1},
+    {'rate': make_rate(1,  9, {'m': 1}), 'b': 4},
+    {'rate': make_rate(2,  8, {'m': 1}), 'b': 7},
+  ])
+  y = '\n'.join([
+    '|------|---|',
+    '| rate | b |',
+    '|------|---|',
+    '| 0.00 | 1 |',
+    '| 0.11 | 4 |',
+    '| 0.25 | 7 |',
+    '|------|---|',
+  ])
+  z = f(x)
+  return pxyz(x, y, z, new_line=1)
+
 def t():
   if not t_ab(): return pf('!t_ab')
   if not t_ac(): return pf('!t_ac')
   if not t_abc(): return pf('!t_abc')
   if not t_date(): return pf('!t_date')
+  if not t_rate(): return pf('!t_rate')
   return True
