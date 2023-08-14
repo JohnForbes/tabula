@@ -5,9 +5,26 @@ from src.table.make import f as make_table
 from src.table.to_hbar import f as hbar
 from src.table.to_header_str import f as head
 from src.table.to_rows_str import f as body
+from datetime import date
+from src.column.make_from_cells import f as make_column
+from src.table.columns.to_str import f as cols_to_str
+from src.table.border.add_left_and_right import f as add_left_and_right_borders
+
+get_column_cells_from_table = lambda x, column_name: [
+  x['cells'][(column_name, row_identifier)]
+  for row_identifier
+  in x['row_order']
+]
 
 # __str__
-f = lambda x: '\n'.join([_f(x) for _f in [hbar, head, hbar, body, hbar]])
+# _f = lambda x: '\n'.join([_f(x) for _f in [hbar, head, hbar, body, hbar]])
+def f(x):
+  columns = [
+    make_column(column_name, get_column_cells_from_table(x, column_name))
+    for column_name
+    in x['column_order']
+  ]
+  return add_left_and_right_borders(cols_to_str(columns, '|'))
 
 def t_ab():
   x = insert_records(make_table(), [
@@ -63,8 +80,27 @@ def t_abc():
   z = f(x)
   return pxyz(x, y, z, new_line=1)
 
+def t_date():
+  x = insert_records(make_table(), [
+    {'date': date(2023, 8, 14), 'b': 1, 'c': 2},
+    {'date': date(2023, 8, 14), 'b': 4, 'c': 5},
+    {'date': date(2023, 8, 14), 'b': 7, 'c': 8}
+  ])
+  y = '\n'.join([
+    '|------------|---|---|',
+    '|       date | b | c |',
+    '|------------|---|---|',
+    '| 2023-08-14 | 1 | 2 |',
+    '| 2023-08-14 | 4 | 5 |',
+    '| 2023-08-14 | 7 | 8 |',
+    '|------------|---|---|',
+  ])
+  z = f(x)
+  return pxyz(x, y, z, new_line=1)
+
 def t():
   if not t_ab(): return pf('!t_ab')
   if not t_ac(): return pf('!t_ac')
   if not t_abc(): return pf('!t_abc')
+  if not t_date(): return pf('!t_date')
   return True
