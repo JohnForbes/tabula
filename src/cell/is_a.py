@@ -2,13 +2,13 @@ from hak.one.bool.random.make import f as make_random_bool
 from hak.one.dict.is_a import f as is_dict
 from hak.one.get_datatype import f as detect_type
 from hak.one.list.random.make import f as make_random_list
+from hak.one.number.float.random.make import f as make_random_float
 from hak.one.number.int.random.make import f as make_random_int
 from hak.one.set.random.make import f as make_random_set
 from hak.one.string.random.make import f as make_random_str
 from hak.one.tuple.random.make import f as make_random_tuple
 from hak.pf import f as pf
 from hak.pxyz import f as pxyz
-from hak.one.number.float.random.make import f as make_random_float
 
 def f(x):
   if not is_dict(x): return False
