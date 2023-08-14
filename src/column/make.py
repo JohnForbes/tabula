@@ -21,35 +21,7 @@ def t_a():
   if not is_column(z): return pf(f'not is_column(z); z: {z}')
   return True
 
-def t_b():
-  x = {'name': 'abc', 'values': [0, 1, 2], 'path': ('root', 'branch')}
-  y = {
-    'name': 'abc',
-    'values': [0, 1, 2],
-    'datatype': 'int',
-    'path': ('root', 'branch')
-  }
-  z = f(**x)
-  return pxyz(x, y, z)
-
-def t_c():
-  x = {'name': 'abc', 'values': [0, 1, 2], 'path': 'root'}
-  y = {
-    'name': 'abc',
-    'values': [0, 1, 2],
-    'datatype': 'int',
-    'path': ('root',)
-  }
-  z = f(**x)
-  return pxyz(x, y, z)
-
 def t_d():
-  x = {'name': 'abc', 'values': [0, 1, 2]}
-  y = {'name': 'abc', 'values': [0, 1, 2], 'datatype': 'int', 'path': ()}
-  z = f(**x)
-  return pxyz(x, y, z)
-
-def t_0():
   x = {'name': 'abc', 'values': [0, 1, 2]}
   y = {'name': 'abc', 'values': [0, 1, 2], 'datatype': 'int', 'path': ()}
   z = f(**x)
@@ -79,10 +51,7 @@ def t_path():
 
 def t():
   if not t_a(): return pf('!t_a')
-  if not t_b(): return pf('!t_b')
-  if not t_c(): return pf('!t_c')
   if not t_d(): return pf('!t_d')
-  if not t_0(): return pf('!t_0')
   if not t_path(): return pf('!t_path')
   if not t_path_as_str(): return pf('!t_path_as_str')
   return True
