@@ -104,6 +104,12 @@ def t_rate_0():
   z = f(**x)
   return pxyz(x, y, z)
 
+def t_none():
+  x = {'value': None}
+  y = {'value': None, 'datatype': 'none'}
+  z = f(**x)
+  return pxyz(x, y, z)
+
 def t():
   if not t_0(): return pf('!t_0')
   if not t_a(): return pf('!t_a')
@@ -113,4 +119,5 @@ def t():
   if not t_rate_0(): return pf('!t_rate_0')
   if not t_rate(): return pf('!t_rate')
   if not t_USD_rate(): return pf('!t_USD_rate')
+  if not t_none(): return pf('!t_none')
   return True
