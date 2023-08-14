@@ -1,32 +1,35 @@
+from datetime import date
+from hak.pf import f as pf
 from hak.pxyz import f as pxyz
+from src.cell.make import f as make_cell
 from src.column.make import f as make_column
 from src.column.width.get import f as get_width
-from hak.pf import f as pf
-from datetime import date
 
 def f(x):
   w = get_width(x) + 2
 
-  if   x['datatype'] == 'int':
-    value_strings = [f" {v:>{get_width(x)}} " for v in x['values']]
+  _datatype = x['cells'][0]['datatype']
 
-  elif any([x['datatype'] in {'date', 'str'}]):
-    _values = [str(v) for v in x['values']]
-    value_strings = [f" {v:>{get_width(x)}} " for v in _values]
+  if   _datatype == 'int':
+    cell_strings = [f" {c['value']:>{get_width(x)}} " for c in x['cells']]
+
+  elif any([_datatype in {'date', 'str'}]):
+    _cells = [str(c['value']) for c in x['cells']]
+    cell_strings = [f" {v:>{get_width(x)}} " for v in _cells]
 
   else:
-    raise TypeError(f"Unexpected type: {x['datatype']}")
+    raise TypeError(f"Unexpected type: {_datatype}")
   
   return '\n'.join([
     '-'*w,
     f" {x['name']:>{get_width(x)}} ",
     '-'*w,
-    *value_strings,
+    *cell_strings,
     '-'*w,
   ])
 
 def t_0():
-  x = make_column('a', [0])
+  x = make_column('a', [make_cell(0, 'a')])
   y = '\n'.join([
     '---',
     ' a ',
@@ -38,7 +41,7 @@ def t_0():
   return pxyz(x, '\n'+y, '\n'+z)
 
 def t_1():
-  x = make_column('abc', [0, 10, 23])
+  x = make_column('abc', [make_cell(v, 'abc') for v in [0, 10, 23]])
   y = '\n'.join([
     '-----',
     ' abc ',
@@ -52,7 +55,7 @@ def t_1():
   return pxyz(x, '\n'+y, '\n'+z)
 
 def t_2():
-  x = make_column('ab', [0, 100, 2300])
+  x = make_column('ab', [make_cell(v, 'ab') for v in [0, 100, 2300]])
   y = '\n'.join([
     '------',
     '   ab ',
@@ -66,7 +69,7 @@ def t_2():
   return pxyz(x, '\n'+y, '\n'+z)
 
 def t_3():
-  x = make_column('apples', [_**_ for _ in range(10)])
+  x = make_column('apples', [make_cell(_**_, 'apples') for _ in range(10)])
   y = '\n'.join([
     '-----------',
     '    apples ',
@@ -89,11 +92,11 @@ def t_3():
 def t_4():
   x = make_column(
     'animal',
-    [
+    [make_cell(v, 'animal') for v in [
       'dog',
       'cat',
       'fox'
-    ]
+    ]]
   )
   y = '\n'.join([
     '--------',
@@ -110,7 +113,11 @@ def t_4():
 def t_date():
   x = make_column(
     'date',
-    [date(2023, 1, 1), date(2023, 4, 8), date(2023, 12, 31)]
+    [
+      make_cell(v, 'date')
+      for v
+      in [date(2023, 1, 1), date(2023, 4, 8), date(2023, 12, 31)]
+    ]
   )
   y = '\n'.join([
     '------------',
