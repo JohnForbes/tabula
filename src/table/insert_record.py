@@ -10,22 +10,19 @@ def f(table, record):
 
   for (k, v) in record.items():
     table['column_order'] = append_if_not_present(table['column_order'], k)
-    table['cells'][(k, row_identifier)] = make_cell(v)
+    table['cells'][(k, row_identifier)] = make_cell(v, k)
 
   return table
 
 def t():
-  x = {
-    'table': make_table(),
-    'record': {'a': 0, 'b': 1, 'c': 2}
-  }
+  x = {'table': make_table(), 'record': {'a': 0, 'b': 1, 'c': 2}}
   y = {
     'column_order': ['a', 'b', 'c'],
     'row_order': [0],
     'cells': {
-      ('a', 0): make_cell(0),
-      ('b', 0): make_cell(1),
-      ('c', 0): make_cell(2)
+      ('a', 0): make_cell(0, 'a'),
+      ('b', 0): make_cell(1, 'b'),
+      ('c', 0): make_cell(2, 'c')
     }
   }
   z = f(**x)
