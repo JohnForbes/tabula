@@ -7,6 +7,9 @@ f = lambda table: (
   '|-'+'-|-'.join(['-'*len(f'{c}') for c in table['column_order']])+'-|'
 )
 
+# make_bar
+# f = lambda x: "|-"+'-|-'.join(['-'*x['widths'][k] for k in x['names']])+"-|"
+
 def t_ac():
   x = {
     'table': insert_records(make_table(), [
@@ -31,7 +34,17 @@ def t_abc():
   z = f(**x)
   return pxyz(x, y, z, new_line=1)
 
+# def t_1():
+#   x = {
+#     'widths': {'a': 2, 'b': 3, 'c': 4, 'd': 5, 'e': 6},
+#     'names': list('abcde'),
+#   }
+#   y = '|----|-----|------|-------|--------|'
+#   z = f(x)
+#   return pxyz(x, y, z)
+
 def t():
   if not t_ac(): return pf('!t_ac')
   if not t_abc(): return pf('!t_abc')
+  # if not t_1(): return pf('!t_1')
   return True
