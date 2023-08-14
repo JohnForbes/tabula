@@ -1,7 +1,5 @@
 from hak.one.dict.rate.make import f as make_rate
-from hak.many.dicts.records.to_nested_table import f as to_nested_table
-
-# 2560 x 100
+from archive.dicts.records.to_nested_table import f as to_nested_table
 
 x = [
   {
