@@ -3,7 +3,7 @@
 from hak.one.bool.is_a import f as is_bool
 from hak.one.dict.rate.is_a import f as is_a_rate
 from hak.one.dict.rate.make import f as make_rate
-from hak.one.dict.rate.to_str import f as rate_to_str
+from hak.one.dict.rate.to_str_frac import f as rate_to_str
 from hak.one.number.float.is_a import f as is_float
 from hak.one.string.colour.bright.green import f as g
 from hak.one.string.colour.bright.red import f as r
@@ -76,7 +76,7 @@ def t_05():
 
 def t_06():
   x = make_cell(**{'value': make_rate(710, 113, {'a': 1}), 'field_name': 'foo'})
-  y = '6.28'
+  y = '710/113'
   z = f(x)
   return pxyz(x, y, z)
 
