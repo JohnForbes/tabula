@@ -6,7 +6,11 @@ from hak.pf import f as pf
 f = lambda x: '| '+' | '.join([cell_to_str(x[k]) for k in x])+' |'
 
 def t_0():
-  x = {'a': make_cell(1), 'b': make_cell(2), 'c': make_cell(3)}
+  x = {
+    'a': make_cell(1, 'foo'),
+    'b': make_cell(2, 'foo'),
+    'c': make_cell(3, 'foo')
+  }
   y = '| 1 | 2 | 3 |'
   z = f(x)
   return pxyz(x, y, z)
