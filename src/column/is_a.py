@@ -9,14 +9,19 @@ from hak.one.tuple.random.make import f as make_random_tuple
 from hak.pf import f as pf
 from hak.pxyz import f as pxyz
 from hak.one.number.float.random.make import f as make_random_float
+from src.cell.is_a import f as is_cell
+from src.cell.make import f as make_cell
 
 def f(x):
   if not is_dict(x): return False
-  expected_keys = ['name', 'values', 'datatype', 'path']
+  expected_keys = ['name', 'cells', 'path']
   for k in expected_keys:
     if k not in x:
       return False
   if len(x) != len(expected_keys): return False
+  for c in x['cells']:
+    if not is_cell(c):
+      return False
   return True
 
 def t_false_none():
@@ -79,13 +84,6 @@ def t_false_dict_wrong_k_count():
   z = f(x)
   return pxyz(x, y, z)
 
-def t_true():
-  x = {'name': 'carrot', 'values': [0, 10, 100], 'path': None}
-  x['datatype'] = detect_type(x['values'])
-  y = True
-  z = f(x)
-  return pxyz(x, y, z)
-
 def t_false_zero():
   x = 0
   y = False
@@ -105,8 +103,21 @@ def t_false_dict():
   return pxyz(x, y, z)
 
 def t_false_extra_key():
-  x = {'name': 'abc', 'values': [0, 1, 2], 'datatype': 'int', 'extra': None}
+  x = {'name': 'abc', 'cells': [0, 1, 2], 'extra': None}
   y = False
+  z = f(x)
+  return pxyz(x, y, z)
+
+def t_false_cells_not_cells():
+  x = {'name': 'carrot', 'cells': [0, 10, 100], 'path': None}
+  y = False
+  z = f(x)
+  return pxyz(x, y, z)
+
+def t_true():
+  x = {'name': 'carrot', 'path': None}
+  x['cells'] = [make_cell(v, x['name']) for v in [0, 10, 100]]
+  y = True
   z = f(x)
   return pxyz(x, y, z)
 
@@ -125,5 +136,6 @@ def t():
   if not t_false_str(): return pf('!t_false_str')
   if not t_false_tuple(): return pf('!t_false_tuple')
   if not t_false_zero(): return pf('!t_false_zero')
+  if not t_false_cells_not_cells(): return pf('!t_false_cells_not_cells')
   if not t_true(): return pf('!t_true')
   return True
