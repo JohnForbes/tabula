@@ -24,7 +24,6 @@ def f(x):
 # def f(x):
 #   if is_int(x['value']): return str(x['value'])
 
-#   if is_a_rate(x['value']): return rate_to_str(x['value'])
 #   if is_bool(x['value']): return g('Y') if x['value'] else r('N')
 #   if x['value'] is None: return ' '
 #   if x['value'] == 0: return ' '
