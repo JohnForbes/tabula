@@ -1,15 +1,16 @@
+from datetime import date
+from hak.one.dict.rate.make import f as make_rate
 from hak.pf import f as pf
 from hak.pxyz import f as pxyz
+
+from src.column.make_from_cells import f as make_column
+from src.table.border.add_left_and_right import f as add_left_and_right_borders
+from src.table.columns.to_str import f as cols_to_str
 from src.table.insert_records import f as insert_records
 from src.table.make import f as make_table
 from src.table.to_hbar import f as hbar
 from src.table.to_header_str import f as head
 from src.table.to_rows_str import f as body
-from datetime import date
-from src.column.make_from_cells import f as make_column
-from src.table.columns.to_str import f as cols_to_str
-from src.table.border.add_left_and_right import f as add_left_and_right_borders
-from hak.one.dict.rate.make import f as make_rate
 
 get_column_cells_from_table = lambda x, column_name: [
   x['cells'][(column_name, row_identifier)]
@@ -109,9 +110,9 @@ def t_rate():
     '|------|---|',
     '| rate | b |',
     '|------|---|',
-    '| 0.00 | 1 |',
-    '| 0.11 | 4 |',
-    '| 0.25 | 7 |',
+    '|  0/1 | 1 |',
+    '|  1/9 | 4 |',
+    '|  1/4 | 7 |',
     '|------|---|',
   ])
   z = f(x)
