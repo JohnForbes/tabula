@@ -5,7 +5,6 @@ from datetime import date
 from hak.one.dict.rate.make import f as make_rate
 # from hak.one.dict.rate.to_float import f as to_float
 # from hak.one.dict.rate.to_num import f as to_num
-# from hak.one.dict.rate.to_str import f as rate_to_str
 from hak.one.get_datatype import f as detect_type
 # from hak.one.string.colour.decolour import f as decol
 from hak.pf import f as pf
