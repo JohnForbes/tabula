@@ -86,16 +86,44 @@ def t_true():
   z = f(x)
   return pxyz(x, y, z)
 
+def t_false_zero():
+  x = 0
+  y = False
+  z = f(x)
+  return pxyz(x, y, z)
+
+def t_false_one():
+  x = 1
+  y = False
+  z = f(x)
+  return pxyz(x, y, z)
+
+def t_false_dict():
+  x = {'...': '...'}
+  y = False
+  z = f(x)
+  return pxyz(x, y, z)
+
+def t_false_extra_key():
+  x = {'name': 'abc', 'values': [0, 1, 2], 'datatype': 'int', 'extra': None}
+  y = False
+  z = f(x)
+  return pxyz(x, y, z)
+
 def t():
   if not t_false_bool(): return pf('!t_false_bool')
-  if not t_false_none(): return pf('!t_false_none')
-  if not t_false_int(): return pf('!t_false_int')
-  if not t_false_float(): return pf('!t_false_float')
-  if not t_false_str(): return pf('!t_false_str')
-  if not t_false_set(): return pf('!t_false_set')
-  if not t_false_tuple(): return pf('!t_false_tuple')
-  if not t_false_list(): return pf('!t_false_list')
   if not t_false_dict_empty(): return pf('!t_false_dict_empty')
   if not t_false_dict_wrong_k_count(): return pf('!t_false_dict_wrong_k_count')
+  if not t_false_dict(): return pf('!t_false_dict')
+  if not t_false_extra_key(): return pf('!t_false_extra_key')
+  if not t_false_float(): return pf('!t_false_float')
+  if not t_false_int(): return pf('!t_false_int')
+  if not t_false_list(): return pf('!t_false_list')
+  if not t_false_none(): return pf('!t_false_none')
+  if not t_false_one(): return pf('!t_false_one')
+  if not t_false_set(): return pf('!t_false_set')
+  if not t_false_str(): return pf('!t_false_str')
+  if not t_false_tuple(): return pf('!t_false_tuple')
+  if not t_false_zero(): return pf('!t_false_zero')
   if not t_true(): return pf('!t_true')
   return True
