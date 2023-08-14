@@ -5,8 +5,13 @@ from hak.pf import f as pf
 from hak.pxyz import f as pxyz
 from src.column.is_a import f as is_column
 from src.cell.make import f as make_cell
+from src.cell.is_a import f as is_cell
 
 def f(name, cells, path=None):
+  for c in cells:
+    if not is_cell(c):
+      raise TypeError(f'cell, c: {c} was not of type cell')
+
   y = {'name': name, 'cells': cells}
 
   if path:
