@@ -1,9 +1,11 @@
 from datetime import date
+from hak.one.dict.rate.make import f as make_rate
 from hak.pf import f as pf
 from hak.pxyz import f as pxyz
+
+from src.cell.to_str import f as cell_to_str
 from src.column.make_from_values import f as make_column
 from src.column.width.get import f as get_width
-from src.cell.to_str import f as cell_to_str
 
 def f(x):
   _w = get_width(x)
@@ -123,6 +125,27 @@ def t_str():
   z = f(x)
   return pxyz(x, y, z, new_line=1)
 
+def t_rate():
+  x = make_column(
+    'rate',
+    [
+      make_rate(0, 10, {'m': 1}),
+      make_rate(1,  9, {'m': 1}),
+      make_rate(2,  8, {'m': 1})
+    ]
+  )
+  y = '\n'.join([
+    '------',
+    ' rate ',
+    '------',
+    ' 0.00 ',
+    ' 0.11 ',
+    ' 0.25 ',
+    '------',
+  ])
+  z = f(x)
+  return pxyz(x, y, z, new_line=1)
+
 def t():
   if not t_0(): return pf('!t_0')
   if not t_1(): return pf('!t_1')
@@ -131,12 +154,5 @@ def t():
   if not t_4(): return pf('!t_4')
   if not t_date(): return pf('!t_date')
   if not t_str(): return pf('!t_str')
-
-  # if not t_00(): return pf('!t_00')
-  # if not t_01(): return pf('!t_01')
-  # if not t_date(): return pf('!t_date')
-  # if not t_common_path(): return pf('!t_common_path')
-  # if not t_numbers_let_paths(): return pf('!t_numbers_let_paths')
-  # if not t_numbers_letters_paths(): return pf('!t_numbers_letters_paths')
-  # if not t_numbers_letters_paths_2(): return pf('!t_numbers_letters_paths_2')
+  if not t_rate(): return pf('!t_rate')
   return True
