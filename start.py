@@ -1,17 +1,21 @@
-from hak.one.dict.rate.make import f as make_rate
 from archive.dicts.records.to_nested_table import f as to_nested_table
-from src.table.make import f as make_table
+from datetime import date
+from hak.one.dict.rate.make import f as make_rate
+
 from src.table.insert_records import f as insert_records
+from src.table.make import f as make_table
 from src.table.to_str import f as table_to_str
 
 table = make_table()
 table = insert_records(
     table, [
       {
+        'date': date(2023, 1, 1),
         'apples': make_rate(1, 4, {'$': 1, 'apple': -1}),
         'bananas': make_rate(2, 4, {'$': 1, 'banana': -1})
       },
       {
+        'date': date(2023, 1, 2),
         'apples': make_rate(3, 4, {'$': 1, 'apple': -1}),
         'bananas': make_rate(4, 4, {'$': 1, 'banana': -1})
       },
