@@ -11,13 +11,17 @@ table = insert_records(
     table, [
       {
         'date': date(2023, 1, 1),
-        'apples': make_rate(1, 4, {'$': 1, 'apple': -1}),
-        'bananas': make_rate(2, 4, {'$': 1, 'banana': -1})
+        'prices': {
+          'apples': make_rate(1, 4, {'$': 1, 'apple': -1}),
+          'bananas': make_rate(2, 4, {'$': 1, 'banana': -1})
+        },
       },
       {
         'date': date(2023, 1, 2),
-        'apples': make_rate(3, 4, {'$': 1, 'apple': -1}),
-        'bananas': make_rate(4, 4, {'$': 1, 'banana': -1})
+        'prices': {
+          'apples': make_rate(3, 4, {'$': 1, 'apple': -1}),
+          'bananas': make_rate(4, 4, {'$': 1, 'banana': -1})
+        }
       },
     ]
   )
