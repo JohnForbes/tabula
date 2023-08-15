@@ -93,32 +93,26 @@ def t_full_with_values():
 
 def t_prices():
   d = {
-    'α': {
-      'date': date(2023, 1, 1),
-      'prices': {
-        'apples': make_rate(1, 4, {'$': 1, 'apple': -1}),
-        'bananas': make_rate(2, 4, {'$': 1, 'banana': -1})
-      },
-    }
+    'date': date(2023, 1, 1),
+    'prices': {
+      'apples': make_rate(1, 4, {'$': 1, 'apple': -1}),
+      'bananas': make_rate(2, 4, {'$': 1, 'banana': -1})
+    },
   }
   nodes = make_nodes(d)
-  _g('α', d, nodes)
+  _g('prices', d, nodes)
 
-  x = nodes['α']
-  y = len('2023-01-01')
+  x = nodes['prices']
+  y = len('$/banana')
   z = f(x)
   return pxyz(x, y, z)
 
 def t_rate():
-  d = {
-    'α': {
-      'a': make_rate(1, 4, {'$': 1, 'apple': -1})
-    }
-  }
+  d = {'a': make_rate(1, 4, {'$': 1, 'apple': -1})}
   nodes = make_nodes(d)
-  _g('α', d, nodes)
+  _g('a', d, nodes)
 
-  x = nodes['α']
+  x = nodes['a']
   y = len('$/apple')
   z = f(x)
   return pxyz(x, y, z)
