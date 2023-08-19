@@ -1,5 +1,4 @@
 from datetime import date
-from hak.one.dict.is_a import f as is_dict
 from hak.one.dict.rate.is_a import f as is_rate
 from hak.one.dict.rate.make import f as make_rate
 from hak.one.dict.rate.to_str_frac import f as rate_to_str
@@ -8,37 +7,19 @@ from hak.pf import f as pf
 from hak.pxyz import f as pxyz
 
 from src.node.child.add import f as add_child
-from src.node.value.assign import f as assign_value
 from src.node.make import f as make_node
 from src.nodes.make import f as make_nodes
+from src.tree.build import _f as build_tree
 
-def _g(k, tree, nodes):
-  n = nodes[k]
-  if not is_dict(tree[k]) or is_rate(tree[k]):
-    assign_value(n, tree[k])
-  else:
-    for k_child in tree[k].keys():
-      add_child(n, nodes[k_child])
-      _g(k_child, tree[k], nodes)
-
-def _to_str(x):
-  if is_rate(x): return rate_to_str(x)
-  return str(x)
+_to_str = lambda x: rate_to_str(x) if is_rate(x) else str(x)
 
 # width
-def f(node):
-  node_name_len = len(node['name'])
-  
-  children = node['children']
-  largest_child_len = max([f(c) for c in children]) if children else 0
-  
-  value = node['value']
-  value_len = len(_to_str(value)) if value else 0
-  
-  unit = value['unit'] if is_rate(value) else ''
-  unit_len = len(unit_to_str(unit))
-  
-  return max(node_name_len, largest_child_len, value_len, unit_len)
+f = lambda node: max(
+  len(node['name']),
+  sum([f(c) for c in node['children']]) if node['children'] else 0,
+  len(_to_str(node['value'])) if node['value'] else 0,
+  len(unit_to_str(node['value']['unit'] if is_rate(node['value']) else ''))
+)
 
 def t_α():
   x = make_node('α')
@@ -51,7 +32,7 @@ def t_α_ab():
   add_child(x, make_node('a'))
   add_child(x, make_node('b'))
   
-  y = 1
+  y = 2
   z = f(x)
   return pxyz(x, y, z)
 
@@ -70,7 +51,7 @@ def t_full_no_values():
   add_child(x, b)
   add_child(b, make_node('ba'))
   
-  y = 3
+  y = 7
   z = f(x)
   return pxyz(x, y, z)
 
@@ -84,10 +65,10 @@ def t_full_with_values():
   }
 
   nodes = make_nodes(d)
-  _g('α', d, nodes)
+  build_tree('α', d, nodes)
 
   x = nodes['α']
-  y = 8
+  y = 12
   z = f(x)
   return pxyz(x, y, z)
 
@@ -100,17 +81,17 @@ def t_prices():
     },
   }
   nodes = make_nodes(d)
-  _g('prices', d, nodes)
+  build_tree('prices', d, nodes)
 
   x = nodes['prices']
-  y = len('$/banana')
+  y = len('$/apple')+len('$/banana')
   z = f(x)
   return pxyz(x, y, z)
 
 def t_rate():
   d = {'a': make_rate(1, 4, {'$': 1, 'apple': -1})}
   nodes = make_nodes(d)
-  _g('a', d, nodes)
+  build_tree('a', d, nodes)
 
   x = nodes['a']
   y = len('$/apple')
