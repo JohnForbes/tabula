@@ -1,40 +1,32 @@
 from datetime import date
 from hak.one.dict.rate.make import f as make_rate
+from hak.one.dict.unit.to_str import f as unit_to_str
 from hak.pf import f as pf
 from hak.pxyz import f as pxyz
 
 from src.cell.to_str import f as cell_to_str
 from src.column.make_from_values import f as make_column
 from src.column.width.get import f as get_width
-from hak.one.dict.unit.to_str import f as unit_to_str
+from src.misc.g import f as g
+from src.misc.h import f as h
+
+_f = lambda x: (
+  unit_to_str(x['value']['unit']) if x['datatype'] == 'rate' else ''
+)
 
 def f(x):
-  _w = get_width(x)
-  w = _w + 2
-  cell_strings = [f" {cell_to_str(c):>{_w}} " for c in x['cells']]
-  
-  if x['cells'][0]['datatype'] == 'rate':
-    q = unit_to_str(x['cells'][0]['value']['unit'])
-  else:
-    q = ''
-
+  w = get_width(x)
+  cell_strings = [f" {cell_to_str(c):>{w}} " for c in x['cells']]
+  q = _f(x['cells'][0])
   return '\n'.join([
-    '-'*w,
-    f" {x['name']:>{_w}} ",
-    '-'*w,
-    f" {q:>{_w}} ",
-    '-'*w,
+    h('-', w),
+    g(x['name'], w),
+    h('-', w),
+    g(q, w),
+    h('-', w),
     *cell_strings,
-    '-'*w,
+    h('-', w),
   ])
-
-  # return '\n'.join([
-  #   '-'*w,
-  #   f" {x['name']:>{_w}} ",
-  #   '-'*w,
-  #   *cell_strings,
-  #   '-'*w,
-  # ])
 
 def t_0():
   x = make_column('a', [0])
