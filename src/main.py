@@ -53,7 +53,7 @@ def t_a_b_c():
   z = f(x)
   return pxyz(x, [y], [z], new_line=1)
 
-def t_nested():
+def t_nested_a_aa_ab():
   x = [
     {'a': {'aa': 0, 'ab': 4}},
     {'a': {'aa': 1, 'ab': 3}},
@@ -80,5 +80,5 @@ def t_nested():
 def t():
   if not t_a_b(): return pf('!t_a_b')
   if not t_a_b_c(): return pf('!t_a_b_c')
-  if not t_nested(): return pf('!t_nested')
+  if not t_nested_a_aa_ab(): return pf('!t_nested_a_aa_ab')
   return True
