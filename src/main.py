@@ -7,14 +7,15 @@ def f(x):
   if not x: return ''
   if len(x[0]) < 1: return ''
   k = list(x[0].keys())[0]
-  v = x[0][k]
-  w = max([len(str(k)), len(str(v))])
+  # v = x[0][k]
+  values = [x_i[k] for x_i in x]
+  w = max([len(str(k)), *[len(str(v)) for v in values]])
   b = make_homogenous_line('-', w)
   row_strings = [
     b,
     make_value_line(k, w),
     b,
-    make_value_line(v, w),
+    *[make_value_line(v, w) for v in values],
     b
   ]
   return '\n'.join(row_strings)
@@ -79,6 +80,19 @@ def t_aaa_10():
   z = f(x)
   return pxyz(x, y, z, new_line=1)
 
+def t_a_0_to_1():
+  x = [{'a': 0}, {'a': 1}]
+  y = '\n'.join([
+    '---',
+    ' a ',
+    '---',
+    ' 0 ',
+    ' 1 ',
+    '---'
+  ])
+  z = f(x)
+  return pxyz(x, y, z, new_line=1)
+
 def t():
   if not t_0(): return pf('!t_0')
   if not t_1(): return pf('!t_1')
@@ -86,4 +100,5 @@ def t():
   if not t_b_0(): return pf('!t_b_0')
   if not t_a_10(): return pf('!t_a_10')
   if not t_aaa_10(): return pf('!t_aaa_10')
+  if not t_a_0_to_1(): return pf('!t_a_0_to_1')
   return True
