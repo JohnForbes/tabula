@@ -1,10 +1,11 @@
-from hak.pxyz import f as pxyz
 from hak.pf import f as pf
-from src.misc.h import f as h
-from src.misc.g import f as g
-from src.misc.width.get import f as get_width
-from src.misc.values.get import f as get_values
+from hak.pxyz import f as pxyz
+
 from src.misc.dict.keypaths.leaf.get import f as get_leaf_keypaths
+from src.misc.g import f as g
+from src.misc.h import f as h
+from src.misc.values.get import f as get_values
+from src.misc.width.get import f as get_width
 
 def f(x, k):
   leaf_paths = sorted(get_leaf_keypaths(x[0], [], set()))
@@ -18,7 +19,7 @@ def f(x, k):
 
   w = sum(_) + 3*(len(_)-1)
 
-  return [h('-', w), g(k, w)]
+  return [h('-', w), g(k[0], w)]
 
 def t_a():
   x = {
@@ -48,7 +49,7 @@ def t_a():
         }
       },
     ],
-    'k': 'Info'
+    'k': ('Info', )
   }
   y = [
     '-------------------------------------',
