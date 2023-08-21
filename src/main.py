@@ -93,6 +93,18 @@ def t_a_0_to_1():
   z = f(x)
   return pxyz(x, y, z, new_line=1)
 
+def t_a_0_to_9():
+  x = [{'a': _} for _ in range(10)]
+  y = '\n'.join([
+    '---',
+    ' a ',
+    '---',
+    *[f' {_} ' for _ in range(10)],
+    '---'
+  ])
+  z = f(x)
+  return pxyz(x, y, z, new_line=1)
+
 def t():
   if not t_0(): return pf('!t_0')
   if not t_1(): return pf('!t_1')
@@ -101,4 +113,5 @@ def t():
   if not t_a_10(): return pf('!t_a_10')
   if not t_aaa_10(): return pf('!t_aaa_10')
   if not t_a_0_to_1(): return pf('!t_a_0_to_1')
+  if not t_a_0_to_9(): return pf('!t_a_0_to_9')
   return True
