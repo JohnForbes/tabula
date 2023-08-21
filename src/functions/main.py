@@ -2,10 +2,10 @@ from hak.one.dict.is_a import f as is_dict
 from hak.pf import f as pf
 from hak.pxyz import f as pxyz
 
-from .block.hstack import f as hstack
-from .block.make_from_flat_dict import f as make_block_from_flat_dict
-from .line.homogenous.make import f as make_homogenous_line
-from .line.value.make import f as make_line_value
+from .strings.block.hstack import f as hstack
+from .strings.block.make_from_flat_dict import f as make_block_from_flat_dict
+from .dict.line.homogenous.make import f as make_homogenous_line
+from .dict.line.value.make import f as make_line_value
 
 def f(x):
   if not any([is_dict(x[0][k]) for k in x[0]]):
@@ -19,8 +19,8 @@ def f(x):
   w = len(_block_leaves[0])-2
   
   _block_branch = [
-    make_homogenous_line('-', w),
-    make_line_value(k_branch, w)
+    make_homogenous_line({'char': '-', 'width': w}),
+    make_line_value({'value': k_branch, 'width': w})
   ]
 
   return '\n'.join([
