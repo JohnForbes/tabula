@@ -9,8 +9,8 @@ from src.misc.width.get import f as get_width
 
 def f(x, k):
   leaf_paths = sorted(get_leaf_keypaths(x[0], [], set()))
-  leaf_paths = [_ for _ in leaf_paths if _[0] == 'Info']
-
+  leaf_paths = [_ for _ in leaf_paths if _[0] == k[0]]
+  
   _ = [
     get_width(keypath[-1], get_values(x, keypath))
     for keypath
@@ -19,7 +19,7 @@ def f(x, k):
 
   w = sum(_) + 3*(len(_)-1)
 
-  return [h('-', w), g(k[0], w)]
+  return [h('-', w), g(k[-1], w)]
 
 def t_a():
   x = {
