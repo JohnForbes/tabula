@@ -1,117 +1,40 @@
 from hak.pf import f as pf
 from hak.pxyz import f as pxyz
-from src.line.homogenous.make import f as make_homogenous_line
-from src.line.value.make import f as make_value_line
+from src.block.make_from_flat_dict import f as make_block_from_flat_dict
+from src.block.hstack import f as hstack
 
 def f(x):
-  if not x: return ''
-  if len(x[0]) < 1: return ''
-  k = list(x[0].keys())[0]
-  # v = x[0][k]
-  values = [x_i[k] for x_i in x]
-  w = max([len(str(k)), *[len(str(v)) for v in values]])
-  b = make_homogenous_line('-', w)
-  row_strings = [
-    b,
-    make_value_line(k, w),
-    b,
-    *[make_value_line(v, w) for v in values],
-    b
-  ]
-  return '\n'.join(row_strings)
+  _dicts = [[{k: x_i[k]} for x_i in x] for k in x[0].keys()]
+  _blocks = [make_block_from_flat_dict(d) for d in _dicts]
+  return '\n'.join(hstack(_blocks))
 
-def t_0():
-  x = []
-  y = ''
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
-
-def t_1():
-  x = [{}]
-  y = ''
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
-
-def t_a_0():
-  x = [{'a': 0}]
+def t_a_b():
+  n = 10
+  x = [{'a': _, 'b': (n-1)-_} for _ in range(n)]
   y = '\n'.join([
-    '---',
-    ' a ',
-    '---',
-    ' 0 ',
-    '---'
+    '---|---',
+    ' a | b ',
+    '---|---',
+    *[f' {_} | {(n-1)-_} ' for _ in range(n)],
+    '---|---'
   ])
   z = f(x)
   return pxyz(x, y, z, new_line=1)
 
-def t_b_0():
-  x = [{'b': 0}]
+def t_a_b_c():
+  n = 10
+  x = [{'a': _, 'b': (n-1)-_, 'c': ((n-1)-_)*_} for _ in range(n)]
   y = '\n'.join([
-    '---',
-    ' b ',
-    '---',
-    ' 0 ',
-    '---'
+    '---|---|----',
+    ' a | b |  c ',
+    '---|---|----',
+    *[f' {_} | {(n-1)-_} | {((n-1)-_)*_:>2} ' for _ in range(n)],
+    '---|---|----'
   ])
   z = f(x)
-  return pxyz(x, y, z, new_line=1)
-
-def t_a_10():
-  x = [{'a': 10}]
-  y = '\n'.join([
-    '----',
-    '  a ',
-    '----',
-    ' 10 ',
-    '----'
-  ])
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
-
-def t_aaa_10():
-  x = [{'aaa': 10}]
-  y = '\n'.join([
-    '-----',
-    ' aaa ',
-    '-----',
-    '  10 ',
-    '-----'
-  ])
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
-
-def t_a_0_to_1():
-  x = [{'a': 0}, {'a': 1}]
-  y = '\n'.join([
-    '---',
-    ' a ',
-    '---',
-    ' 0 ',
-    ' 1 ',
-    '---'
-  ])
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
-
-def t_a_0_to_9():
-  x = [{'a': _} for _ in range(10)]
-  y = '\n'.join([
-    '---',
-    ' a ',
-    '---',
-    *[f' {_} ' for _ in range(10)],
-    '---'
-  ])
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyz(x, [y], [z], new_line=1)
 
 def t():
-  if not t_0(): return pf('!t_0')
-  if not t_1(): return pf('!t_1')
-  if not t_a_0(): return pf('!t_a_0')
-  if not t_b_0(): return pf('!t_b_0')
-  if not t_a_10(): return pf('!t_a_10')
-  if not t_aaa_10(): return pf('!t_aaa_10')
-  if not t_a_0_to_1(): return pf('!t_a_0_to_1')
-  if not t_a_0_to_9(): return pf('!t_a_0_to_9')
+  if not t_a_b(): return pf('!t_a_b')
+  if not t_a_b_c(): return pf('!t_a_b_c')
   return True
