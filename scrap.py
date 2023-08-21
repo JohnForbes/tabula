@@ -29,7 +29,10 @@ def f(x):
   # ]
   # final_block = hstack(top_level_blocks)
 
-  final_block = hstack([make_name_block(x, 'Name'), make_info_block(x, 'Info')])
+  final_block = hstack([
+    make_name_block(x, ('Name',)),
+    make_info_block(x, ('Info',)),
+  ])
   return add_left_and_right(block_to_str(final_block))
 
 def t():
