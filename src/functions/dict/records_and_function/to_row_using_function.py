@@ -6,7 +6,7 @@ from hak.pxyz import f as pxyz
 
 from ...strings.cell_strings.to_table_row import f as row_as_cells_to_row_as_str
 from ..records_k_branch_k_leaf.to_k_branch_k_leaf_pairs import f as records_to_k_b_k_l_pairs
-from ..records_k_branch_k_leaf.to_leaf_cell import f as records_k_branch_k_leaf_to_leaf_cell
+from ..records_k_branch_k_leaf.to_leaf_cell import f as h
 from ..records_k_branch_k_leaf.to_unit_cell_str import f as records_k_branch_k_leaf_to_unit_cell_str
 
 # f_t
@@ -75,7 +75,7 @@ _records = [
 def t_a():
   x = {
     'records': _records,
-    'function': records_k_branch_k_leaf_to_leaf_cell
+    'function': h
   }
   y  = '|  apples |  bananas | applezzz | bananazzz | pearzzzzzz |  zloop |'
   z = f(x)
