@@ -1,6 +1,6 @@
 # ignore_overlength_lines
 
-from ..records_k_branch_k_leaf.to_leaf_cell import f as records_k_branch_k_leaf_to_leaf_cell
+from ..records_k_branch_k_leaf.to_leaf_cell import f as h
 from ..records_k_branch_k_leaf.to_unit_cell_str import f as records_k_branch_k_leaf_to_unit_cell_str
 # from ..to_row_using_fn import f as records_to_row_using_fn
 from src.functions.dict.records_and_function.to_row_using_function import f as records_to_row_using_fn
@@ -46,7 +46,7 @@ _records = [
 def t_leaf_keys():
   x = {
     'records': _records,
-    'function': records_k_branch_k_leaf_to_leaf_cell
+    'function': h
   }
   y = [
     '|  apples |  bananas | applezzz | bananazzz | pearzzzzzz |  zloop |',
