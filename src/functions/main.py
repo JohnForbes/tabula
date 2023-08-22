@@ -4,7 +4,7 @@ from hak.pxyz import f as pxyz
 
 from .strings.block.hstack import f as hstack
 from .strings.block.make_from_flat_dict import f as make_block_from_flat_dict
-from .dict.line.homogenous.make import f as make_homogenous_line
+from src.functions.dict.char_and_width.to_str import f as make_homogenous_line
 from .dict.line.value.make import f as make_line_value
 
 def f(x):
