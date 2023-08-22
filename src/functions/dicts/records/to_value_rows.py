@@ -1,34 +1,9 @@
-# ignore_overlength_lines
-# from .record_index.to_padded_cell_values_of_col_width import f as records_and_record_index_to_padded_cell_values_of_col_width
-from src.functions.dict.records_and_record_index.to_padded_cell_values_of_col_width import f as records_and_record_index_to_padded_cell_values_of_col_width
-
 from hak.one.dict.rate.make import f as make_rate
 from hak.pxyz import f as pxyz
 
-# records_to_value_rows
-# f = lambda x: [
-#   cells_to_row_str(
-#     records_and_record_index_to_padded_cell_values_of_col_width(x, r_i)
-#   )
-#   for r_i
-#   in range(len(x))
-# ]
+from ...dict.records_and_index.to_padded_cell_values_of_col_width import f as g
 
-def f(x):
-  _ = []
-  for r_i in range(len(x)):
-    j = records_and_record_index_to_padded_cell_values_of_col_width(x, r_i)
-    q = '| '+' | '.join(j)+' |'
-    _.append(q)
-  return _
-
-  # return [
-  #   cells_to_row_str(
-  #     records_and_record_index_to_padded_cell_values_of_col_width(x, r_i)
-  #   )
-  #   for r_i
-  #   in range(len(x))
-  # ]
+f = lambda x: ['| '+' | '.join(g(x, r_i))+' |' for r_i in range(len(x))]
 
 _records = [
   {
