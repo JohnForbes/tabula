@@ -1,7 +1,7 @@
 from hak.pf import f as pf
 from hak.pxyz import f as pxyz
 
-from src.functions.dict.line.homogenous.make import f as make_homogenous_line
+from src.functions.dict.char_and_width.to_str import f as make_homogenous_line
 from src.functions.dict.line.value.make import f as make_value_line
 
 def f(x):
