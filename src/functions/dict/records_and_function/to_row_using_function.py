@@ -13,7 +13,8 @@ from ..records_k_branch_k_leaf.to_unit_cell_str import f as records_k_branch_k_l
 # records_to_row_using_fn
 def f(x):
   results = []
-  for (k_branch, k_leaf) in records_to_k_b_k_l_pairs(x['records']):
+  pairs = records_to_k_b_k_l_pairs(x['records'])
+  for (k_branch, k_leaf) in pairs:
     # print(f'k_branch: {k_branch}')
     # print(f'k_leaf: {k_leaf}')
     _result = x['function']({
