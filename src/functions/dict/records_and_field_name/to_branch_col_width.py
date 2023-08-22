@@ -9,17 +9,15 @@ from .to_sorted_leaf_keys import f as records_k_branch_to_sorted_leaf_keys
 
 # dicts.records.k_branch.to_branch_col_width.py
 # records_k_branch_to_branch_col_width
-f = lambda records, k_branch: cell_val_widths_to_aggregate_width([
+
+f = lambda x: cell_val_widths_to_aggregate_width([
   records_k_branch_k_leaf_to_leaf_col_width({
-    'records': records,
-    'k_branch': k_branch,
+    'records': x['records'],
+    'k_branch': x['field_name'],
     'k_leaf':  k
   })
   for k
-  in records_k_branch_to_sorted_leaf_keys({
-    'records': records,
-    'field_name': k_branch
-  })
+  in records_k_branch_to_sorted_leaf_keys(x)
 ])
 
 def t_prices():
@@ -51,10 +49,10 @@ def t_prices():
   ]
   x = {
     'records': records,
-    'k_branch': 'prices'
+    'field_name': 'prices'
   }
   y = 18
-  z = f(**x)
+  z = f(x)
   return pxyz(records, y, z)
 
 def t_volumes():
@@ -79,32 +77,34 @@ def t_volumes():
         '...': {}
       }
     ],
-    'k_branch': 'volumes'
+    'field_name': 'volumes'
   }
   y = 33
-  z = f(**x)
+  z = f(x)
   return pxyz(x, y, z)
 
 def t_zloops():
-  x = [
-    {
-      '...': {},
-      '...': {},
-      'zloops': {
-        'zloop': {'numerator': 7, 'denominator': 1, 'unit': {'zloop': 1}}
+  x = {
+    'records': [
+      {
+        '...': {},
+        '...': {},
+        'zloops': {
+          'zloop': {'numerator': 7, 'denominator': 1, 'unit': {'zloop': 1}}
+        }
+      }, 
+      {
+        '...': {},
+        '...': {},
+        'zloops': {
+          'zloop': {'numerator': 7, 'denominator': 1, 'unit': {'zloop': 1}}
+        }
       }
-    }, 
-    {
-      '...': {},
-      '...': {},
-      'zloops': {
-        'zloop': {'numerator': 7, 'denominator': 1, 'unit': {'zloop': 1}}
-      }
-    }
-  ]
-  a = 'zloops'
+    ],
+    'field_name': 'zloops'
+  }
   y = 6
-  z = f(x, a)
+  z = f(x)
   return pxyz(x, y, z)
 
 def t():
