@@ -12,6 +12,8 @@ from ..records_k_branch_k_leaf.to_unit_cell_str import f as records_k_branch_k_l
 # f_t
 # records_to_row_using_fn
 def f(x):
+  # print(f'x.keys(): {x.keys()}')
+
   results = []
   pairs = records_to_k_b_k_l_pairs(x['records'])
   for (k_branch, k_leaf) in pairs:
