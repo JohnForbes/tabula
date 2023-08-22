@@ -1,25 +1,17 @@
 # ignore_overlength_lines
-# from ..k_branch_k_leaf_and_record_index.to_cell_str import f as records_k_branch_k_leaf_record_index_to_cell_str
-from src.functions.dict.records_k_branch_k_leaf_record_index.to_cell_str import f as records_k_branch_k_leaf_record_index_to_cell_str
-
-# from ..to_k_branch_k_leaf_pairs import f as recs_to_k_b_k_l_pairs
-from src.functions.dict.records_k_branch_k_leaf.to_k_branch_k_leaf_pairs import f as recs_to_k_b_k_l_pairs
-
 from hak.one.dict.rate.make import f as make_rate
 from hak.pf import f as pf
 from hak.pxyz import f as pxyz
 
+from ..records_k_branch_k_leaf_index.to_cell_str import f as g
+from ..records_k_branch_k_leaf.to_k_branch_k_leaf_pairs import f as h
+
 # f_y
-# records_and_record_index_to_padded_cell_values_of_col_width
-f = lambda records, record_index: [
-  records_k_branch_k_leaf_record_index_to_cell_str(
-    records,
-    k_branch,
-    k_leaf,
-    record_index
-  )
+# records_and_index_to_padded_cell_values_of_col_width
+f = lambda records, index: [
+  g({'records': records, 'k_branch': k_branch, 'k_leaf': k_leaf, 'index': index})
   for (k_branch, k_leaf)
-  in recs_to_k_b_k_l_pairs(records)
+  in h(records)
 ]
 
 _records = [
@@ -50,13 +42,13 @@ _records = [
 ]
 
 def t_0():
-  x = {'records': _records, 'record_index': 0}
+  x = {'records': _records, 'index': 0}
   y = ['   0.25', '    0.50', '    1.00', '     2.00', '      3.00', '  7.00']
   z = f(**x)
   return pxyz(x, y, z)
 
 def t_1():
-  x = {'records': _records, 'record_index': 1}
+  x = {'records': _records, 'index': 1}
   y = ['   0.75', '    1.00', '    4.00', '     5.00', '      6.00', '  7.00']
   z = f(**x)
   return pxyz(x, y, z)
