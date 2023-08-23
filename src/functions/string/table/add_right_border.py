@@ -1,4 +1,4 @@
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
 f = lambda x: '\n'.join([_x_i+'|' for _x_i in x.split('\n')])
 
@@ -21,5 +21,4 @@ def t():
     ' 6 | 7 |',
     '---|---|',
   ])
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
