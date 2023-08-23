@@ -1,14 +1,10 @@
-from hak.pxyz import f as pxyz
 from hak.pf import f as pf
+from hak.pxyf import f as pxyf
 
 f = lambda x: f" {x['value']:>{x['width']}} "
 
-def t_int():
-  x = {'value': 12, 'width': 10}
-  y = '         12 '
-  z = f(x)
-  return pxyz(x, y, z)
+t_int = lambda: pxyf({'value': 12, 'width': 10}, '         12 ', f)
 
 def t():
   if not t_int(): return pf('!t_int')
-  return True
+  return 1
