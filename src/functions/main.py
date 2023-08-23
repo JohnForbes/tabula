@@ -4,7 +4,7 @@ from hak.pxyf import f as pxyf
 
 from .strings.block.hstack import f as hstack
 from .strings.block.make_from_flat_dict import f as make_block_from_flat_dict
-from src.functions.dict.char_and_width.to_str import f as make_homogenous_line
+from .dict.char_and_width.to_str import f as make_homogenous_line
 from .dict.line.value.make import f as make_line_value
 
 def f(x):
@@ -23,10 +23,7 @@ def f(x):
     make_line_value({'value': k_branch, 'width': w})
   ]
 
-  return '\n'.join([
-    *_block_branch,
-    *_block_leaves
-  ])
+  return '\n'.join([*_block_branch, *_block_leaves])
 
 def t_a_b():
   n = 10
