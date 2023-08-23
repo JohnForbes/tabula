@@ -1,4 +1,4 @@
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
 from src.functions.string.table.add_left_border import f as add_left
 from src.functions.string.table.add_right_border import f as add_right
@@ -24,5 +24,4 @@ def t():
     '| 6 | 7 |',
     '|---|---|',
   ])
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
