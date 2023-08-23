@@ -7,126 +7,69 @@ from hak.one.set.random.make import f as make_random_set
 from hak.one.string.random.make import f as make_random_str
 from hak.one.tuple.random.make import f as make_random_tuple
 from hak.pf import f as pf
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
 from src.functions.dict.cell.is_a import f as is_cell
-from src.functions.dict.cell.make import f as make_cell
+from src.functions.dict.cell.make import f as cell
 
 def f(x):
-  if not is_dict(x): return False
+  if not is_dict(x): return 0
   expected_keys = ['name', 'cells', 'path']
   for k in expected_keys:
     if k not in x:
-      return False
-  if len(x) != len(expected_keys): return False
+      return 0
+  if len(x) != len(expected_keys): return 0
   for c in x['cells']:
     if not is_cell(c):
-      return False
-  return True
+      return 0
+  return 1
 
-def t_false_none():
-  x = None
-  y = False
-  z = f(x)
-  return pxyz(x, y, z)
+t_false_none = lambda: pxyf(None, 0, f)
+t_false_int = lambda: pxyf(make_random_int(0, 10), 0, f)
+t_false_float = lambda: pxyf(make_random_float(), 0, f)
+t_false_str = lambda: pxyf(make_random_str(), 0, f)
+t_false_set = lambda: pxyf(make_random_set(), 0, f)
+t_false_tuple = lambda: pxyf(make_random_tuple(), 0, f)
+t_false_bool = lambda: pxyf(make_random_bool(), 0, f)
+t_false_list = lambda: pxyf(make_random_list(), 0, f)
+t_false_dict_empty = lambda: pxyf({}, 0, f)
+t_false_dict_wrong_k_count = lambda: pxyf({'value': 0}, 0, f)
+t_false_zero = lambda: pxyf(0, 0, f)
+t_false_one = lambda: pxyf(1, 0, f)
+t_false_dict = lambda: pxyf({'...': '...'}, 0, f)
 
-def t_false_int():
-  x = make_random_int(0, 10)
-  y = False
-  z = f(x)
-  return pxyz(x, y, z)
+t_false_extra_key = lambda: pxyf(
+  {'name': 'abc', 'cells': [0, 1, 2], 'extra': None},
+  0,
+  f
+)
 
-def t_false_float():
-  x = make_random_float()
-  y = False
-  z = f(x)
-  return pxyz(x, y, z)
+t_false_cells_not_cells = lambda: pxyf(
+  {'name': 'carrot', 'cells': [0, 10, 100], 'path': None},
+  0,
+  f
+)
 
-def t_false_str():
-  x = make_random_str()
-  y = False
-  z = f(x)
-  return pxyz(x, y, z)
+def t_true_carrot():
+  _name = 'carrot'
+  x = {
+    'name': _name,
+    'path': None,
+    'cells': [cell({'value': v, 'field_name': _name}) for v in [0, 10, 100]]
+  }
+  return pxyf(x, 1, f)
 
-def t_false_set():
-  x = make_random_set()
-  y = False
-  z = f(x)
-  return pxyz(x, y, z)
-
-def t_false_tuple():
-  x = make_random_tuple()
-  y = False
-  z = f(x)
-  return pxyz(x, y, z)
-
-def t_false_bool():
-  x = make_random_bool()
-  y = False
-  z = f(x)
-  return pxyz(x, y, z)
-
-def t_false_list():
-  x = make_random_list()
-  y = False
-  z = f(x)
-  return pxyz(x, y, z)
-
-def t_false_dict_empty():
-  x = {}
-  y = False
-  z = f(x)
-  return pxyz(x, y, z)
-
-def t_false_dict_wrong_k_count():
-  x = {'value': 0}
-  y = False
-  z = f(x)
-  return pxyz(x, y, z)
-
-def t_false_zero():
-  x = 0
-  y = False
-  z = f(x)
-  return pxyz(x, y, z)
-
-def t_false_one():
-  x = 1
-  y = False
-  z = f(x)
-  return pxyz(x, y, z)
-
-def t_false_dict():
-  x = {'...': '...'}
-  y = False
-  z = f(x)
-  return pxyz(x, y, z)
-
-def t_false_extra_key():
-  x = {'name': 'abc', 'cells': [0, 1, 2], 'extra': None}
-  y = False
-  z = f(x)
-  return pxyz(x, y, z)
-
-def t_false_cells_not_cells():
-  x = {'name': 'carrot', 'cells': [0, 10, 100], 'path': None}
-  y = False
-  z = f(x)
-  return pxyz(x, y, z)
-
-def t_true():
-  x = {'name': 'carrot', 'path': None}
-  x['cells'] = [make_cell(v, x['name']) for v in [0, 10, 100]]
-  y = True
-  z = f(x)
-  return pxyz(x, y, z)
-
-def t_true_a():
-  x = {'name': 'banana', 'path': None}
-  x['cells'] = [make_cell(v, 'banana') for v in ['b1', 'b2', 'b3']]
-  y = True
-  z = f(x)
-  return pxyz(x, y, z)
+def t_true_banana():
+  _name = 'banana'
+  x = {
+    'name': _name,
+    'path': None,
+    'cells': [
+      cell({'value': v, 'field_name': _name})
+      for v in ['b1', 'b2', 'b3']
+    ]
+  }
+  return pxyf(x, 1, f)
 
 def t():
   if not t_false_bool(): return pf('!t_false_bool')
@@ -144,6 +87,6 @@ def t():
   if not t_false_tuple(): return pf('!t_false_tuple')
   if not t_false_zero(): return pf('!t_false_zero')
   if not t_false_cells_not_cells(): return pf('!t_false_cells_not_cells')
-  if not t_true(): return pf('!t_true')
-  if not t_true_a(): return pf('!t_true_a')
-  return True
+  if not t_true_carrot(): return pf('!t_true_carrot')
+  if not t_true_banana(): return pf('!t_true_banana')
+  return 1
