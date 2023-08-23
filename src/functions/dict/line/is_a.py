@@ -1,22 +1,13 @@
 from hak.one.string.is_a import f as is_str
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 from hak.pf import f as pf
 
-def f(x): return is_str(x) and '\n' not in x
+f = lambda x: is_str(x) and '\n' not in x
 
-def t_false():
-  x = 0
-  y = False
-  z = f(x)
-  return pxyz(x, y, z)
-
-def t_true():
-  x = 'abc'
-  y = True
-  z = f(x)
-  return pxyz(x, y, z)
+t_false = lambda: pxyf(0, 0, f)
+t_true = lambda: pxyf('abc', 1, f)
 
 def t():
   if not t_false(): return pf('!t_false')
   if not t_true(): return pf('!t_true')
-  return True
+  return 1
