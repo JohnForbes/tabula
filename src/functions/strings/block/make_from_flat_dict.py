@@ -1,5 +1,5 @@
 from hak.pf import f as pf
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
 from src.functions.dict.char_and_width.to_str import f as make_homogenous_line
 from src.functions.dict.line.value.make import f as make_value_line
@@ -23,17 +23,8 @@ def f(x):
   ]
   return row_strings
 
-def t_0():
-  x = []
-  y = ''
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
-
-def t_1():
-  x = [{}]
-  y = ''
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+t_0 = lambda: pxyf([], '', f, new_line=1)
+t_1 = lambda: pxyf([{}], '', f, new_line=1)
 
 def t_a_0():
   x = [{'a': 0}]
@@ -44,8 +35,7 @@ def t_a_0():
     ' 0 ',
     '---'
   ]
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
 
 def t_b_0():
   x = [{'b': 0}]
@@ -56,8 +46,7 @@ def t_b_0():
     ' 0 ',
     '---'
   ]
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
 
 def t_a_10():
   x = [{'a': 10}]
@@ -68,8 +57,7 @@ def t_a_10():
     ' 10 ',
     '----'
   ]
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
 
 def t_aaa_10():
   x = [{'aaa': 10}]
@@ -80,8 +68,7 @@ def t_aaa_10():
     '  10 ',
     '-----'
   ]
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
 
 def t_a_0_to_1():
   x = [{'a': 0}, {'a': 1}]
@@ -93,8 +80,7 @@ def t_a_0_to_1():
     ' 1 ',
     '---'
   ]
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
 
 def t_a_0_to_9():
   x = [{'a': _} for _ in range(10)]
@@ -105,8 +91,7 @@ def t_a_0_to_9():
     *[f' {_} ' for _ in range(10)],
     '---'
   ]
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
 
 def t():
   if not t_0(): return pf('!t_0')
@@ -117,4 +102,4 @@ def t():
   if not t_aaa_10(): return pf('!t_aaa_10')
   if not t_a_0_to_1(): return pf('!t_a_0_to_1')
   if not t_a_0_to_9(): return pf('!t_a_0_to_9')
-  return True
+  return 1
