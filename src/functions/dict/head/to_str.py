@@ -1,5 +1,5 @@
 from hak.pf import f as pf
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
 # from src.functions.dict.table.bar.make import f as make_bar
 
@@ -49,8 +49,7 @@ def t_0():
   x = {'names': list('abcde')}
   x['widths'] = {k: 2 for k in x['names']}
   y = '|  a |  b |  c |  d |  e |'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_1():
   x = {
@@ -68,8 +67,7 @@ def t_1():
     '|    |         | retained |',
     '|    |         | earnings |',
   ])
-  z = f(x)
-  return y == z or pf([f"x: {x}", f'y:\n{y}', f'z:\n{z}'])
+  return pxyf(x, y, f, new_line=1)
 
 def t_2():
   x = {
@@ -85,7 +83,6 @@ def t_2():
       'balance_equity_retained_earnings': 'AUD'
     }
   }
-
   y = '\n'.join([
     '|         a |      is |  balance |',
     '|           | revenue |   equity |',
@@ -94,11 +91,10 @@ def t_2():
     '|-----------|---------|----------|',
     '| lightyear | boolean |      AUD |',
   ])
-  z = f(x)
-  return y == z or pf([f"x: {x}", f'y:\n{y}', f'z:\n{z}'])
+  return pxyf(x, y, f, new_line=1)
 
 def t():
   if not t_0(): return pf('t_0 failed')
   if not t_1(): return pf('t_1 failed')
   if not t_2(): return pf('t_2 failed')
-  return True
+  return 1
