@@ -8,16 +8,15 @@ from datetime import date
 from hak.one.dict.rate.make import f as make_rate
 from hak.one.get_datatype import f as detect_type
 from hak.pf import f as pf
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
 # make_cell
 # src.cell.make
-def f(value, field_name, datatype=None):
-  y = {}
-  y['value'] = value
-  y['datatype'] = datatype or detect_type(value)
-  y['field_name'] = field_name
-  return y
+f = lambda x: {
+  'value': x['value'],
+  'datatype': detect_type(x['value']),
+  'field_name': x['field_name'],
+}
 
 # def f(x):
 #   _width = x['width']
@@ -46,34 +45,27 @@ def f(value, field_name, datatype=None):
 def t_0():
   x = {'value': 0, 'field_name': 'i'}
   y = {'value': 0, 'field_name': 'i', 'datatype': 'int'}
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_a():
   # cell_dict
   x = {'value': 'a', 'field_name': 'A'}
   y = {'value': 'a', 'field_name': 'A', 'datatype': 'str'}
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_rate():
-  x = {
-    'value': make_rate(numerator=1, denominator=1, unit={'m': 1}),
-    'field_name': 'distance'
-  }
+  x = {'value': make_rate(1, 1, {'m': 1}), 'field_name': 'distance'}
   y = {
     'value': {'numerator': 1, 'denominator': 1, 'unit': {'m': 1}},
     'field_name': 'distance',
     'datatype': 'rate'
   }
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_date():
   x = {'value': date(2022, 4, 5), 'field_name': 'date'}
   y = {'value': date(2022, 4, 5), 'field_name': 'date', 'datatype': 'date'}
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_description():
   x = {'value': 'Purchased USD with AUD', 'field_name': 'description'}
@@ -82,8 +74,7 @@ def t_description():
     'field_name': 'description',
     'datatype': 'str'
   }
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_USD_rate():
   x = {'value': make_rate(5472, 1, {'USD': 1}), 'field_name': 'USD Rate'}
@@ -92,8 +83,7 @@ def t_USD_rate():
     'field_name': 'USD Rate',
     'datatype': 'rate'
   }
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_A_nabtrade_cash_AUD():
   x = {
@@ -105,27 +95,21 @@ def t_A_nabtrade_cash_AUD():
     'field_name': 'nabtrade_cash_AUD',
     'datatype': 'rate'
   }
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_rate_0():
-  x = {
-    'value': make_rate(numerator=0, denominator=1, unit={'m': 1}),
-    'field_name': 'description'
-  }
+  x = {'value': make_rate(0, 1, {'m': 1}), 'field_name': 'description'}
   y = {
     'value': {'numerator': 0, 'denominator': 1, 'unit': {'m': 1}},
     'field_name': 'description',
     'datatype': 'rate'
   }
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_none():
   x = {'value': None, 'field_name': 'foo'}
   y = {'value': None, 'field_name': 'foo', 'datatype': 'none'}
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t():
   if not t_0(): return pf('!t_0')
