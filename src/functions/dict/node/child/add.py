@@ -17,4 +17,4 @@ def t():
   if not (node['children'][0]['name'] == 'bar'): return pf('!A')
   if not (child['parent']['name'] == 'foo'): return pf('!B')
   if not (child['parent']['children'][0]['name'] == 'bar'): return pf('!C')
-  return True
+  return 1
