@@ -13,7 +13,7 @@ from ...strings.cell_strings.to_table_row import f as f_c
 # records_to_top_border
 f = lambda x: f_c({
   'cell_strings': ['-'*_ for _ in f_b({'records': x, 'function': f_a})],
-  'col_separator_char': '-'
+  'char': '-'
 })
 
 t_nest = lambda: pxyf(
