@@ -137,4 +137,4 @@ def t():
   if not t_rate(): return pf('!t_rate')
   if not t_USD_rate(): return pf('!t_USD_rate')
   if not t_none(): return pf('!t_none')
-  return True
+  return 1
