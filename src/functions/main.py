@@ -1,6 +1,6 @@
 from hak.one.dict.is_a import f as is_dict
 from hak.pf import f as pf
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
 from .strings.block.hstack import f as hstack
 from .strings.block.make_from_flat_dict import f as make_block_from_flat_dict
@@ -38,8 +38,7 @@ def t_a_b():
     *[f' {_} | {(n-1)-_} ' for _ in range(n)],
     '---|---'
   ])
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
 
 def t_a_b_c():
   n = 10
@@ -51,8 +50,7 @@ def t_a_b_c():
     *[f' {_} | {(n-1)-_} | {((n-1)-_)*_:>2} ' for _ in range(n)],
     '---|---|----'
   ])
-  z = f(x)
-  return pxyz(x, [y], [z], new_line=1)
+  return pxyf(x, y, f, new_line=1)
 
 def t_nested_a_aa_ab():
   x = [
@@ -75,11 +73,10 @@ def t_nested_a_aa_ab():
     '  4 |  0 ',
     '----|----',
   ])
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
 
 def t():
   if not t_a_b(): return pf('!t_a_b')
   if not t_a_b_c(): return pf('!t_a_b_c')
   if not t_nested_a_aa_ab(): return pf('!t_nested_a_aa_ab')
-  return True
+  return 1
