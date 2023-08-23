@@ -1,42 +1,29 @@
-from hak.one.dict.rate.make import f as make_rate
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
-from ...dict.records_and_index.to_padded_cell_values_of_col_width import f as g
+from ...dict.records_and_index.to_padded_cell_values_of_col_width import f as fn
+from data.records import records_without_date as _records
 
-f = lambda x: ['| '+' | '.join(g(x, r_i))+' |' for r_i in range(len(x))]
-
-_records = [
-  {
-    'prices': {
-      'apples': make_rate(1, 4, {'$': 1, 'apple': -1}),
-      'bananas': make_rate(1, 2, {'$': 1, 'banana': -1})
-    },
-    'volumes': {
-      'applezzz': make_rate(1, 1, {'apple': 1}),
-      'bananazzz': make_rate(2, 1, {'banana': 1}),
-      'pearzzzzzz': make_rate(3, 1, {'pear': 1})
-    },
-    'zloops': {'zloop': make_rate(7, 1, {'zloop': 1})}
-  }, 
-  {
-    'prices': {
-      'apples': make_rate(3, 4, {'$': 1, 'apple': -1}),
-      'bananas': make_rate(1, 1, {'$': 1, 'banana': -1})
-    },
-    'volumes': {
-      'applezzz': make_rate(4, 1, {'apple': 1}),
-      'bananazzz': make_rate(5, 1, {'banana': 1}),
-      'pearzzzzzz': make_rate(6, 1, {'pear': 1})
-    },
-    'zloops': {'zloop': make_rate(7, 1, {'zloop': 1})}
-  }
+f = lambda x: [
+  '| '+' | '.join(fn({'records': x, 'index': r_i}))+' |'
+  for r_i
+  in range(len(x))
 ]
 
-def t():
-  x = _records
-  y = [
+# def f(x):
+  # print(f'x: {x}')
+  # print()
+  # result = []
+  # for r_i in range(len(x)):
+  #   _ = fn({'records': x, 'index': r_i})
+  #   result.append('| '+' | '.join(_)+' |')
+
+  # return result
+
+t = lambda: pxyf(
+  _records,
+  [
     '|    0.25 |     0.50 |     1.00 |      2.00 |       3.00 |   7.00 |',
     '|    0.75 |     1.00 |     4.00 |      5.00 |       6.00 |   7.00 |'
-  ]
-  z = f(x)
-  return pxyz(x, y, z)
+  ],
+  f
+)
