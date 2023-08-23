@@ -1,10 +1,12 @@
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 from hak.pf import f as pf
 
-f = lambda cell_strings, col_separator_char: (
-  f'|{col_separator_char}'+
-  f'{col_separator_char}|{col_separator_char}'.join(cell_strings)+
-  f'{col_separator_char}|'
+f = lambda x: (
+  f"|{x['char']}"
+  +
+  f"{x['char']}|{x['char']}".join(x['cell_strings'])
+  +
+  f"{x['char']}|"
 )
 
 def t_0():
@@ -14,11 +16,10 @@ def t_0():
       '---------------------------------',
       '------'
     ],
-    'col_separator_char': '-'
+    'char': '-'
   }
   y = '|--------------------|-----------------------------------|--------|'
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_1():
   x = {
@@ -27,11 +28,10 @@ def t_1():
       '                          volumes',
       'zloops'
     ],
-    'col_separator_char': ' '
+    'char': ' '
   }
   y = '|             prices |                           volumes | zloops |'
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_2():
   x = {
@@ -43,11 +43,10 @@ def t_2():
       '----------',
       '------'
     ],
-    'col_separator_char': '-'
+    'char': '-'
   }
   y = '|---------|----------|----------|-----------|------------|--------|'
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_3():
   x = {
@@ -59,11 +58,10 @@ def t_3():
       'pearzzzzzz',
       ' zloop'
     ],
-    'col_separator_char': ' '
+    'char': ' '
   }
   y = '|  apples |  bananas | applezzz | bananazzz | pearzzzzzz |  zloop |'
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_4():
   x = {
@@ -75,11 +73,10 @@ def t_4():
       '----------',
       '------'
     ],
-    'col_separator_char': '-'
+    'char': '-'
   }
   y = '|---------|----------|----------|-----------|------------|--------|'
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_5():
   x = {
@@ -91,11 +88,10 @@ def t_5():
       '      pear',
       ' zloop'
     ],
-    'col_separator_char': ' '
+    'char': ' '
   }
   y = '| $/apple | $/banana |    apple |    banana |       pear |  zloop |'
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_6():
   x = {
@@ -107,11 +103,10 @@ def t_6():
       '----------',
       '------'
     ],
-    'col_separator_char': '-'
+    'char': '-'
   }
   y = '|---------|----------|----------|-----------|------------|--------|'
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_7():
   x = {
@@ -123,11 +118,10 @@ def t_7():
       '      3.00',
       '  7.00'
     ],
-    'col_separator_char': ' '
+    'char': ' '
   }
   y = '|    0.25 |     0.50 |     1.00 |      2.00 |       3.00 |   7.00 |'
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_8():
   x = {
@@ -139,11 +133,10 @@ def t_8():
       '      6.00',
       '  7.00'
     ],
-    'col_separator_char': ' '
+    'char': ' '
   }
   y = '|    0.75 |     1.00 |     4.00 |      5.00 |       6.00 |   7.00 |'
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_9():
   x = {
@@ -155,11 +148,10 @@ def t_9():
       '----------',
       '------'
     ],
-    'col_separator_char': '-'
+    'char': '-'
   }
   y = '|---------|----------|----------|-----------|------------|--------|'
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t():
   if not t_0(): return pf('!t_0')
@@ -172,4 +164,4 @@ def t():
   if not t_7(): return pf('!t_7')
   if not t_8(): return pf('!t_8')
   if not t_9(): return pf('!t_9')
-  return True
+  return 1
