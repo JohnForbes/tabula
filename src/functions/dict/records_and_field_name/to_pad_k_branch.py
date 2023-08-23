@@ -11,9 +11,12 @@ from data.records import records_without_date
 # f_q
 # records_to_pad_k_branch
 def f(x):
-  records = x['records']
   q = [
-    f_b({'records': records, 'k_branch': x['field_name'], 'k_leaf': k_leaf})
+    f_b({
+      'records': x['records'],
+      'k_branch': x['field_name'],
+      'k_leaf': k_leaf
+    })
     for k_leaf
     in f_c(x)
   ]
