@@ -1,11 +1,11 @@
 from datetime import date
-from hak.one.dict.rate.make import f as make_rate
+from hak.one.dict.rate.make import f as rate
 from hak.one.dict.unit.to_str import f as unit_to_str
 from hak.pf import f as pf
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
 from src.functions.dict.cell.to_str import f as cell_to_str
-from src.functions.dict.column.make_from_values import f as make_column
+from src.functions.dict.column.make_from_values import f as column
 from src.functions.dict.column.width.get import f as get_width
 from src.functions.dict.value_and_width.to_str import f as g
 from src.functions.dict.char_and_width.to_str import f as h
@@ -29,7 +29,7 @@ def f(x):
   ])
 
 def t_0():
-  x = make_column('a', [0])
+  x = column({'name': 'a', 'values': [0]})
   y = '\n'.join([
     '---',
     ' a ',
@@ -39,11 +39,10 @@ def t_0():
     '   ',
     '---',
   ])
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
 
 def t_1():
-  x = make_column('abc', [0, 10, 23])
+  x = column({'name': 'abc', 'values': [0, 10, 23]})
   y = '\n'.join([
     '-----',
     ' abc ',
@@ -55,11 +54,10 @@ def t_1():
     '  23 ',
     '-----',
   ])
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
 
 def t_2():
-  x = make_column('ab', [0, 100, 2300])
+  x = column({'name': 'ab', 'values': [0, 100, 2300]})
   y = '\n'.join([
     '------',
     '   ab ',
@@ -71,11 +69,10 @@ def t_2():
     ' 2300 ',
     '------',
   ])
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
 
 def t_3():
-  x = make_column('apples', [_**_ for _ in range(10)])
+  x = column({'name': 'apples', 'values': [_**_ for _ in range(10)]})
   y = '\n'.join([
     '-----------',
     '    apples ',
@@ -94,11 +91,10 @@ def t_3():
     ' 387420489 ',
     '-----------'
   ])
-  z = f(x)
-  return pxyz(x, y, z, new_line=True)
+  return pxyf(x, y, f, new_line=True)
 
 def t_4():
-  x = make_column('animal', ['dog', 'cat', 'fox'])
+  x = column({'name': 'animal', 'values': ['dog', 'cat', 'fox']})
   y = '\n'.join([
     '--------',
     ' animal ',
@@ -110,14 +106,13 @@ def t_4():
     '    fox ',
     '--------',
   ])
-  z = f(x)
-  return pxyz(x, y, z, new_line=True)
+  return pxyf(x, y, f, new_line=True)
 
 def t_date():
-  x = make_column(
-    'date',
-    [date(2023, 1, 1), date(2023, 4, 8), date(2023, 12, 31)]
-  )
+  x = column({
+    'name': 'date',
+    'values': [date(2023, 1, 1), date(2023, 4, 8), date(2023, 12, 31)]
+  })
   y = '\n'.join([
     '------------',
     '       date ',
@@ -129,11 +124,10 @@ def t_date():
     ' 2023-12-31 ',
     '------------',
   ])
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
 
 def t_str():
-  x = make_column('animal', ['dog', 'cat', 'fox'])
+  x = column({'name': 'animal', 'values': ['dog', 'cat', 'fox']})
   y = '\n'.join([
     '--------',
     ' animal ',
@@ -145,18 +139,17 @@ def t_str():
     '    fox ',
     '--------',
   ])
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
 
 def t_rate():
-  x = make_column(
-    'rate',
-    [
-      make_rate(0, 10, {'m': 1}),
-      make_rate(1,  9, {'m': 1}),
-      make_rate(2,  8, {'m': 1})
+  x = column({
+    'name': 'rate',
+    'values': [
+      rate(0, 10, {'m': 1}),
+      rate(1,  9, {'m': 1}),
+      rate(2,  8, {'m': 1})
     ]
-  )
+  })
   y = '\n'.join([
     '------',
     ' rate ',
@@ -168,19 +161,18 @@ def t_rate():
     '  1/4 ',
     '------',
   ])
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
 
 def t_rate_long_unit():
   _unit = {'$': 1, 'banana': -1}
-  x = make_column(
-    'rate',
-    [
-      make_rate(0, 10, _unit),
-      make_rate(1,  9, _unit),
-      make_rate(2,  8, _unit)
+  x = column({
+    'name':  'rate',
+    'values': [
+      rate(0, 10, _unit),
+      rate(1,  9, _unit),
+      rate(2,  8, _unit)
     ]
-  )
+  })
   y = '\n'.join([
     '----------',
     '     rate ',
@@ -192,8 +184,7 @@ def t_rate_long_unit():
     '      1/4 ',
     '----------',
   ])
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
 
 def t():
   if not t_0(): return pf('!t_0')
@@ -205,4 +196,4 @@ def t():
   if not t_str(): return pf('!t_str')
   if not t_rate(): return pf('!t_rate')
   if not t_rate_long_unit(): return pf('!t_rate_long_unit')
-  return True
+  return 1
