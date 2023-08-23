@@ -7,7 +7,7 @@ from ...dicts.records.to_horizontal_line import f as f_a
 from ..records_and_function.to_row_using_function import f as f_b
 from ..records_k_branch_k_leaf.to_leaf_cell import f as f_c
 from ..records_k_branch_k_leaf.to_unit_cell_str import f as f_d
-from data.records import records as _records
+from data.records import records_without_date as _records
 
 # records_and_fn_to_underlined_row
 f = lambda x: [f_b(x), f_a(x['records'])]
