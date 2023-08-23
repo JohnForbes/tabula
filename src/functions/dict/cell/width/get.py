@@ -1,13 +1,13 @@
 from hak.one.dict.rate.is_a import f as is_rate
-from hak.one.dict.rate.make import f as make_rate
+from hak.one.dict.rate.make import f as rate
 from hak.one.dict.rate.to_str_frac import f as to_str_frac
 from hak.one.dict.unit.to_str import f as unit_to_str
 from hak.one.string.colour.bright.red import f as red
 from hak.one.string.colour.decolour import f as decol
 from hak.pf import f as pf
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
-from src.functions.dict.cell.make import f as make_cell
+from src.functions.dict.cell.make import f as cell
 from src.functions.dict.cell.to_str import f as to_str
 
 # width
@@ -19,60 +19,36 @@ def f(x):
   value_str_width = len(decol(val_str))
   return max([*header_word_widths, value_str_width, unit_width])
 
-def t_00():
-  x = make_cell(100, 'foo')
-  y = 3
-  z = f(x)
-  return pxyz(x, y, z)
+t_00 = lambda: pxyf(cell({'value': 100, 'field_name': 'foo'}), 3, f)
+t_0 = lambda: pxyf(cell({'value': False, 'field_name': 'a'}), 1, f)
+t_1 = lambda: pxyf(cell({'value': 'a', 'field_name': 'aa'}), 2, f)
 
-def t_0():
-  x = make_cell(**{'value': False, 'field_name': 'a'})
-  y = 1
-  z = f(x)
-  return pxyz(x, y, z)
+t_2 = lambda: pxyf(
+  cell({'value': red('-'), 'field_name': 'is_revenue'}),
+  len('revenue'),
+  f
+)
 
-def t_1():
-  x = make_cell(**{'value': 'a', 'field_name': 'aa'})
-  y = 2
-  z = f(x)
-  return pxyz(x, y, z)
+t_quantity_short_unit = lambda: pxyf(
+  cell({'value': rate(12.34, 1, {'m': 1}), 'field_name': 'length'}),
+  len('length'),
+  f
+)
 
-def t_2():
-  x = make_cell(**{'value': red('-'), 'field_name': 'is_revenue'})
-  y = len('revenue')
-  z = f(x)
-  return pxyz(x, y, z)
+t_quantity_long_unit = lambda: pxyf(
+  cell({'value': rate(12.34, 1, {'lightyear': 1}), 'field_name': 'length'}),
+  len('lightyear'),
+  f
+)
 
-def t_quantity_short_unit():
-  x = make_cell(**{
-    'value': make_rate(12.34, 1, {'m': 1}),
-    'field_name': 'length'
-  })
-  y = len('length')
-  z = f(x)
-  return pxyz(x, y, z)
-
-def t_quantity_long_unit():
-  x = make_cell(**{
-    'value': make_rate(
-      12.34,
-      1,
-      {'lightyear': 1}
-    ),
-    'field_name': 'length'
-  })
-  y = len('lightyear')
-  z = f(x)
-  return pxyz(x, y, z)
-
-def t_rate():
-  x = make_cell(**{
-    'value': make_rate(547200, 735089, {'USD': 1, 'AUD': -1}),
+t_rate = lambda: pxyf(
+  cell({
+    'value': rate(547200, 735089, {'USD': 1, 'AUD': -1}),
     'field_name': 'rate_USD_per_AUD'
-  })
-  y = len('547200/735089')
-  z = f(x)
-  return pxyz(x, y, z)
+  }),
+  len('547200/735089'),
+  f
+)
 
 def t():
   if not t_00(): return pf('!t_00')
@@ -82,4 +58,4 @@ def t():
   if not t_quantity_short_unit(): return pf('!t_quantity_short_unit')
   if not t_quantity_long_unit(): return pf('!t_quantity_long_unit')
   if not t_rate(): return pf('!t_rate')
-  return True
+  return 1
