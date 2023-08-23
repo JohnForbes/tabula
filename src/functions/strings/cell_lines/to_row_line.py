@@ -1,13 +1,9 @@
-# from archive.strings.to_table_row import f as cell_strings_to_table_row_string
 from hak.pxyf import f as pxyf
 
-from ..cell_strings.to_table_row import f as cell_strings_to_table_row_string
+from ..cell_strings.to_table_row import f as f_a
 
 # cell_lines_to_row_line
-f = lambda x: cell_strings_to_table_row_string({
-  'cell_strings': x,
-  'col_separator_char': '-'
-})
+f = lambda x: f_a({'cell_strings': x, 'char': '-'})
 
 def t():
   x = ['-------', '--------', '--------', '---------', '----------', '------']
