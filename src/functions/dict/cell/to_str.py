@@ -35,51 +35,35 @@ def f(x):
 
 def t_a():
   x = make_cell(**{'value': 'a', 'field_name': 'A'})
-  y = 'a'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyz(x, 'a', f(x))
 
 def t_0():
   x = make_cell(**{'value': 0, 'field_name': 'i'})
-  y = ' '
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyz(x, ' ', f(x))
 
 def t_10():
   x = make_cell(**{'value': 10, 'field_name': 'i'})
-  y = '10'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyz(x, '10', f(x))
 
 def t_02():
   x = make_cell(**{'value': False, 'field_name': 'B'})
-  y = r('N')
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyz(x, r('N'), f(x))
 
 def t_03():
   x = make_cell(**{'value': True, 'field_name': 'B'})
-  y = g('Y')
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyz(x, g('Y'), f(x))
 
 def t_04():
   x = make_cell(**{'value': None, 'field_name': 'foo'})
-  y = ' '
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyz(x, ' ', f(x))
 
 def t_05():
   x = make_cell(**{'value': 1.0, 'field_name': 'foo'})
-  y = '1.00'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyz(x, '1.00', f(x))
 
 def t_06():
   x = make_cell(**{'value': make_rate(710, 113, {'a': 1}), 'field_name': 'foo'})
-  y = '710/113'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyz(x, '710/113', f(x))
 
 def t():
   if not t_a(): return pf('t_a failed')
@@ -90,4 +74,4 @@ def t():
   if not t_04(): return pf('t_04 failed')
   if not t_05(): return pf('t_05 failed')
   if not t_06(): return pf('t_06 failed')
-  return True
+  return 1
