@@ -9,7 +9,7 @@ from ...strings.cell_strings.to_table_row import f as f_c
 # records_to_k_branch_row
 f = lambda x: f_c({
   'cell_strings': f_b({'records': x, 'function': f_a}),
-  'col_separator_char': ' '
+  'char': ' '
 })
 
 t = lambda: pxyf(
