@@ -18,7 +18,7 @@ def f(x):
     x['function'](a_into_b({'k_branch': k_branch, 'k_leaf': k_leaf}, x))
     for (k_branch, k_leaf) in f_b(x['records'])
   ]
-  return f_a({'cell_strings': results, 'col_separator_char': ' '})
+  return f_a({'cell_strings': results, 'char': ' '})
 
 t_a = lambda: pxyf(
   {'records': _records, 'function': f_c},
