@@ -1,71 +1,50 @@
 # ignore_overlength_lines
-from hak.one.dict.rate.make import f as make_rate
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 
 from .to_leaf_col_width import f as to_leaf_col_width
 from .to_unpadded_unit_str import f as to_unpadded_unit_str
+from data.records import records_without_date as _records
 
 # f_w
 # records_k_branch_k_leaf_to_unit_cell_str
 f = lambda x: f"{to_unpadded_unit_str(x):>{to_leaf_col_width(x)}}"
 
-_records = [
-  {
-    'prices': {
-      'apples': make_rate(1, 4, {'$': 1, 'apple': -1}),
-      'bananas': make_rate(1, 2, {'$': 1, 'banana': -1})
-    },
-    'volumes': {
-      'applezzz': make_rate(1, 1, {'apple': 1}),
-      'bananazzz': make_rate(2, 1, {'banana': 1}),
-      'pearzzzzzz': make_rate(3, 1, {'pear': 1})
-    },
-    'zloops': {'zloop': make_rate(7, 1, {'zloop': 1})}
-  },
-  {
-    'prices': {
-      'apples': make_rate(3, 4, {'$': 1, 'apple': -1}),
-      'bananas': make_rate(1, 1, {'$': 1, 'banana': -1})
-    },
-    'volumes': {
-      'applezzz': make_rate(4, 1, {'apple': 1}),
-      'bananazzz': make_rate(5, 1, {'banana': 1}),
-      'pearzzzzzz': make_rate(6, 1, {'pear': 1})
-    },
-    'zloops': {'zloop': make_rate(7, 1, {'zloop': 1})}
-  }
-]
+t_prices_apples = lambda: pxyf(
+  {'records': _records, 'k_branch': 'prices', 'k_leaf': 'apples'},
+  '$/apple',
+  f
+)
 
-def t_prices_apples():
-  x = {'records': _records, 'k_branch': 'prices', 'k_leaf': 'apples'}
-  y = '$/apple'
-  return pxyf(x, y, f)
+t_prices_bananas = lambda: pxyf(
+  {'records': _records, 'k_branch': 'prices', 'k_leaf': 'bananas'},
+  '$/banana',
+  f
+)
 
-def t_prices_bananas():
-  x = {'records': _records, 'k_branch': 'prices', 'k_leaf': 'bananas'}
-  y = '$/banana'
-  return pxyf(x, y, f)
+t_volumes_applezzz = lambda: pxyf(
+  {'records': _records, 'k_branch': 'volumes', 'k_leaf': 'applezzz'},
+  '   apple',
+  f
+)
 
-def t_volumes_applezzz():
-  x = {'records': _records, 'k_branch': 'volumes', 'k_leaf': 'applezzz'}
-  y = '   apple'
-  return pxyf(x, y, f)
+t_volumes_bananazzz = lambda: pxyf(
+  {'records': _records, 'k_branch': 'volumes', 'k_leaf': 'bananazzz'},
+  '   banana',
+  f
+)
 
-def t_volumes_bananazzz():
-  x = {'records': _records, 'k_branch': 'volumes', 'k_leaf': 'bananazzz'}
-  y = '   banana'
-  return pxyf(x, y, f)
+t_volumes_pearzzzzzz = lambda: pxyf(
+  {'records': _records, 'k_branch': 'volumes', 'k_leaf': 'pearzzzzzz'},
+  '      pear',
+  f
+)
 
-def t_volumes_pearzzzzzz():
-  x = {'records': _records, 'k_branch': 'volumes', 'k_leaf': 'pearzzzzzz'}
-  y = '      pear'
-  return pxyf(x, y, f)
-
-def t_zloops_zloop():
-  x = {'records': _records, 'k_branch': 'zloops', 'k_leaf': 'zloop'}
-  y = ' zloop'
-  return pxyf(x, y, f)
+t_zloops_zloop = lambda: pxyf(
+  {'records': _records, 'k_branch': 'zloops', 'k_leaf': 'zloop'},
+  ' zloop',
+  f
+)
 
 def t():
   if not t_prices_apples(): return pf('!t_prices_apples')
