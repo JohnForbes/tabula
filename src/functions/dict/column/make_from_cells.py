@@ -1,13 +1,16 @@
 from hak.one.string.is_a import f as is_str
 from hak.one.tuple.is_a import f as is_tuple
 from hak.pf import f as pf
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
 from src.functions.dict.cell.is_a import f as is_cell
-from src.functions.dict.cell.make import f as make_cell
+from src.functions.dict.cell.make import f as cell
 from src.functions.dict.column.is_a import f as is_column
 
-def f(name, cells, path=None):
+def f(x):
+  name = x['name']
+  cells = x['cells']
+  path = None if 'path' not in x else x['path']
   for c in cells:
     if not is_cell(c):
       raise TypeError(f'cell, c: {c} was not of type cell')
@@ -22,54 +25,61 @@ def f(name, cells, path=None):
   return y
 
 def t_a():
-  x = {'name': 'banana', 'path': None}
-  x['cells'] = [make_cell(v, x['name']) for v in ['b1', 'b2', 'b3']]
-  z = f(**x)
+  _name = 'banana'
+  x = {
+    'name': _name,
+    'path': None,
+    'cells': [
+      cell({'value': v, 'field_name': _name}) for v in ['b1', 'b2', 'b3']
+    ]
+  }
+  z = f(x)
   if not is_column(z): return pf(f'not is_column(z); z: {z}')
-  return True
+  return 1
 
 def t_d():
-  x = {'name': 'abc'}
-  x['cells'] = [make_cell(v, x['name']) for v in [0, 1, 2]]
+  _name = 'abc'
+  x = {
+    'name': _name,
+    'cells': [cell({'value': v, 'field_name': _name}) for v in [0, 1, 2]]
+  }
   y = {
     'name': 'abc',
-    'cells': [make_cell(v, 'abc') for v in [0, 1, 2]],
+    'cells': [cell({'value': v, 'field_name': 'abc'}) for v in [0, 1, 2]],
     'path': ()
   }
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_path_as_str():
   x = {
     'name': 'abc',
-    'path': 'root'
+    'path': 'root',
+    'cells': [cell({'value': v, 'field_name': 'abc'}) for v in [0, 1, 2]]
   }
-  x['cells'] = [make_cell(v, 'abc') for v in [0, 1, 2]]
   y = {
     'name': 'abc',
-    'cells': [make_cell(v, 'abc') for v in [0, 1, 2]],
+    'cells': [cell({'value': v, 'field_name': 'abc'}) for v in [0, 1, 2]],
     'path': ('root',)
   }
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_path():
+  _name = 'abc'
   x = {
-    'name': 'abc',
-    'path': ('root', 'branch')
+    'name': _name,
+    'path': ('root', 'branch'),
+    'cells': [cell({'value': v, 'field_name': _name}) for v in [0, 1, 2]]
   }
-  x['cells'] = [make_cell(v, x['name']) for v in [0, 1, 2]]
   y = {
     'name': 'abc',
-    'cells': [make_cell(v, 'abc') for v in [0, 1, 2]],
+    'cells': [cell({'value': v, 'field_name': 'abc'}) for v in [0, 1, 2]],
     'path': ('root', 'branch')
   }
-  z = f(**x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t():
   if not t_a(): return pf('!t_a')
   if not t_d(): return pf('!t_d')
   if not t_path(): return pf('!t_path')
   if not t_path_as_str(): return pf('!t_path_as_str')
-  return True
+  return 1
