@@ -1,10 +1,10 @@
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 from hak.one.dict.rate.make import f as make_rate
 
-from src.functions.dict.records_and_function.to_underlined_row import f as g
-from src.functions.dict.records_k_branch_k_leaf.to_unit_cell_str import f as h
+from src.functions.dict.records_and_function.to_underlined_row import f as f_a
+from src.functions.dict.records_k_branch_k_leaf.to_unit_cell_str import f as f_b
 
-f = lambda x: g({'records': x, 'function': h})
+f = lambda x: f_a({'records': x, 'function': f_b})
 
 def t():
   x = [
@@ -37,5 +37,4 @@ def t():
     '| $/apple | $/banana |    apple |    banana |       pear |  zloop |',
     '|---------|----------|----------|-----------|------------|--------|',
   ]
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
