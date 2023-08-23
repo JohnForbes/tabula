@@ -7,7 +7,7 @@ from hak.one.set.random.make import f as make_random_set
 from hak.one.string.random.make import f as make_random_str
 from hak.one.tuple.random.make import f as make_random_tuple
 from hak.pf import f as pf
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
 from .make import f as make_cell
 
@@ -17,51 +17,17 @@ def f(x):
   if 'value' not in x: return 0
   return 1
 
-def t_false_none():
-  x = None
-  return pxyz(x, 0, f(x))
-
-def t_false_int():
-  x = make_random_int(0, 10)
-  return pxyz(x, 0, f(x))
-
-def t_false_float():
-  x = make_random_float()
-  return pxyz(x, 0, f(x))
-
-def t_false_str():
-  x = make_random_str()
-  return pxyz(x, 0, f(x))
-
-def t_false_set():
-  x = make_random_set()
-  return pxyz(x, 0, f(x))
-
-def t_false_tuple():
-  x = make_random_tuple()
-  return pxyz(x, 0, f(x))
-
-def t_false_bool():
-  x = make_random_bool()
-  return pxyz(x, 0, f(x))
-
-def t_false_list():
-  x = make_random_list()
-  return pxyz(x, 0, f(x))
-
-def t_false_dict_empty():
-  x = {}
-  return pxyz(x, 0, f(x))
-
-def t_false_dict_wrong_k_count():
-  x = {'value': 0}
-  return pxyz(x, 0, f(x))
-
-def t_true():
-  x = make_cell(value=0, field_name='i')
-  y = 1
-  z = f(x)
-  return pxyz(x, y, z)
+t_false_none               = lambda: pxyf(None, 0, f)
+t_false_int                = lambda: pxyf(make_random_int(0, 10), 0, f)
+t_false_float              = lambda: pxyf(make_random_float(), 0, f)
+t_false_str                = lambda: pxyf(make_random_str(), 0, f)
+t_false_set                = lambda: pxyf(make_random_set(), 0, f)
+t_false_tuple              = lambda: pxyf(make_random_tuple(), 0, f)
+t_false_bool               = lambda: pxyf(make_random_bool(), 0, f)
+t_false_list               = lambda: pxyf(make_random_list(), 0, f)
+t_false_dict_empty         = lambda: pxyf({}, 0, f)
+t_false_dict_wrong_k_count = lambda: pxyf({'value': 0}, 0, f)
+t_true                     = lambda: pxyf(make_cell(0, 'i'), 1, f)
 
 def t():
   if not t_false_bool(): return pf('!t_false_bool')
