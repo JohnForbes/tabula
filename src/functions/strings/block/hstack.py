@@ -1,4 +1,4 @@
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
 # hstack
 f = lambda x: ['|'.join([x_i[j] for x_i in x]) for j in range(len(x[0]))]
@@ -38,5 +38,4 @@ def t():
     " Charlie |  22 |      UK ",
     "---------|-----|---------",
   ]
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
