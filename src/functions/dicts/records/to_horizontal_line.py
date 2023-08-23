@@ -1,23 +1,17 @@
 # ignore_overlength_lines
 
-from ...dict.records_k_branch_k_leaf.to_col_hor_line import f as records_k_branch_k_leaf_to_col_hor_line
-from ...dict.records_k_branch_k_leaf.to_k_branch_k_leaf_pairs import f as records_to_k_branch_k_leaf_pairs
-
-# from archive.cell_lines_to_row_line import f as cell_lines_to_row_line
-from src.functions.strings.cell_lines.to_row_line import f as cell_lines_to_row_line
+from ...dict.records_k_branch_k_leaf.to_col_hor_line import f as f_a
+from ...dict.records_k_branch_k_leaf.to_k_branch_k_leaf_pairs import f as f_b
+from ...strings.cell_lines.to_row_line import f as f_c
 
 from hak.one.dict.rate.make import f as make_rate
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
 # records_to_horizontal_line
-f = lambda x: cell_lines_to_row_line([
-  records_k_branch_k_leaf_to_col_hor_line({
-    'records': x,
-    'k_branch': a,
-    'k_leaf': b
-  })
+f = lambda x: f_c([
+  f_a({'records': x, 'k_branch': a, 'k_leaf': b})
   for (a, b)
-  in records_to_k_branch_k_leaf_pairs(x)
+  in f_b(x)
 ])
 
 def t():
@@ -48,5 +42,4 @@ def t():
     }
   ]
   y = '|---------|----------|----------|-----------|------------|--------|'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
