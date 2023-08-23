@@ -1,7 +1,7 @@
 # ignore_overlength_lines
 from hak.one.dict.rate.make import f as make_rate
 from hak.pf import f as pf
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
 from ...ints.cell_value_widths.to_aggregate_width import f as cell_val_widths_to_aggregate_width
 from ..records_k_branch_k_leaf.to_leaf_col_width import f as records_k_branch_k_leaf_to_leaf_col_width
@@ -51,9 +51,7 @@ def t_prices():
     'records': records,
     'field_name': 'prices'
   }
-  y = 18
-  z = f(x)
-  return pxyz(records, y, z)
+  return pxyf(x, 18, f)
 
 def t_volumes():
   x = {
@@ -61,27 +59,25 @@ def t_volumes():
       {
         '...': {},
         'volumes': {
-          'applezzz': {'numerator': 1, 'denominator': 1, 'unit': {'apple': 1}},
-          'bananazzz': {'numerator': 2, 'denominator': 1, 'unit': {'banana': 1}},
-          'pearzzzzzz': {'numerator': 3, 'denominator': 1, 'unit': {'pear': 1}}
+          'applezzz': make_rate(1, 1, {'apple': 1}),
+          'bananazzz': make_rate(2, 1, {'banana': 1}),
+          'pearzzzzzz': make_rate(3, 1, {'pear': 1})
         },
         '...': {}
       }, 
       {
         '...': {},
         'volumes': {
-          'applezzz': {'numerator': 4, 'denominator': 1, 'unit': {'apple': 1}},
-          'bananazzz': {'numerator': 5, 'denominator': 1, 'unit': {'banana': 1}},
-          'pearzzzzzz': {'numerator': 6, 'denominator': 1, 'unit': {'pear': 1}}
+          'applezzz': make_rate(4, 1, {'apple': 1}),
+          'bananazzz': make_rate(5, 1, {'banana': 1}),
+          'pearzzzzzz': make_rate(6, 1, {'pear': 1})
         },
         '...': {}
       }
     ],
     'field_name': 'volumes'
   }
-  y = 33
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, 33, f)
 
 def t_zloops():
   x = {
@@ -103,12 +99,10 @@ def t_zloops():
     ],
     'field_name': 'zloops'
   }
-  y = 6
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, 6, f)
 
 def t():
   if not t_prices(): return pf('!t_prices')
   if not t_volumes(): return pf('!t_volumes')
   if not t_zloops(): return pf('!t_zloops')
-  return True
+  return 1
