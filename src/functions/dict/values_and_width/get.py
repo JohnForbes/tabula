@@ -1,4 +1,4 @@
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
 from src.functions.dict.value_and_width.to_str import f as make_line_value
 
@@ -9,11 +9,8 @@ f = lambda x: [
   in x['values']
 ]
 
-def t():
-  x = {
-    'values': [0, 1, 2, 3],
-    'width': 4
-  }
-  y = ['    0 ', '    1 ', '    2 ', '    3 ']
-  z = f(x)
-  return pxyz(x, y, z)
+t = lambda: pxyf(
+  {'values': [0, 1, 2, 3], 'width': 4},
+  ['    0 ', '    1 ', '    2 ', '    3 '],
+  f
+)
