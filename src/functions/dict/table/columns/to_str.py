@@ -2,9 +2,9 @@ from datetime import date
 from hak.one.list.remove_duplicates import f as remove_duplicates
 from hak.one.string.find_last_char import f as find_last_char
 from hak.pf import f as pf
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
-from ...column.make_from_values import f as make_column
+from ...column.make_from_values import f as column
 from ...column.to_str import f as column_to_str
 from ...column.width.get import f as get_column_width
 from ....ints.cell_value_widths.to_aggregate_width import f as make_line_value
@@ -53,16 +53,16 @@ def _f_b(columns, separator='|'):
     *_f_a(columns, separator).split('\n')
   ]))
 
-f = lambda columns, separator='|': (
-  _f_a if set([c['path'] for c in columns]) == {()} else
+f = lambda x='|': (
+  _f_a if set([c['path'] for c in x['columns']]) == {()} else
   _f_b
-)(columns, separator)
+)(x['columns'], x['separator'])
 
 def t_00():
   x = {
     'columns': [
-      make_column('abc', [0, 1, 2, 3]),
-      make_column('ghi', [0, 10, 200, 3000])
+      column({'name': 'abc', 'values': [0, 1, 2, 3]}),
+      column({'name': 'ghi', 'values': [0, 10, 200, 3000]})
     ],
     'separator': '|'
   }
@@ -78,15 +78,14 @@ def t_00():
     '   3 | 3000 ',
     '-----|------',
   ])
-  z = f(**x)
-  return pxyz(x, '\n'+y, '\n'+z)
+  return pxyf(x, y, f, new_line=1)
 
 def t_01():
   x = {
     'columns': [
-      make_column('abc', [0, 1, 2, 3]),
-      make_column('ghi', [0, 10, 200, 3000]),
-      make_column('jklm', ['abc', 'blergh', 'wragh', 'hmmm'])
+      column({'name': 'abc', 'values': [0, 1, 2]}),
+      column({'name': 'ghi', 'values': [0, 10, 2000]}),
+      column({'name': 'jklm', 'values': ['abc', 'blergh', 'wragh']}),
     ],
     'separator': '|'
   }
@@ -98,20 +97,22 @@ def t_01():
     '-----|------|--------',
     '     |      |    abc ',
     '   1 |   10 | blergh ',
-    '   2 |  200 |  wragh ',
-    '   3 | 3000 |   hmmm ',
+    '   2 | 2000 |  wragh ',
     '-----|------|--------',
   ])
-  z = f(**x)
-  return pxyz(x, '\n'+y, '\n'+z)
+  return pxyf(x, y, f, new_line=1)
 
 def t_date():
   x = {
     'columns': [
-      make_column('abc', [0, 1, 2, 3]),
-      make_column('ghi', [0, 10, 200, 3000]),
-      make_column('jklm', ['abc', 'blergh', 'wragh', 'hmmm']),
-      make_column('date', [date(2023, m, 1) for m in range(1, 5)])
+      column({'name': 'abc', 'values': [0, 1, 2]}),
+      column({'name': 'ghi', 'values': [0, 10, 2000]}),
+      column({'name': 'jklm', 'values': ['abc', 'blergh', 'wragh']}),
+      column({'name': 'date', 'values': [
+        date(2023, m, 1)
+        for m
+        in range(1, 4)
+      ]}),
     ],
     'separator': '|'
   }
@@ -123,18 +124,16 @@ def t_date():
     '-----|------|--------|------------',
     '     |      |    abc | 2023-01-01 ',
     '   1 |   10 | blergh | 2023-02-01 ',
-    '   2 |  200 |  wragh | 2023-03-01 ',
-    '   3 | 3000 |   hmmm | 2023-04-01 ',
+    '   2 | 2000 |  wragh | 2023-03-01 ',
     '-----|------|--------|------------',
   ])
-  z = f(**x)
-  return pxyz(x, '\n'+y, '\n'+z)
+  return pxyf(x, y, f, new_line=1)
 
 def t_common_path():
   x = {
     'columns': [
-      make_column('abc', [0,  1,   2,    3], 'numbers'),
-      make_column('ghi', [0, 10, 200, 3000], 'numbers'),
+      column({'name': 'abc', 'values': [0,  1,   2,    3], 'path': 'numbers'}),
+      column({'name': 'ghi', 'values': [0, 10, 200, 3000], 'path': 'numbers'}),
     ],
     'separator': '|'
   }
@@ -152,15 +151,14 @@ def t_common_path():
     '   3 | 3000 ',
     '-----|------',
   ])
-  z = f(**x)
-  return pxyz(x, '\n'+y, '\n'+z)
+  return pxyf(x, y, f, new_line=1)
 
 def t_numbers_let_paths():
   x = {
     'columns': [
-      make_column('abc', [0,  1,   2,    3], 'numbers'),
-      make_column('ghi', [0, 10, 200, 3000], 'numbers'),
-      make_column('jkl', list('abcd'), 'let'),
+      column({'name': 'abc', 'values': [0,  1,   2,    3], 'path': 'numbers'}),
+      column({'name': 'ghi', 'values': [0, 10, 200, 3000], 'path': 'numbers'}),
+      column({'name': 'jkl', 'values': list('abcd'), 'path': 'let'}),
     ],
     'separator': '|'
   }
@@ -178,15 +176,14 @@ def t_numbers_let_paths():
     '   3 | 3000 |   d ',
     '-----|------|-----',
   ])
-  z = f(**x)
-  return pxyz(x, '\n'+y, '\n'+z)
+  return pxyf(x, y, f, new_line=1)
 
 def t_numbers_letters_paths():
   x = {
     'columns': [
-      make_column('abc', [0,  1,   2,    3], 'numbers'),
-      make_column('ghi', [0, 10, 200, 3000], 'numbers'),
-      make_column('jkl', list('abcd'), 'letters')
+      column({'name': 'abc', 'values': [0,  1,   2,    3], 'path': 'numbers'}),
+      column({'name': 'ghi', 'values': [0, 10, 200, 3000], 'path': 'numbers'}),
+      column({'name': 'jkl', 'values': list('abcd'), 'path': 'letters'}),
     ],
     'separator': '|'
   }
@@ -204,16 +201,19 @@ def t_numbers_letters_paths():
     '   3 | 3000 |       d ',
     '-----|------|---------',
   ])
-  z = f(**x)
-  return pxyz(x, '\n'+y, '\n'+z)
+  return pxyf(x, y, f, new_line=1)
 
 def t_numbers_letters_paths_2():
   x = {
     'columns': [
-      make_column('abc', [0,  1,   2,    3], 'numbers'),
-      make_column('ghi', [0, 10, 200, 3000], 'numbers'),
-      make_column('jkl', list('abcd'), 'letters'),
-      make_column('mno', ['a', 'bb', 'ccc', 'dddd'], 'letters')
+      column({'name': 'abc', 'values': [0,  1,   2,    3], 'path': 'numbers'}),
+      column({'name': 'ghi', 'values': [0, 10, 200, 3000], 'path': 'numbers'}),
+      column({'name': 'jkl', 'values': list('abcd'), 'path': 'letters'}),
+      column({
+        'name': 'mno',
+        'values': ['a', 'bb', 'ccc', 'dddd'],
+        'path': 'letters'
+      }),
     ],
     'separator': '|'
   }
@@ -231,8 +231,7 @@ def t_numbers_letters_paths_2():
     '   3 | 3000 |   d | dddd ',
     '-----|------|-----|------',
   ])
-  z = f(**x)
-  return pxyz(x, '\n'+y, '\n'+z)
+  return pxyf(x, y, f, new_line=1)
 
 def t():
   if not t_00(): return pf('!t_00')
@@ -242,4 +241,4 @@ def t():
   if not t_numbers_let_paths(): return pf('!t_numbers_let_paths')
   if not t_numbers_letters_paths(): return pf('!t_numbers_letters_paths')
   if not t_numbers_letters_paths_2(): return pf('!t_numbers_letters_paths_2')
-  return True
+  return 1
