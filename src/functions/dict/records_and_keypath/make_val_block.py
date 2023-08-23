@@ -1,5 +1,5 @@
 from hak.pf import f as pf
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
 # from misc.value_row_strings.get import f as get_value_row_strings
 from src.functions.dict.values_and_width.get import f as get_value_row_strings
@@ -53,9 +53,8 @@ def t_age():
     'keypath': ('Info', 'Age')
   }
   y = [' Age ', '-----', '  28 ', '  35 ', '  22 ', '-----']
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t():
   if not t_age(): return pf('!t_age')
-  return True
+  return 1
