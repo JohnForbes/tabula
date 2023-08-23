@@ -14,4 +14,4 @@ def t():
   if not is_list(z['row_order']): return pf("not is_list(z['row_order'])")
   if 'cells' not in z: return pf("'cells' not in z")
   if not is_dict(z['cells']): return pf("not is_dict(z['cells'])")
-  return True
+  return 1
