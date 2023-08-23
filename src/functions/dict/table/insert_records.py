@@ -1,10 +1,16 @@
-from hak.pxyz import f as pxyz
-from src.functions.dict.cell.make import f as make_cell
-from src.functions.dict.table.make import f as make_table
-from src.functions.dict.table.insert_record import f as insert_record
+from hak.pxyf import f as pxyf
 
-f = lambda table, records: (
-  f(insert_record(table, records[0]), records[1:]) if records else table
+from ..cell.make import f as make_cell
+from .insert_record import f as insert_record
+from .make import f as make_table
+
+f = lambda x: (
+  f({
+    'table': insert_record({'table': x['table'], 'record': x['records'][0]}),
+    'records': x['records'][1:]
+  })
+  if x['records'] else
+  x['table']
 )
 
 def t():
@@ -20,16 +26,15 @@ def t():
     'column_order': ['a', 'b', 'c'],
     'row_order': [0, 1, 2],
     'cells': {
-      ('a', 0): make_cell(0, 'a'),
-      ('b', 0): make_cell(1, 'b'),
-      ('c', 0): make_cell(2, 'c'),
-      ('a', 1): make_cell(3, 'a'),
-      ('b', 1): make_cell(4, 'b'),
-      ('c', 1): make_cell(5, 'c'),
-      ('a', 2): make_cell(6, 'a'),
-      ('b', 2): make_cell(7, 'b'),
-      ('c', 2): make_cell(8, 'c'),
+      ('a', 0): make_cell({'value': 0, 'field_name': 'a'}),
+      ('b', 0): make_cell({'value': 1, 'field_name': 'b'}),
+      ('c', 0): make_cell({'value': 2, 'field_name': 'c'}),
+      ('a', 1): make_cell({'value': 3, 'field_name': 'a'}),
+      ('b', 1): make_cell({'value': 4, 'field_name': 'b'}),
+      ('c', 1): make_cell({'value': 5, 'field_name': 'c'}),
+      ('a', 2): make_cell({'value': 6, 'field_name': 'a'}),
+      ('b', 2): make_cell({'value': 7, 'field_name': 'b'}),
+      ('c', 2): make_cell({'value': 8, 'field_name': 'c'}),
     }
   }
-  z = f(**x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
