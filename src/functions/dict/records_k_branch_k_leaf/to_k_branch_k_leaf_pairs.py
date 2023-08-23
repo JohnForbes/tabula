@@ -1,21 +1,21 @@
 # ignore_overlength_lines
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 from hak.one.dict.rate.make import f as make_rate
 
-from ...dicts.records.to_first_record_sorted_keys import f as get_K
-from ..records_and_field_name.to_sorted_leaf_keys import f as records_k_branch_to_sorted_leaf_keys
+from ...dicts.records.to_first_record_sorted_keys import f as f_a
+from ..records_and_field_name.to_sorted_leaf_keys import f as f_b
 
 # f_n
 # records_to_k_branch_k_leaf_pairs
 # records_to_k_b_k_l_pairs
 f = lambda x: [
   (a, b)
-  for a in get_K(x)
-  for b in records_k_branch_to_sorted_leaf_keys({'records': x, 'field_name': a})
+  for a in f_a(x)
+  for b in f_b({'records': x, 'field_name': a})
 ]
 
-def t():
-  x = [
+t = lambda: pxyf(
+  [
     {
       'prices': {
         'apples': make_rate(1, 4, {'$': 1, 'apple': -1}),
@@ -40,14 +40,14 @@ def t():
       },
       'zloops': {'zloop': make_rate(7, 1, {'zloop': 1})}
     }
-  ]
-  y = [
+  ],
+  [
     ('prices',  'apples'    ),
     ('prices',  'bananas'   ),
     ('volumes', 'applezzz'  ),
     ('volumes', 'bananazzz' ),
     ('volumes', 'pearzzzzzz'),
     ('zloops',  'zloop'     )
-  ]
-  z = f(x)
-  return pxyz(x, y, z)
+  ],
+  f
+)
