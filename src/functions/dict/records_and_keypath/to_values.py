@@ -1,4 +1,4 @@
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 from hak.pf import f as pf
 from src.functions.dict.record_and_keypath.to_value import f as r_kp_to_val
 
@@ -10,43 +10,40 @@ f = lambda x: [
   in x['records']
 ]
 
-def t_1():
-  x = {
-    'records': [{'a': 0}, {'a': 1}, {'a': 2}],
-    'keypath': ('a', )
-  }
-  y = [0, 1, 2]
-  z = f(x)
-  return pxyz(x, y, z)
+t_1 = lambda: pxyf(
+  {'records': [{'a': 0}, {'a': 1}, {'a': 2}], 'keypath': ('a', )},
+  [0, 1, 2],
+  f
+)
 
-def t_2():
-  x = {
+t_2 = lambda: pxyf(
+  {
     'records': [
       {'a': {'b': 0, 'c': 2}},
       {'a': {'b': 1, 'c': 1}},
       {'a': {'b': 2, 'c': 0}}
     ],
     'keypath': ('a', 'c')
-  }
-  y = [2, 1, 0]
-  z = f(x)
-  return pxyz(x, y, z)
+  },
+  [2, 1, 0],
+  f
+)
 
-def t_3():
-  x = {
+t_3 = lambda: pxyf(
+  {
     'records': [
       {'a': {'b': {'d': 4, 'e': 7}, 'c': 2}},
       {'a': {'b': {'d': 5, 'e': 8}, 'c': 1}},
       {'a': {'b': {'d': 6, 'e': 9}, 'c': 0}}
     ],
     'keypath': ('a', 'b', 'd')
-  }
-  y = [4, 5, 6]
-  z = f(x)
-  return pxyz(x, y, z)
+  },
+  [4, 5, 6],
+  f
+)
 
-def t_4():
-  x = {
+t_4 = lambda: pxyf(
+  {
     'records': [
       {
         'Name': 'Alice',
@@ -74,14 +71,14 @@ def t_4():
       }
     ],
     'keypath': ('Info', 'Appearance', 'Eye Colour')
-  }
-  y = ['Green', 'Brown', 'Blue']
-  z = f(x)
-  return pxyz(x, y, z)  
+  },
+  ['Green', 'Brown', 'Blue'],
+  f
+)
 
 def t():
   if not t_1(): return pf('!t_1')
   if not t_2(): return pf('!t_2')
   if not t_3(): return pf('!t_3')
   if not t_4(): return pf('!t_4')
-  return True
+  return 1
