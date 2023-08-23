@@ -1,7 +1,7 @@
 from hak.one.dict.rate.make import f as make_rate
 from hak.one.dict.unit.to_str import f as unit_to_str
 from hak.pf import f as pf
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
 # records_k_branch_k_leaf_to_unpadded_unit_str
 f = lambda x: unit_to_str(x['records'][0][x['k_branch']][x['k_leaf']]['unit'])
@@ -19,8 +19,7 @@ def t_prices_apples():
     'k_leaf': 'apples'
   }
   y = '$/apple'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_prices_bananas():  
   x = {
@@ -38,8 +37,7 @@ def t_prices_bananas():
     'k_leaf': 'bananas'
   }
   y = '$/banana'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_volumes_applezzz():  
   x = {
@@ -54,8 +52,7 @@ def t_volumes_applezzz():
     'k_leaf': 'applezzz'
   }
   y = 'apple'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_volumes_bananazzz():  
   x = {
@@ -70,8 +67,7 @@ def t_volumes_bananazzz():
     'k_leaf': 'bananazzz'
   }
   y = 'banana'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_volumes_pearzzzzzz():  
   x = {
@@ -86,8 +82,7 @@ def t_volumes_pearzzzzzz():
     'k_leaf': 'pearzzzzzz'
   }
   y = 'pear'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_zloops_zloop():  
   x = {
@@ -102,8 +97,7 @@ def t_zloops_zloop():
     'k_leaf': 'zloop'
   }
   y = 'zloop'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t():
   if not t_prices_apples(): return pf('!t_prices_apples')
@@ -112,4 +106,4 @@ def t():
   if not t_volumes_bananazzz(): return pf('!t_volumes_bananazzz')
   if not t_volumes_pearzzzzzz(): return pf('!t_volumes_pearzzzzzz')
   if not t_zloops_zloop(): return pf('!t_zloops_zloop')
-  return True
+  return 1
