@@ -1,11 +1,5 @@
 from hak.pf import f as pf
-from hak.pxyz import f as pxyz
-
-# f = lambda record, keypath: (
-#   f(record[keypath[0]], keypath[1:])
-#   if len(keypath) > 1 else
-#   record[keypath[0]]
-# )
+from hak.pxyf import f as pxyf
 
 f = lambda x: (
   f({
@@ -16,15 +10,12 @@ f = lambda x: (
   x['record'][x['keypath'][0]]
 )
 
-def t_a():
-  x = {
-    'record': {'a': {'b': 0, 'c': 2}},
-    'keypath': ('a', 'c')
-  }
-  y = 2
-  z = f(x)
-  return pxyz(x, y, z)
+t_a = lambda: pxyf(
+  {'record': {'a': {'b': 0, 'c': 2}}, 'keypath': ('a', 'c')},
+  2,
+  f
+)
 
 def t():
   if not t_a(): return pf('!t_a')
-  return True
+  return 1
