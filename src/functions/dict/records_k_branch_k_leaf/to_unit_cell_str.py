@@ -1,7 +1,7 @@
 # ignore_overlength_lines
 from hak.one.dict.rate.make import f as make_rate
 from hak.pf import f as pf
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
 from .to_leaf_col_width import f as to_leaf_col_width
 from .to_unpadded_unit_str import f as to_unpadded_unit_str
@@ -40,38 +40,32 @@ _records = [
 def t_prices_apples():
   x = {'records': _records, 'k_branch': 'prices', 'k_leaf': 'apples'}
   y = '$/apple'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_prices_bananas():
   x = {'records': _records, 'k_branch': 'prices', 'k_leaf': 'bananas'}
   y = '$/banana'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_volumes_applezzz():
   x = {'records': _records, 'k_branch': 'volumes', 'k_leaf': 'applezzz'}
   y = '   apple'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_volumes_bananazzz():
   x = {'records': _records, 'k_branch': 'volumes', 'k_leaf': 'bananazzz'}
   y = '   banana'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_volumes_pearzzzzzz():
   x = {'records': _records, 'k_branch': 'volumes', 'k_leaf': 'pearzzzzzz'}
   y = '      pear'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_zloops_zloop():
   x = {'records': _records, 'k_branch': 'zloops', 'k_leaf': 'zloop'}
   y = ' zloop'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t():
   if not t_prices_apples(): return pf('!t_prices_apples')
@@ -80,4 +74,4 @@ def t():
   if not t_volumes_bananazzz(): return pf('!t_volumes_bananazzz')
   if not t_volumes_pearzzzzzz(): return pf('!t_volumes_pearzzzzzz')
   if not t_zloops_zloop(): return pf('!t_zloops_zloop')
-  return True
+  return 1
