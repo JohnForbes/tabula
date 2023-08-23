@@ -1,5 +1,5 @@
 from math import tau
-from hak.pxyf import f as pxyf
+from hak.pxyz import f as pxyz
 
 from src.functions.dict.node.make import f as make_node
 
@@ -11,4 +11,5 @@ def f(node, value):
 def t():
   x = {'node': make_node('foo'), 'value': tau}
   y = {'name': 'foo', 'value': tau, 'parent': None, 'children': []}
-  return pxyf(x, y, f)
+  z = f(**x)
+  return pxyz(x, y, z)
