@@ -2,48 +2,23 @@
 
 from hak.one.dict.rate.make import f as make_rate
 from hak.pf import f as pf
-from hak.pxyz import f as pxyz
+from hak.pxyf import f as pxyf
 
-from ...strings.cell_strings.to_table_row import f as row_as_cells_to_row_as_str
-from ..records_k_branch_k_leaf.to_k_branch_k_leaf_pairs import f as records_to_k_b_k_l_pairs
+from ...strings.cell_strings.to_table_row import f as j
+from ..records_k_branch_k_leaf.to_k_branch_k_leaf_pairs import f as get_pairs
 from ..records_k_branch_k_leaf.to_leaf_cell import f as h
-from ..records_k_branch_k_leaf.to_unit_cell_str import f as records_k_branch_k_leaf_to_unit_cell_str
+from ..records_k_branch_k_leaf.to_unit_cell_str import f as g
+
+from hak.many.dicts.a_into_b import f as a_into_b
 
 # f_t
 # records_to_row_using_fn
 def f(x):
-  # print(f'x.keys(): {x.keys()}')
-
-  results = []
-  pairs = records_to_k_b_k_l_pairs(x['records'])
-  for (k_branch, k_leaf) in pairs:
-    # print(f'k_branch: {k_branch}')
-    # print(f'k_leaf: {k_leaf}')
-    _result = x['function']({
-      'records': x['records'],
-      'k_branch': k_branch,
-      'k_leaf': k_leaf
-    })
-    # print(f'_result: {_result}')
-    results.append(_result)
-
-  # print(f'results: {results}')
-  
-  final_result = row_as_cells_to_row_as_str(results, ' ')
-  # print(f'final_result: {final_result}')
-  # print()
-
-  return final_result
-  
-  # return row_as_cells_to_row_as_str([
-  #   x['function']({
-  #     'records': x['records'],
-  #     'k_branch': k_branch,
-  #     'k_leaf': k_leaf
-  #   })
-  #   for (k_branch, k_leaf)
-  #   in records_to_k_b_k_l_pairs(x['records'])
-  # ])
+  results = [
+    x['function'](a_into_b({'k_branch': k_branch, 'k_leaf': k_leaf}, x))
+    for (k_branch, k_leaf) in get_pairs(x['records'])
+  ]
+  return j({'cell_strings': results, 'col_separator_char': ' '})
 
 _records = [
   {
@@ -73,24 +48,16 @@ _records = [
 ]
 
 def t_a():
-  x = {
-    'records': _records,
-    'function': h
-  }
+  x = {'records': _records, 'function': h}
   y  = '|  apples |  bananas | applezzz | bananazzz | pearzzzzzz |  zloop |'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t_b():
-  x = {
-    'records': _records,
-    'function': records_k_branch_k_leaf_to_unit_cell_str
-  }
+  x = {'records': _records, 'function': g}
   y  = '| $/apple | $/banana |    apple |    banana |       pear |  zloop |'
-  z = f(x)
-  return pxyz(x, y, z)
+  return pxyf(x, y, f)
 
 def t():
   if not t_a(): return pf('!t_a')
   if not t_b(): return pf('!t_b')
-  return True
+  return 1
