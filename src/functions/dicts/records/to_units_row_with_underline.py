@@ -1,7 +1,5 @@
 # ignore_overlength_lines
 from hak.one.dict.rate.make import f as make_rate
-from hak.pxyf import f as pxyf
-from hak.one.dict.rate.make import f as make_rate
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 
