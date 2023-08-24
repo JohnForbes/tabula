@@ -7,8 +7,8 @@ from hak.pxyf import f as pxyf
 from src.functions.dict.cell.to_str import f as cell_to_str
 from src.functions.dict.column.make_from_values import f as column
 from src.functions.dict.column.width.get import f as get_width
-from src.functions.dict.value_and_width.to_str import f as g
-from src.functions.dict.char_and_width.to_str import f as h
+from src.functions.dict.value_and_width.to_str import f as make_line_value
+from src.functions.dict.char_and_width.to_str import f as make_homogenous_line
 
 _f = lambda x: (
   unit_to_str(x['value']['unit']) if x['datatype'] == 'rate' else ''
@@ -19,13 +19,13 @@ def f(x):
   cell_strings = [f" {cell_to_str(c):>{w}} " for c in x['cells']]
   q = _f(x['cells'][0])
   return '\n'.join([
-    h({'char': '-', 'width': w}),
-    g({'value': x['name'], 'width': w}),
-    h({'char': '-', 'width': w}),
-    g({'value': q, 'width': w}),
-    h({'char': '-', 'width': w}),
+    make_homogenous_line({'char': '-', 'width': w}),
+    make_line_value({'value': x['name'], 'width': w}),
+    make_homogenous_line({'char': '-', 'width': w}),
+    make_line_value({'value': q, 'width': w}),
+    make_homogenous_line({'char': '-', 'width': w}),
     *cell_strings,
-    h({'char': '-', 'width': w}),
+    make_homogenous_line({'char': '-', 'width': w}),
   ])
 
 def t_0():
