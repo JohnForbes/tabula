@@ -1,27 +1,24 @@
 # ignore_overlength_lines
-from .to_horizontal_line import f as records_to_horizontal_line
-
-from .to_k_branch_row import f as records_to_k_branch_row
-from .to_sub_header_and_underline import f as records_to_sh
-from .to_top_border import f as records_to_top_border
-
-# from .to_units_row_and_underline import f as records_to_units_row_with_underline
-# from src.functions.dict.records_and_function.to_underlined_row import f as records_to_units_row_with_underline
-from src.functions.dicts.records.to_units_row_with_underline import f as records_to_units_row_with_underline
-
-from .to_value_rows import f as records_to_value_rows
 from datetime import date
 from hak.one.dict.rate.make import f as make_rate
 from hak.pf import f as pf
+from hak.pxyf import f as pxyf
+
+from .to_horizontal_line import f as make_horizontal_line
+from .to_k_branch_row import f as make_k_branch_row
+from .to_sub_header_and_underline import f as make_subheader
+from .to_top_border import f as make_top_border
+from .to_units_row_with_underline import f as make_units_row
+from .to_value_rows import f as make_value_rows
 
 f = lambda x: '\n'.join([
-  records_to_top_border(x),
-  records_to_k_branch_row(x),
-  records_to_horizontal_line(x),
-  *records_to_sh(x),
-  *records_to_units_row_with_underline(x),
-  *records_to_value_rows(x),
-  records_to_horizontal_line(x)
+  make_top_border(x),
+  make_k_branch_row(x),
+  make_horizontal_line(x),
+  *make_subheader(x),
+  *make_units_row(x),
+  *make_value_rows(x),
+  make_horizontal_line(x)
 ])
 
 def t_nested():
@@ -63,8 +60,7 @@ def t_nested():
     "|    0.75 |     1.00 |     4.00 |      5.00 |       6.00 |   7.00 |",
     "|---------|----------|----------|-----------|------------|--------|",
   ])
-  z = f(x)
-  return y == z or pf([f'x: {x}', f'y:\n{y}', f'z:\n{z}'])
+  return pxyf(x, y, f, new_line=1)
 
 def t_date():
   x = [
@@ -89,8 +85,7 @@ def t_date():
     "| 2023-07-28 |    0.75 |",
     "|------------|---------|",
   ])
-  z = f(x)
-  return y == z or pf([f'x: {x}', f'y:\n{y}', f'z:\n{z}'])
+  return pxyf(x, y, f, new_line=1)
 
 def t():
   if not t_nested(): return pf('t_nested failed')
