@@ -10,7 +10,11 @@ def f_dates_date(x):
   keypath = x['keypath']
   k_0 = keypath[0] # 'dates'
   k_1 = keypath[1] # 'date'
-  column = make_from_values(k_1, [x['record'][k_0][k_1]], k_0)
+  column = make_from_values({
+    'name': k_1,
+    'path': k_0,
+    'values': [x['record'][k_0][k_1]],
+  })
   return column_to_str(column)
 
 def f(x):
@@ -38,8 +42,7 @@ def t_date():
     ' 2023-01-01 ',
     '------------',
   ])
-  z = f(x)
-  return pxyz(x, y, z, new_line=1)
+  return pxyf(x, y, f, new_line=1)
 
 def t():
   if not t_date(): return pf('!t_date')
