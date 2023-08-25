@@ -46,11 +46,7 @@ t_06 = lambda: pxyf(
   f
 )
 
-t_aa = lambda: pxyf(
-  make_cell({'value': 1, 'field_name': 'aa'}),
-  '1',
-  f
-)
+t_b = lambda: pxyf(make_cell({'value': 1, 'field_name': 'b'}), '1', f)
 
 def t():
   if not t_a(): return pf('t_a failed')
@@ -61,5 +57,5 @@ def t():
   if not t_04(): return pf('t_04 failed')
   if not t_05(): return pf('t_05 failed')
   if not t_06(): return pf('t_06 failed')
-  if not t_aa(): return pf('t_aa failed')
+  if not t_b(): return pf('t_b failed')
   return 1
