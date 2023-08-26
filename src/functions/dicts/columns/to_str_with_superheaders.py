@@ -3,7 +3,7 @@ from hak.one.list.remove_duplicates import f as remove_duplicates
 from hak.pf import f as pf
 
 from src.functions.dict.columns_and_paths.get_widths import f as get_path_widths
-from src.functions.h import f as h
+from src.functions.strings.block.homogenise_line_lengths import f as h
 from src.functions.dicts.columns.to_str_without_superheaders import f as f_a
 
 # _f_b
