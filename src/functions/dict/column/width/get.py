@@ -5,39 +5,39 @@ from hak.pxyf import f as pxyf
 
 from ...cell.make import f as cell
 from ...cell.to_str import f as cell_to_str
-from ..make_from_cells import f as make_column
-from ..make_from_values import f as make_column_from_values
+from ..make_from_cells import f as column
+from ..make_from_values import f as column_from_values
 
 # width
 def f(x):
   q = 0
-  if x['cells'][0]['datatype'] == 'rate':
+  if x['cells'][0]['type'] == 'rate':
     q = len(unit_to_str(x['cells'][0]['value']['unit']))
   return max(len(x['name']), *[len(cell_to_str(c)) for c in x['cells']], q)
 
 def t_a():
-  x = make_column({
+  x = column({
     'name': 'apples',
     'cells': [cell({'value': _, 'name': 'apples'}) for _ in range(100)]
   })
   return pxyf(x, 6, f)
 
 def t_cells_dominant_int():
-  x = make_column({
+  x = column({
     'name': 'a',
     'cells': [cell({'value': v, 'name': 'a'}) for v in [0, 1000, 2, 3]]
   })
   return pxyf(x, 4, f)
 
 def t_name_dominant():
-  x = make_column({
+  x = column({
     'name': 'abc',
     'cells': [cell({'value': v, 'name': 'abc'}) for v in [0, 1, 2, 3]]
   })
   return pxyf(x, 3, f)
 
 def t_cells_dominant_rate():
-  x = make_column_from_values({
+  x = column_from_values({
     'name': 'a',
     'values': [
       rate(0, 10, {'m': 1}),
@@ -50,7 +50,7 @@ def t_cells_dominant_rate():
 
 def t_long_unit():
   _unit = {'$': 1, 'banana': -1}
-  x = make_column_from_values({
+  x = column_from_values({
     'name':  'a',
     'values': [
       rate(0, 10, _unit),
