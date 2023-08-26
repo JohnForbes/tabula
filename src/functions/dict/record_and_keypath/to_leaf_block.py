@@ -4,7 +4,7 @@ from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 
 from ...dict.char_and_width.to_str import f as make_homogenous_line
-from ...dict.name_and_values.width.get import f as get_width
+from ...dict.named_vector.width.get import f as get_width
 from ...dict.records_and_keypath.to_values import f as get_values
 from ...dict.value_and_width.to_str import f as make_line_value
 from ...dict.values_and_width.get import f as get_value_row_strings
