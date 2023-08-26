@@ -1,12 +1,12 @@
+from hak.one.dict.get_or_default import f as get_or_default
 from hak.one.string.is_a import f as is_str
 from hak.one.tuple.is_a import f as is_tuple
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
-from hak.one.dict.get_or_default import f as get_or_default
 
-from src.functions.dict.column.is_a import f as is_column
-from src.functions.dict.cell.make import f as cell
-from src.functions.dict.name_and_values.to_cells import f as name_and_V_to_cells
+from .is_a import f as is_column
+from ..cell.make import f as cell
+from ..named_vector.to_cells import f as name_and_V_to_cells
 
 def _validate(x):
   if x:
@@ -16,10 +16,11 @@ def _validate(x):
 
 _cast_to_tup = lambda x: (x if is_tuple(x) else tuple([x])) if x else tuple()
 
-def f(x):
-  y = {'name': x['name'], 'cells': name_and_V_to_cells(x)}
-  y['path'] = _cast_to_tup(_validate(get_or_default(x, 'path', None)))
-  return y
+f = lambda x: {
+  'name': x['name'],
+  'cells': name_and_V_to_cells(x),
+  'path': _cast_to_tup(_validate(get_or_default(x, 'path', None)))
+}
 
 def t_a():
   x = {'name': 'banana', 'path': None, 'values': ['b1', 'b2', 'b3']}
