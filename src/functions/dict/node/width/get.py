@@ -1,6 +1,6 @@
 from datetime import date
 from hak.one.dict.rate.is_a import f as is_rate
-from hak.one.dict.rate.make import f as make_rate
+from hak.one.dict.rate.make import f as rate
 from hak.one.dict.rate.to_str_frac import f as rate_to_str
 from hak.one.dict.unit.to_str import f as unit_to_str
 from hak.pf import f as pf
@@ -9,7 +9,6 @@ from hak.pxyf import f as pxyf
 from ....dict.node.child.add import f as add_child
 from ....dict.node.make import f as make_node
 from ....dict.records_and_name.make_node_tree import f as build_tree
-from ....dicts.nodes.make import f as make_nodes
 
 _to_str = lambda x: rate_to_str(x) if is_rate(x) else str(x)
 
@@ -61,8 +60,8 @@ def t_prices():
   d = {
     'date': date(2023, 1, 1),
     'prices': {
-      'apples': make_rate(1, 4, {'$': 1, 'apple': -1}),
-      'bananas': make_rate(2, 4, {'$': 1, 'banana': -1})
+      'apples': rate(1, 4, {'$': 1, 'apple': -1}),
+      'bananas': rate(2, 4, {'$': 1, 'banana': -1})
     },
   }
   nodes = build_tree('prices', d)
@@ -70,7 +69,7 @@ def t_prices():
   return pxyf(x, len('$/apple')+len('$/banana'), f)
 
 def t_rate():
-  d = {'a': make_rate(1, 4, {'$': 1, 'apple': -1})}
+  d = {'a': rate(1, 4, {'$': 1, 'apple': -1})}
   nodes = build_tree('a', d)
   x = nodes['a']
   return pxyf(x, len('$/apple'), f)
