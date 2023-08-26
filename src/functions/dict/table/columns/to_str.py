@@ -2,12 +2,12 @@ from datetime import date
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 
-from ....dicts.columns.all_have_no_path import f as condition
+from ....dicts.columns.have_no_path import f as columns_have_no_path
 from ....f_a import f as f_a
 from ....f_b import f as f_b
 from ...column.make_from_values import f as column
 
-f = lambda x='|': (f_a if condition(x['columns']) else f_b)(x)
+f = lambda x='|': (f_a if columns_have_no_path(x['columns']) else f_b)(x)
 
 def t_00():
   x = {
