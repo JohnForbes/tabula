@@ -1,4 +1,4 @@
-from src.functions.dict.cell.make import f as make_cell
+from src.functions.dict.cell.make import f as cell
 
 class Table:
   def __init__(self):
@@ -8,7 +8,7 @@ class Table:
   def add_record(self, record):
     self.row_count += 1
     for (k, v) in record.items():
-      self._cells[(k, self.row_count-1)] = make_cell({'value': v, 'name': k})
+      self._cells[(k, self.row_count-1)] = cell({'value': v, 'name': k})
     
   def get_column(self, column_name):
     _cells = [self._cells[(column_name, i)] for i in range(self.row_count)]
