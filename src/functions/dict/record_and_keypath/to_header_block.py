@@ -1,33 +1,32 @@
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 
-from src.functions.dict.record.get_leaf_keypaths import f as get_leaf_keypaths
-from src.functions.dict.value_and_width.to_str import f as make_line_value
-from src.functions.dict.char_and_width.to_str import f as make_homogenous_line
-from src.functions.dict.records_and_keypath.to_values import f as get_values
-from src.functions.dict.name_and_values.width.get import f as get_width
+from ..char_and_width.to_str import f as make_homogenous_line
+from ..named_vector.width.get import f as get_width
+from ..record.get_leaf_keypaths import f as get_leaf_keypaths
+from ..records_and_keypath.to_values import f as get_values
+from ..value_and_width.to_str import f as make_line_value
+from ...ints.cell_value_widths.to_aggregate_width import f as cell_W_to_row_w
+from hak.many.dicts.a_into_b import f as a_into_b
+
+records_leaf_paths_to_W = lambda x: [
+  get_width({
+    'name': keypath[-1],
+    'values': get_values({'records': x['records'], 'keypath': keypath})
+  })
+  for keypath
+  in x['leaf_paths']
+]
 
 # block.header.make
 def f(x):
-  records = x['records']
-  keypath = x['keypath']
-  leaf_paths = sorted(get_leaf_keypaths(records[0], [], set()))
-  leaf_paths = [_ for _ in leaf_paths if _[0] == keypath[0]]
-  
-  _ = [
-    get_width({
-      'name': keypath[-1],
-      'values': get_values({'records': records, 'keypath': keypath})
-    })
-    for keypath
-    in leaf_paths
-  ]
-
-  w = sum(_) + 3*(len(_)-1)
-
+  leaf_paths = sorted(get_leaf_keypaths(x['records'][0], [], set()))
+  leaf_paths = [_ for _ in leaf_paths if _[0] == x['keypath'][0]]
+  leaf_Ws = records_leaf_paths_to_W(a_into_b({'leaf_paths': leaf_paths}, x))
+  w = cell_W_to_row_w(leaf_Ws)
   return [
     make_homogenous_line({'char': '-', 'width': w}),
-    make_line_value({'value': keypath[-1], 'width': w})
+    make_line_value({'value': x['keypath'][-1], 'width': w})
   ]
 
 def t_name():
