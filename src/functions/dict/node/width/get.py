@@ -8,7 +8,7 @@ from hak.pxyf import f as pxyf
 
 from ....dict.node.child.add import f as add_child
 from ....dict.node.make import f as make_node
-from ....dict.records_and_field_name.make_node_tree import f as build_tree
+from ....dict.records_and_name.make_node_tree import f as build_tree
 from ....dicts.nodes.make import f as make_nodes
 
 _to_str = lambda x: rate_to_str(x) if is_rate(x) else str(x)
