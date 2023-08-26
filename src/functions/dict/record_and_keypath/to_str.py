@@ -1,4 +1,4 @@
-from hak.one.dict.rate.make import f as make_rate
+from hak.one.dict.rate.make import f as rate
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 from datetime import date
@@ -27,8 +27,8 @@ def t_date():
     'record': {
       'dates': {'date': date(2023, 1, 1)},
       'prices': {
-        'apples': make_rate(1, 4, {'$': 1, 'apple': -1}),
-        'bananas': make_rate(2, 4, {'$': 1, 'banana': -1})
+        'apples': rate(1, 4, {'$': 1, 'apple': -1}),
+        'bananas': rate(2, 4, {'$': 1, 'banana': -1})
       }
     },
     'keypath': ('dates', 'date')
