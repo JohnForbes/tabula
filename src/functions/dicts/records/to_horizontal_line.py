@@ -4,7 +4,7 @@ from ...dict.records_k_branch_k_leaf.to_col_hor_line import f as f_a
 from ...dict.records_k_branch_k_leaf.to_k_branch_k_leaf_pairs import f as f_b
 from ...strings.cell_lines.to_row_line import f as f_c
 
-from hak.one.dict.rate.make import f as make_rate
+from hak.one.dict.rate.make import f as rate
 from hak.pxyf import f as pxyf
 
 # records_to_horizontal_line
@@ -18,27 +18,27 @@ def t():
   x = [
     {
       'prices': {
-        'apples': make_rate(1, 4, {'$': 1, 'apple': -1}),
-        'bananas': make_rate(2, 4, {'$': 1, 'banana': -1})
+        'apples': rate(1, 4, {'$': 1, 'apple': -1}),
+        'bananas': rate(2, 4, {'$': 1, 'banana': -1})
       },
       'volumes': {
-        'applezzz': make_rate(1, 1, {'apple': 1}),
-        'bananazzz': make_rate(2, 1, {'banana': 1}),
-        'pearzzzzzz': make_rate(3, 1, {'pear': 1})
+        'applezzz': rate(1, 1, {'apple': 1}),
+        'bananazzz': rate(2, 1, {'banana': 1}),
+        'pearzzzzzz': rate(3, 1, {'pear': 1})
       },
-      'zloops': {'zloop': make_rate(7, 1, {'zloop': 1})}
+      'zloops': {'zloop': rate(7, 1, {'zloop': 1})}
     },
     {
       'prices': {
-        'apples': make_rate(3, 4, {'$': 1, 'apple': -1}),
-        'bananas': make_rate(4, 4, {'$': 1, 'banana': -1})
+        'apples': rate(3, 4, {'$': 1, 'apple': -1}),
+        'bananas': rate(4, 4, {'$': 1, 'banana': -1})
       },
       'volumes': {
-        'applezzz': make_rate(4, 1, {'apple': 1}),
-        'bananazzz': make_rate(5, 1, {'banana': 1}),
-        'pearzzzzzz': make_rate(6, 1, {'pear': 1})
+        'applezzz': rate(4, 1, {'apple': 1}),
+        'bananazzz': rate(5, 1, {'banana': 1}),
+        'pearzzzzzz': rate(6, 1, {'pear': 1})
       },
-      'zloops': {'zloop': make_rate(7, 1, {'zloop': 1})}
+      'zloops': {'zloop': rate(7, 1, {'zloop': 1})}
     }
   ]
   y = '|---------|----------|----------|-----------|------------|--------|'
