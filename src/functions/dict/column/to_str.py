@@ -11,7 +11,7 @@ from src.functions.dict.value_and_width.to_str import f as make_line_value
 from src.functions.dict.char_and_width.to_str import f as make_homogenous_line
 
 _f = lambda x: (
-  unit_to_str(x['value']['unit']) if x['datatype'] == 'rate' else ''
+  unit_to_str(x['value']['unit']) if x['type'] == 'rate' else ''
 )
 
 def f(x):
