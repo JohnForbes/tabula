@@ -13,7 +13,7 @@ def f(x):
   for v in x['vector']['values']:
     _ri = make_row_identifier(_table)
     _table['row_order'] = _table['row_order'] + [_ri]
-    _table['cells'][(_name, _ri)] = cell({'value': v, 'field_name': _name})
+    _table['cells'][(_name, _ri)] = cell({'value': v, 'name': _name})
 
   return _table
 
@@ -28,8 +28,6 @@ def t():
   y = {
     'column_order': ['d'],
     'row_order': [_ for _ in range(10)],
-    'cells': {
-      ('d', _): cell({'value': _/10, 'field_name': 'd'}) for _ in range(10)
-    }
+    'cells': {('d', _): cell({'value': _/10, 'name': 'd'}) for _ in range(10)}
   }
   return pxyf(x, y, f)
