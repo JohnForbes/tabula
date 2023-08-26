@@ -1,47 +1,36 @@
-from hak.one.dict.rate.to_str_frac import f as to_str_frac
+from hak.one.dict.get_or_default import f as get_or_default
 from hak.one.string.colour.bright.green import f as g
 from hak.one.string.colour.bright.red import f as r
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 
-from src.functions.dict.cell.make import f as make_cell
-from src.functions.dict.cell.to_str import f as cell_to_str
-from src.functions.dict.value_and_width.to_str import f as to_fixed_width
+from ....dict.cell.make import f as cell
+from ....dict.cell.to_str import f as cell_to_str
+from ....dict.value_and_width.to_str import f as to_fixed_width
+
+v_or_none = lambda d, k: get_or_default(d, k, None)
 
 # make_row
-def f(x):
-  widths = x['widths']
-  record = x['record']
-  names = x['names']
-  return "|"+ '|'.join([
-    to_fixed_width({
-      'value': cell_to_str(
-        make_cell({
-          'value': record[n] if n in record else None,
-          'name': n
-        })
-      ),
-      'width': widths[n]
-    })
-    for n
-    in names
-  ])+ "|"
+f = lambda x: "|"+'|'.join([
+  to_fixed_width({
+    'value': cell_to_str(cell({'value': v_or_none(x['record'], n), 'name': n})),
+    'width': x['widths'][n]
+  })
+  for n
+  in x['names']
+])+"|"
 
-def t_a():
-  x_widths = {'a': 1, 'b': 1}
-  x_r =      {'a': 0, 'b': 1}
-  x_names =  ['a', 'b']
-  x = {'widths': x_widths, 'record': x_r, 'names': x_names}
-  y = '|   | 1 |'
-  return pxyf(x, y, f)
+t_a = lambda: pxyf(
+  {'widths': {'a': 1, 'b': 1}, 'record': {'a': 0, 'b': 1}, 'names': ['a', 'b']},
+  '|   | 1 |',
+  f
+)
 
-def t_b():
-  x_widths = {'a': 1, 'b': 1}
-  x_r =      {'a': 2, 'b': 3}
-  x_names =  ['a', 'b']
-  x = {'widths': x_widths, 'record': x_r, 'names': x_names}
-  y = '| 2 | 3 |'
-  return pxyf(x, y, f)
+t_b = lambda: pxyf(
+  {'widths': {'a': 1, 'b': 1}, 'record': {'a': 2, 'b': 3}, 'names': ['a', 'b']},
+  '| 2 | 3 |',
+  f
+)
 
 def t_c():
   x_widths = {'a': 1, 'b': 1, 'c': 1}
