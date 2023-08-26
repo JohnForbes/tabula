@@ -1,62 +1,13 @@
 from datetime import date
-from hak.one.list.remove_duplicates import f as remove_duplicates
-from hak.one.string.find_last_char import f as find_last_char
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 
+from ....dicts.columns.all_have_no_path import f as condition
+from ....f_a import f as f_a
+from ....f_b import f as f_b
 from ...column.make_from_values import f as column
-from ...column.to_str import f as column_to_str
-from ...column.width.get import f as get_column_width
-from ....ints.cell_value_widths.to_aggregate_width import f as make_line_value
 
-# from hak.many.strings.lines._anon_0 import f as h
-def _h(l, top_width):
-  j = find_last_char(l, '|')+1
-  d = l[0]*(top_width - len(l))
-  return l[:j]+d+l[j:]
-h = lambda x: [_h(l, len(x[0])) if len(l) < len(x[0]) else l for l in x]
-
-# from hak.cell_val_widths_to_aggregate_width import f as g
-g = lambda x: sum(x)+(len(x)-1)*len(' | ')
-
-def _f_a(columns, separator='|'):
-  column_strings = [column_to_str(c) for c in columns]
-  return '\n'.join([
-    separator.join([
-      column_strings[column_index].split('\n')[i]
-      for column_index
-      in range(len(columns))
-    ])
-    for i in range(len(column_strings[0].split('\n')))
-  ])
-
-_get_path_widths = lambda paths, columns: {
-  p: max(
-    make_line_value([
-      get_column_width(c)
-      for c
-      in columns
-      if c['path'][0] == p
-    ]),
-    len(p)
-  )
-  for p
-  in paths
-}
-
-def _f_b(columns, separator='|'):
-  paths = remove_duplicates(c['path'][0] for c in columns)
-  path_widths = _get_path_widths(paths, columns)
-  return '\n'.join(h([
-    '-'+'-|-'.join([   '-'*path_widths[p]    for p in paths])+'-',
-    ' '+' | '.join([f'{p:>{path_widths[p]}}' for p in paths])+' ',
-    *_f_a(columns, separator).split('\n')
-  ]))
-
-f = lambda x='|': (
-  _f_a if set([c['path'] for c in x['columns']]) == {()} else
-  _f_b
-)(x['columns'], x['separator'])
+f = lambda x='|': (f_a if condition(x['columns']) else f_b)(x)
 
 def t_00():
   x = {
