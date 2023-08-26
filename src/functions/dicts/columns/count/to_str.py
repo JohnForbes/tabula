@@ -4,7 +4,7 @@ from hak.pxyf import f as pxyf
 
 from src.functions.dict.column.make_from_values import f as column
 from src.functions.dicts.columns.to_str_without_superheaders import f as f_a
-from src.functions.dicts.columns.to_str_with_superheader import f as f_b
+from src.functions.dicts.columns.to_str_with_superheaders import f as f_b
 from src.functions.dicts.columns.have_no_path import f as columns_have_no_path
 
 f = lambda x: (f_a if columns_have_no_path(x) else f_b)(x)
