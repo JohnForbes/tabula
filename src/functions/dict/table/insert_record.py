@@ -14,7 +14,7 @@ def f(x):
 
   for (k, v) in _record.items():
     _table['column_order'] = append_if_not_present(_table['column_order'], k)
-    _table['cells'][(k, row_identifier)] = cell({'value': v, 'field_name': k})
+    _table['cells'][(k, row_identifier)] = cell({'value': v, 'name': k})
 
   return _table
 
@@ -24,9 +24,9 @@ def t_flat():
     'column_order': ['a', 'b', 'c'],
     'row_order': [0],
     'cells': {
-      ('a', 0): cell({'value': 0, 'field_name': 'a'}),
-      ('b', 0): cell({'value': 1, 'field_name': 'b'}),
-      ('c', 0): cell({'value': 2, 'field_name': 'c'})
+      ('a', 0): cell({'value': 0, 'name': 'a'}),
+      ('b', 0): cell({'value': 1, 'name': 'b'}),
+      ('c', 0): cell({'value': 2, 'name': 'c'})
     }
   }
   return pxyf(x, y, f)
@@ -37,9 +37,9 @@ def t_nested():
     'column_order': ['a', 'b', 'c'],
     'row_order': [0],
     'cells': {
-      ('a', 0): cell({'value': 0, 'field_name': 'a'}),
-      ('b', 0): cell({'value': 1, 'field_name': 'b'}),
-      ('c', 0): cell({'value': 2, 'field_name': 'c'})
+      ('a', 0): cell({'value': 0, 'name': 'a'}),
+      ('b', 0): cell({'value': 1, 'name': 'b'}),
+      ('c', 0): cell({'value': 2, 'name': 'c'})
     }
   }
   return pxyf(x, y, f)
