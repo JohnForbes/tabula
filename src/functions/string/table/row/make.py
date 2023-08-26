@@ -18,8 +18,7 @@ def f(x):
       'value': cell_to_str(
         make_cell({
           'value': record[n] if n in record else None,
-          'field_name': n,
-          # 'format': to_str_frac if n.startswith('rate_') else None
+          'name': n
         })
       ),
       'width': widths[n]
