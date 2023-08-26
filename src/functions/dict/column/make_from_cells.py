@@ -29,9 +29,7 @@ def t_a():
   x = {
     'name': _name,
     'path': None,
-    'cells': [
-      cell({'value': v, 'field_name': _name}) for v in ['b1', 'b2', 'b3']
-    ]
+    'cells': [cell({'value': v, 'name': _name}) for v in ['b1', 'b2', 'b3']]
   }
   z = f(x)
   if not is_column(z): return pf(f'not is_column(z); z: {z}')
@@ -41,11 +39,11 @@ def t_d():
   _name = 'abc'
   x = {
     'name': _name,
-    'cells': [cell({'value': v, 'field_name': _name}) for v in [0, 1, 2]]
+    'cells': [cell({'value': v, 'name': _name}) for v in [0, 1, 2]]
   }
   y = {
     'name': 'abc',
-    'cells': [cell({'value': v, 'field_name': 'abc'}) for v in [0, 1, 2]],
+    'cells': [cell({'value': v, 'name': 'abc'}) for v in [0, 1, 2]],
     'path': ()
   }
   return pxyf(x, y, f)
@@ -54,11 +52,11 @@ def t_path_as_str():
   x = {
     'name': 'abc',
     'path': 'root',
-    'cells': [cell({'value': v, 'field_name': 'abc'}) for v in [0, 1, 2]]
+    'cells': [cell({'value': v, 'name': 'abc'}) for v in [0, 1, 2]]
   }
   y = {
     'name': 'abc',
-    'cells': [cell({'value': v, 'field_name': 'abc'}) for v in [0, 1, 2]],
+    'cells': [cell({'value': v, 'name': 'abc'}) for v in [0, 1, 2]],
     'path': ('root',)
   }
   return pxyf(x, y, f)
@@ -68,11 +66,11 @@ def t_path():
   x = {
     'name': _name,
     'path': ('root', 'branch'),
-    'cells': [cell({'value': v, 'field_name': _name}) for v in [0, 1, 2]]
+    'cells': [cell({'value': v, 'name': _name}) for v in [0, 1, 2]]
   }
   y = {
     'name': 'abc',
-    'cells': [cell({'value': v, 'field_name': 'abc'}) for v in [0, 1, 2]],
+    'cells': [cell({'value': v, 'name': 'abc'}) for v in [0, 1, 2]],
     'path': ('root', 'branch')
   }
   return pxyf(x, y, f)
