@@ -13,30 +13,30 @@ from src.functions.dict.cell.to_str import f as to_str
 # width
 def f(x):
   v = x['value']
-  header_word_widths = [len(i) for i in x['field_name'].split('_')]
+  header_word_widths = [len(i) for i in x['name'].split('_')]
   unit_width = len(unit_to_str(v['unit'])) if is_rate(v) else 0
   val_str = to_str_frac(v) if x['datatype'] == 'rate' else to_str(x)
   value_str_width = len(decol(val_str))
   return max([*header_word_widths, value_str_width, unit_width])
 
-t_00 = lambda: pxyf(cell({'value': 100, 'field_name': 'foo'}), 3, f)
-t_0 = lambda: pxyf(cell({'value': False, 'field_name': 'a'}), 1, f)
-t_1 = lambda: pxyf(cell({'value': 'a', 'field_name': 'aa'}), 2, f)
+t_00 = lambda: pxyf(cell({'value': 100, 'name': 'foo'}), 3, f)
+t_0 = lambda: pxyf(cell({'value': False, 'name': 'a'}), 1, f)
+t_1 = lambda: pxyf(cell({'value': 'a', 'name': 'aa'}), 2, f)
 
 t_2 = lambda: pxyf(
-  cell({'value': red('-'), 'field_name': 'is_revenue'}),
+  cell({'value': red('-'), 'name': 'is_revenue'}),
   len('revenue'),
   f
 )
 
 t_quantity_short_unit = lambda: pxyf(
-  cell({'value': rate(12.34, 1, {'m': 1}), 'field_name': 'length'}),
+  cell({'value': rate(12.34, 1, {'m': 1}), 'name': 'length'}),
   len('length'),
   f
 )
 
 t_quantity_long_unit = lambda: pxyf(
-  cell({'value': rate(12.34, 1, {'lightyear': 1}), 'field_name': 'length'}),
+  cell({'value': rate(12.34, 1, {'lightyear': 1}), 'name': 'length'}),
   len('lightyear'),
   f
 )
@@ -44,7 +44,7 @@ t_quantity_long_unit = lambda: pxyf(
 t_rate = lambda: pxyf(
   cell({
     'value': rate(547200, 735089, {'USD': 1, 'AUD': -1}),
-    'field_name': 'rate_USD_per_AUD'
+    'name': 'rate_USD_per_AUD'
   }),
   len('547200/735089'),
   f
