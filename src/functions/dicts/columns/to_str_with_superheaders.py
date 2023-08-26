@@ -2,14 +2,14 @@ from hak.pxyf import f as pxyf
 from hak.one.list.remove_duplicates import f as remove_duplicates
 from hak.pf import f as pf
 
-from src.functions.get_path_widths import f as get_path_widths
+from src.functions.dict.columns_and_paths.get_widths import f as get_path_widths
 from src.functions.h import f as h
 from src.functions.dicts.columns.to_str_without_superheaders import f as f_a
 
 # _f_b
 def f(x):
   paths = remove_duplicates(c['path'][0] for c in x)
-  path_widths = get_path_widths(paths, x)
+  path_widths = get_path_widths({'paths': paths, 'columns': x})
   return '\n'.join(h([
     '-'+'-|-'.join([   '-'*path_widths[p]    for p in paths])+'-',
     ' '+' | '.join([f'{p:>{path_widths[p]}}' for p in paths])+' ',
