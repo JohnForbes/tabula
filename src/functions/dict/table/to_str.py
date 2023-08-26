@@ -1,15 +1,15 @@
 from datetime import date
-from hak.one.dict.rate.make import f as make_rate
+from hak.one.dict.rate.make import f as rate
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 
 from ...string.table.add_left_and_right_borders import f as add_borders
-from ..column.make_from_cells import f as make_column
+from ..column.make_from_cells import f as column
 from .columns.to_str import f as cols_to_str
 from .insert_records import f as insert_records
-from .make import f as make_table
+from .make import f as table
 
-get_column_cells_from_table = lambda x, column_name: [
+table_to_column_cells = lambda x, column_name: [
   x['cells'][(column_name, row_identifier)]
   for row_identifier
   in x['row_order']
@@ -17,28 +17,16 @@ get_column_cells_from_table = lambda x, column_name: [
 
 def f(x):
   columns = [
-    make_column({
-      'name': column_name,
-      'cells': get_column_cells_from_table(x, column_name)
-    })
-    for column_name
+    column({'name': name, 'cells': table_to_column_cells(x, name)})
+    for name
     in x['column_order']
   ]
-  return add_borders(
-    cols_to_str({
-      'columns': columns,
-      'separator': '|'
-    })
-  )
+  return add_borders(cols_to_str({'columns': columns, 'separator': '|'}))
 
 def t_ab():
   x = insert_records({
-    'table': make_table(),
-    'records': [
-      {'a': 0, 'b': 1},
-      {'a': 3, 'b': 4},
-      {'a': 6, 'b': 7}
-    ]
+    'table': table(),
+    'records': [{'a': 0, 'b': 1}, {'a': 3, 'b': 4}, {'a': 6, 'b': 7}]
   })
   y = '\n'.join([
     '|---|---|',
@@ -55,12 +43,8 @@ def t_ab():
 
 def t_ac():
   x = insert_records({
-    'table': make_table(),
-    'records': [
-      {'a': 0, 'c': 2},
-      {'a': 3, 'c': 5},
-      {'a': 6, 'c': 8}
-    ]
+    'table': table(),
+    'records': [{'a': 0, 'c': 2}, {'a': 3, 'c': 5}, {'a': 6, 'c': 8}]
   })
   y = '\n'.join([
     '|---|---|',
@@ -77,7 +61,7 @@ def t_ac():
 
 def t_abc():
   x = insert_records({
-    'table': make_table(),
+    'table': table(),
     'records': [
       {'a': 0, 'b': 1, 'c': 2},
       {'a': 3, 'b': 4, 'c': 5},
@@ -99,7 +83,7 @@ def t_abc():
 
 def t_date():
   x = insert_records({
-    'table': make_table(),
+    'table': table(),
     'records': [
       {'date': date(2023, 8, 14), 'b': 1, 'c': 2},
       {'date': date(2023, 8, 14), 'b': 4, 'c': 5},
@@ -121,11 +105,11 @@ def t_date():
 
 def t_rate():
   x = insert_records({
-    'table': make_table(),
+    'table': table(),
     'records': [
-      {'rate': make_rate(0, 10, {'m': 1}), 'b': 1},
-      {'rate': make_rate(1,  9, {'m': 1}), 'b': 4},
-      {'rate': make_rate(2,  8, {'m': 1}), 'b': 7},
+      {'rate': rate(0, 10, {'m': 1}), 'b': 1},
+      {'rate': rate(1,  9, {'m': 1}), 'b': 4},
+      {'rate': rate(2,  8, {'m': 1}), 'b': 7},
     ]
   })
   y = '\n'.join([
