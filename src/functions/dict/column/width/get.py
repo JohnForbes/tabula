@@ -18,21 +18,21 @@ def f(x):
 def t_a():
   x = make_column({
     'name': 'apples',
-    'cells': [cell({'value': _, 'field_name': 'apples'}) for _ in range(100)]
+    'cells': [cell({'value': _, 'name': 'apples'}) for _ in range(100)]
   })
   return pxyf(x, 6, f)
 
 def t_cells_dominant_int():
   x = make_column({
     'name': 'a',
-    'cells': [cell({'value': v, 'field_name': 'a'}) for v in [0, 1000, 2, 3]]
+    'cells': [cell({'value': v, 'name': 'a'}) for v in [0, 1000, 2, 3]]
   })
   return pxyf(x, 4, f)
 
 def t_name_dominant():
   x = make_column({
     'name': 'abc',
-    'cells': [cell({'value': v, 'field_name': 'abc'}) for v in [0, 1, 2, 3]]
+    'cells': [cell({'value': v, 'name': 'abc'}) for v in [0, 1, 2, 3]]
   })
   return pxyf(x, 3, f)
 
