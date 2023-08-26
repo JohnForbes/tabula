@@ -7,15 +7,15 @@ from hak.one.string.colour.decolour import f as decol
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 
-from src.functions.dict.cell.make import f as cell
-from src.functions.dict.cell.to_str import f as to_str
+from ..make import f as cell
+from ..to_str import f as to_str
 
 # width
 def f(x):
   v = x['value']
   header_word_widths = [len(i) for i in x['name'].split('_')]
   unit_width = len(unit_to_str(v['unit'])) if is_rate(v) else 0
-  val_str = to_str_frac(v) if x['datatype'] == 'rate' else to_str(x)
+  val_str = to_str_frac(v) if x['type'] == 'rate' else to_str(x)
   value_str_width = len(decol(val_str))
   return max([*header_word_widths, value_str_width, unit_width])
 
