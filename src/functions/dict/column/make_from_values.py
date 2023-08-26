@@ -2,24 +2,23 @@ from hak.one.string.is_a import f as is_str
 from hak.one.tuple.is_a import f as is_tuple
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
+from hak.one.dict.get_or_default import f as get_or_default
 
 from src.functions.dict.column.is_a import f as is_column
-from src.functions.dict.cell.make import f as make_cell
+from src.functions.dict.cell.make import f as cell
+from src.functions.dict.name_and_values.to_cells import f as name_and_V_to_cells
+
+def _validate(x):
+  if x:
+    if not any([is_tuple(x), is_str(x)]):
+      raise NotImplementedError('Unexpected type')
+  return x
+
+_cast_to_tup = lambda x: (x if is_tuple(x) else tuple([x])) if x else tuple()
 
 def f(x):
-  name = x['name']
-  values =  x['values']
-  path = None if 'path' not in x else x['path']
-  y = {
-    'name': name,
-    'cells': [make_cell({'value': v, 'name': name}) for v in values]
-  }
-
-  if path:
-    if not any([is_tuple(path), is_str(path)]):
-      raise NotImplementedError('Unexpected path type')
-
-  y['path'] = (path if is_tuple(path) else tuple([path])) if path else tuple()
+  y = {'name': x['name'], 'cells': name_and_V_to_cells(x)}
+  y['path'] = _cast_to_tup(_validate(get_or_default(x, 'path', None)))
   return y
 
 def t_a():
@@ -32,7 +31,7 @@ def t_d():
   x = {'name': 'abc', 'values': [0, 1, 2]}
   y = {
     'name': 'abc',
-    'cells': [make_cell({'value': v, 'name': 'abc'}) for v in [0, 1, 2]],
+    'cells': [cell({'value': v, 'name': 'abc'}) for v in [0, 1, 2]],
     'path': ()
   }
   return pxyf(x, y, f)
@@ -41,7 +40,7 @@ def t_path_as_str():
   x = {'name': 'abc', 'path': 'root', 'values': [0, 1, 2]}
   y = {
     'name': 'abc',
-    'cells': [make_cell({'value': v, 'name': 'abc'}) for v in [0, 1, 2]],
+    'cells': [cell({'value': v, 'name': 'abc'}) for v in [0, 1, 2]],
     'path': ('root',)
   }
   return pxyf(x, y, f)
@@ -50,7 +49,7 @@ def t_path():
   x = {'name': 'abc', 'path': ('root', 'branch'), 'values': [0, 1, 2]}
   y = {
     'name': 'abc',
-    'cells': [make_cell({'value': v, 'name': 'abc'}) for v in [0, 1, 2]],
+    'cells': [cell({'value': v, 'name': 'abc'}) for v in [0, 1, 2]],
     'path': ('root', 'branch')
   }
   return pxyf(x, y, f)
