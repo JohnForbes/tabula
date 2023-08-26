@@ -3,12 +3,12 @@ from hak.one.dict.rate.to_num import f as to_num
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 
-from src.functions.dict.cell.width.get import f as get_w
-from src.functions.dict.cell.make import f as cell
+from ....dict.cell.make import f as cell
+from ....dict.cell.width.get import f as get_w
 
 f = lambda x: {
   k: max([
-    get_w(cell({'value': r[k] if k in r else None, 'field_name': k}))
+    get_w(cell({'value': r[k] if k in r else None, 'name': k}))
     for r in x['records']
   ])
   for k in x['names']
