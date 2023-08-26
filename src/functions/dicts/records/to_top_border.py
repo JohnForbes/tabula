@@ -1,6 +1,6 @@
 # ignore_overlength_lines
 from datetime import date
-from hak.one.dict.rate.make import f as make_rate
+from hak.one.dict.rate.make import f as rate
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 
@@ -26,11 +26,11 @@ def t_date():
   x = [
     {
       'date': date(2023, 7, 27),
-      'prices': {'apples': make_rate(1, 4, {'$': 1, 'apple': -1})},
+      'prices': {'apples': rate(1, 4, {'$': 1, 'apple': -1})},
     },
     {
       'date': date(2023, 7, 28),
-      'prices': {'apples': make_rate(3, 4, {'$': 1, 'apple': -1})},
+      'prices': {'apples': rate(3, 4, {'$': 1, 'apple': -1})},
     }
   ]
   y = "|------------|---------|"
