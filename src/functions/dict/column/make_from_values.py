@@ -12,7 +12,7 @@ def f(x):
   path = None if 'path' not in x else x['path']
   y = {
     'name': name,
-    'cells': [make_cell({'value': v, 'field_name': name}) for v in values]
+    'cells': [make_cell({'value': v, 'name': name}) for v in values]
   }
 
   if path:
@@ -32,7 +32,7 @@ def t_d():
   x = {'name': 'abc', 'values': [0, 1, 2]}
   y = {
     'name': 'abc',
-    'cells': [make_cell({'value': v, 'field_name': 'abc'}) for v in [0, 1, 2]],
+    'cells': [make_cell({'value': v, 'name': 'abc'}) for v in [0, 1, 2]],
     'path': ()
   }
   return pxyf(x, y, f)
@@ -41,7 +41,7 @@ def t_path_as_str():
   x = {'name': 'abc', 'path': 'root', 'values': [0, 1, 2]}
   y = {
     'name': 'abc',
-    'cells': [make_cell({'value': v, 'field_name': 'abc'}) for v in [0, 1, 2]],
+    'cells': [make_cell({'value': v, 'name': 'abc'}) for v in [0, 1, 2]],
     'path': ('root',)
   }
   return pxyf(x, y, f)
@@ -50,7 +50,7 @@ def t_path():
   x = {'name': 'abc', 'path': ('root', 'branch'), 'values': [0, 1, 2]}
   y = {
     'name': 'abc',
-    'cells': [make_cell({'value': v, 'field_name': 'abc'}) for v in [0, 1, 2]],
+    'cells': [make_cell({'value': v, 'name': 'abc'}) for v in [0, 1, 2]],
     'path': ('root', 'branch')
   }
   return pxyf(x, y, f)
