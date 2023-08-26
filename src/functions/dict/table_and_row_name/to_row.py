@@ -25,8 +25,8 @@ def t():
     'name': 1
   }
   y = {
-    'a': make_cell({'value': 3, 'field_name': 'a'}),
-    'b': make_cell({'value': 4, 'field_name': 'b'}),
-    'c': make_cell({'value': 5, 'field_name': 'c'}),
+    'a': make_cell({'value': 3, 'name': 'a'}),
+    'b': make_cell({'value': 4, 'name': 'b'}),
+    'c': make_cell({'value': 5, 'name': 'c'}),
   }
   return pxyf(x, y, f)
