@@ -9,7 +9,7 @@ from hak.one.tuple.random.make import f as make_random_tuple
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 
-from .make import f as make_cell
+from .make import f as cell
 
 def f(x):
   if not is_dict(x): return 0
@@ -27,7 +27,7 @@ t_false_bool               = lambda: pxyf(make_random_bool(), 0, f)
 t_false_list               = lambda: pxyf(make_random_list(), 0, f)
 t_false_dict_empty         = lambda: pxyf({}, 0, f)
 t_false_dict_wrong_k_count = lambda: pxyf({'value': 0}, 0, f)
-t_true = lambda: pxyf(make_cell({'value': 0, 'field_name': 'i'}), 1, f)
+t_true                     = lambda: pxyf(cell({'value': 0, 'name': 'i'}), 1, f)
 
 def t():
   if not t_false_bool(): return pf('!t_false_bool')
