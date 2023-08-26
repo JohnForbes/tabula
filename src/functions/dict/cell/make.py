@@ -6,17 +6,17 @@
 # from hak.one.string.colour.decolour import f as decol
 from datetime import date
 from hak.many.dicts.a_into_b import f as a_into_b
-from hak.one.dict.rate.make import f as make_rate
+from hak.one.dict.rate.make import f as rate
 from hak.one.get_datatype import f as detect_type
+from hak.one.number.int.random.make import f as make_random_integer
+from hak.one.string.random.make import f as make_random_string
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 from hak.pxyz import f as pxyz
-from hak.one.number.int.random.make import f as make_random_integer
-from hak.one.string.random.make import f as make_random_string
 
-# make_cell
+# cell
 # src.cell.make
-f = lambda x: a_into_b({'datatype': detect_type(x['value'])}, x)
+f = lambda x: a_into_b({'type': detect_type(x['value'])}, x)
 
 # def f(x):
 #   _width = x['width']
@@ -44,71 +44,64 @@ f = lambda x: a_into_b({'datatype': detect_type(x['value'])}, x)
 
 def t_0():
   x = {'value': 0, 'name': 'i'}
-  y = {'value': 0, 'name': 'i', 'datatype': 'int'}
+  y = {'value': 0, 'name': 'i', 'type': 'int'}
   return pxyf(x, y, f)
 
 def t_a():
   # cell_dict
   x = {'value': 'a', 'name': 'A'}
-  y = {'value': 'a', 'name': 'A', 'datatype': 'str'}
+  y = {'value': 'a', 'name': 'A', 'type': 'str'}
   return pxyf(x, y, f)
 
 def t_rate():
-  x = {'value': make_rate(1, 1, {'m': 1}), 'name': 'distance'}
+  x = {'value': rate(1, 1, {'m': 1}), 'name': 'distance'}
   y = {
     'value': {'numerator': 1, 'denominator': 1, 'unit': {'m': 1}},
     'name': 'distance',
-    'datatype': 'rate'
+    'type': 'rate'
   }
   return pxyf(x, y, f)
 
 def t_date():
   x = {'value': date(2022, 4, 5), 'name': 'date'}
-  y = {'value': date(2022, 4, 5), 'name': 'date', 'datatype': 'date'}
+  y = {'value': date(2022, 4, 5), 'name': 'date', 'type': 'date'}
   return pxyf(x, y, f)
 
 def t_description():
   x = {'value': 'Purchased USD with AUD', 'name': 'description'}
-  y = {
-    'value': 'Purchased USD with AUD',
-    'name': 'description',
-    'datatype': 'str'
-  }
+  y = {'value': 'Purchased USD with AUD', 'name': 'description', 'type': 'str'}
   return pxyf(x, y, f)
 
 def t_USD_rate():
-  x = {'value': make_rate(5472, 1, {'USD': 1}), 'name': 'USD Rate'}
+  x = {'value': rate(5472, 1, {'USD': 1}), 'name': 'USD Rate'}
   y = {
     'value': {'numerator': 5472, 'denominator': 1, 'unit': {'USD': 1}},
     'name': 'USD Rate',
-    'datatype': 'rate'
+    'type': 'rate'
   }
   return pxyf(x, y, f)
 
 def t_A_nabtrade_cash_AUD():
-  x = {
-    'value': make_rate(-7350.89, 1, {'AUD': 1}),
-    'name': 'nabtrade_cash_AUD'
-  }
+  x = {'value': rate(-7350.89, 1, {'AUD': 1}), 'name': 'nabtrade_cash_AUD'}
   y = {
     'value': {'numerator': -735089, 'denominator': 100, 'unit': {'AUD': 1}},
     'name': 'nabtrade_cash_AUD',
-    'datatype': 'rate'
+    'type': 'rate'
   }
   return pxyf(x, y, f)
 
 def t_rate_0():
-  x = {'value': make_rate(0, 1, {'m': 1}), 'name': 'description'}
+  x = {'value': rate(0, 1, {'m': 1}), 'name': 'description'}
   y = {
     'value': {'numerator': 0, 'denominator': 1, 'unit': {'m': 1}},
     'name': 'description',
-    'datatype': 'rate'
+    'type': 'rate'
   }
   return pxyf(x, y, f)
 
 def t_none():
   x = {'value': None, 'name': 'foo'}
-  y = {'value': None, 'name': 'foo', 'datatype': 'none'}
+  y = {'value': None, 'name': 'foo', 'type': 'none'}
   return pxyf(x, y, f)
 
 def t_drift():
@@ -116,7 +109,7 @@ def t_drift():
   _name = make_random_string()
   _x = {'value': _value, 'name': _name}
   x = {'value': _value, 'name': _name}
-  y = {'value': _value, 'name': _name, 'datatype': 'int'}
+  y = {'value': _value, 'name': _name, 'type': 'int'}
   z = f(x)
   if _x != x: return pf(f'drift of original dict occurred; _x: {_x}; x: {x}')
   return pxyz(x, y, z)
