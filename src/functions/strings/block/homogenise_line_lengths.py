@@ -11,7 +11,6 @@ def _h(l, top_width):
 # h
 f = lambda x: [_h(l, len(x[0])) for l in x]
 
-
 def t_c():
   x = [
     '------------|---------',
