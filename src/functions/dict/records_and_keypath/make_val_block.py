@@ -1,19 +1,17 @@
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 
-# from misc.value_row_strings.get import f as get_value_row_strings
-from src.functions.dict.values_and_width.get import f as get_value_row_strings
-
-from src.functions.dict.char_and_width.to_str import f as make_homogenous_line
-from src.functions.dict.field_name_and_values.width.get import f as get_width
-from src.functions.dict.records_and_keypath.to_values import f as get_values
-from src.functions.dict.value_and_width.to_str import f as make_line_value
+from ...dict.char_and_width.to_str import f as make_homogenous_line
+from ...dict.name_and_values.width.get import f as get_width
+from ...dict.records_and_keypath.to_values import f as get_values
+from ...dict.value_and_width.to_str import f as make_line_value
+from ...dict.values_and_width.get import f as get_value_row_strings
 
 # make_val_block
 def f(x):
   keypath = x['keypath']
   k = keypath[-1]
-  w = get_width({'field_name': k, 'values': get_values(x)})
+  w = get_width({'name': k, 'values': get_values(x)})
   b = make_homogenous_line({'char': '-', 'width': w})
   return [
     make_line_value({'value': k, 'width': w}),
