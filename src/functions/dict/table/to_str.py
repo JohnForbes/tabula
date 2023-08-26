@@ -5,7 +5,8 @@ from hak.pxyf import f as pxyf
 
 from ...string.table.add_left_and_right_borders import f as add_borders
 from ..column.make_from_cells import f as column
-from .columns.to_str import f as cols_to_str
+# from ...dicts.columns.to_str_with_superheaders import f as cols_to_str
+from ...dicts.columns.to_str_without_superheaders import f as cols_to_str
 from .insert_records import f as insert_records
 from .make import f as table
 
@@ -21,7 +22,8 @@ def f(x):
     for name
     in x['column_order']
   ]
-  return add_borders(cols_to_str({'columns': columns, 'separator': '|'}))
+  q = cols_to_str(columns)
+  return add_borders(q)
 
 def t_ab():
   x = insert_records({
