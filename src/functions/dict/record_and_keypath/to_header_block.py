@@ -5,7 +5,7 @@ from src.functions.dict.record.get_leaf_keypaths import f as get_leaf_keypaths
 from src.functions.dict.value_and_width.to_str import f as make_line_value
 from src.functions.dict.char_and_width.to_str import f as make_homogenous_line
 from src.functions.dict.records_and_keypath.to_values import f as get_values
-from src.functions.dict.field_name_and_values.width.get import f as get_width
+from src.functions.dict.name_and_values.width.get import f as get_width
 
 # block.header.make
 def f(x):
@@ -16,7 +16,7 @@ def f(x):
   
   _ = [
     get_width({
-      'field_name': keypath[-1],
+      'name': keypath[-1],
       'values': get_values({'records': records, 'keypath': keypath})
     })
     for keypath
