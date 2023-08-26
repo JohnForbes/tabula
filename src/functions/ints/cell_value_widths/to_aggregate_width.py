@@ -22,8 +22,11 @@ t_8_9_10 = lambda: pxyf(
   f
 )
 
+t_3_10_6_7 = lambda: pxyf([3, 10, 6, 7], 35, f)
+
 def t():
-  if not t_6():      return pf('!t_6')
-  if not t_7_8():    return pf('!t_7_8')
-  if not t_8_9_10(): return pf('!t_8_9_10')
+  if not t_6():        return pf('!t_6')
+  if not t_7_8():      return pf('!t_7_8')
+  if not t_8_9_10():   return pf('!t_8_9_10')
+  if not t_3_10_6_7(): return pf('!t_3_10_6_7')
   return 1
