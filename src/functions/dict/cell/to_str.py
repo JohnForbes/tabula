@@ -36,24 +36,24 @@ def f(x):
 #   _width = v_or_0(x, 'width')
 #   return ' '*_width + f'{_val_str:>{_width}}'
 
-t_0 = lambda: pxyf(cell({'value':     0, 'field_name':   'i'}),    ' ', f)
-t_a = lambda: pxyf(cell({'value':     1, 'field_name':   'b'}),    '1', f)
-t_b = lambda: pxyf(cell({'value':    10, 'field_name':   'i'}),   '10', f)
-t_c = lambda: pxyf(cell({'value':   '0', 'field_name':   'b'}),    ' ', f)
-t_d = lambda: pxyf(cell({'value':   'a', 'field_name':   'A'}),    'a', f)
-t_e = lambda: pxyf(cell({'value':   1.0, 'field_name': 'foo'}), '1.00', f)
-t_f = lambda: pxyf(cell({'value':  None, 'field_name': 'foo'}),    ' ', f)
-t_g = lambda: pxyf(cell({'value':  True, 'field_name':   'B'}), g('Y'), f)
-t_h = lambda: pxyf(cell({'value': False, 'field_name':   'B'}), r('N'), f)
+t_0 = lambda: pxyf(cell({'value':     0, 'name':   'i'}),    ' ', f)
+t_a = lambda: pxyf(cell({'value':     1, 'name':   'b'}),    '1', f)
+t_b = lambda: pxyf(cell({'value':    10, 'name':   'i'}),   '10', f)
+t_c = lambda: pxyf(cell({'value':   '0', 'name':   'b'}),    ' ', f)
+t_d = lambda: pxyf(cell({'value':   'a', 'name':   'A'}),    'a', f)
+t_e = lambda: pxyf(cell({'value':   1.0, 'name': 'foo'}), '1.00', f)
+t_f = lambda: pxyf(cell({'value':  None, 'name': 'foo'}),    ' ', f)
+t_g = lambda: pxyf(cell({'value':  True, 'name':   'B'}), g('Y'), f)
+t_h = lambda: pxyf(cell({'value': False, 'name':   'B'}), r('N'), f)
 
 t_i = lambda: pxyf(
-  cell({'value': rate(2, 1, {'a': 1}), 'field_name': 'a'}),
+  cell({'value': rate(2, 1, {'a': 1}), 'name': 'a'}),
   '2',
   f
 )
 
 t_j = lambda: pxyf(
-  cell({'value': rate(710, 113, {'a': 1}), 'field_name': 'foo'}),
+  cell({'value': rate(710, 113, {'a': 1}), 'name': 'foo'}),
   '710/113',
   f
 )
