@@ -4,14 +4,14 @@ from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 from datetime import date
 
-from ..records_and_field_name.to_branch_col_width import f as f_a
-from ..records_and_field_name.to_pad_k_branch import f as f_b
+from ..records_and_name.to_branch_col_width import f as f_a
+from ..records_and_name.to_pad_k_branch import f as f_b
 from src.functions.dicts.records.to_first_record_sorted_keys import f as f_c
 from data.records import records_without_date as _records
 
 # records_and_fn_to_fn_applied_to_sorted_keys_of_records
 f = lambda x: [
-  x['function']({'records': x['records'], 'field_name': k}) for k
+  x['function']({'records': x['records'], 'name': k}) for k
   in f_c(x['records'])
 ]
 
