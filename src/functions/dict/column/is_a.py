@@ -55,7 +55,7 @@ def t_true_carrot():
   x = {
     'name': _name,
     'path': None,
-    'cells': [cell({'value': v, 'field_name': _name}) for v in [0, 10, 100]]
+    'cells': [cell({'value': v, 'name': _name}) for v in [0, 10, 100]]
   }
   return pxyf(x, 1, f)
 
@@ -64,10 +64,7 @@ def t_true_banana():
   x = {
     'name': _name,
     'path': None,
-    'cells': [
-      cell({'value': v, 'field_name': _name})
-      for v in ['b1', 'b2', 'b3']
-    ]
+    'cells': [cell({'value': v, 'name': _name}) for v in ['b1', 'b2', 'b3']]
   }
   return pxyf(x, 1, f)
 
