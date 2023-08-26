@@ -1,4 +1,4 @@
-from hak.one.dict.rate.make import f as make_rate
+from hak.one.dict.rate.make import f as rate
 from hak.one.dict.unit.to_str import f as unit_to_str
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
@@ -10,7 +10,7 @@ def t_prices_apples():
   x = {
     'records': [
       {
-        'prices': {'apples': make_rate(1, 4, {'$': 1, 'apple': -1}), '...': {}},
+        'prices': {'apples': rate(1, 4, {'$': 1, 'apple': -1}), '...': {}},
         '...': {}
       },
       {}
@@ -25,10 +25,7 @@ def t_prices_bananas():
   x = {
     'records': [
       {
-        'prices': {
-          '...': {},
-          'bananas': make_rate(1, 2, {'$': 1, 'banana': -1})
-        },
+        'prices': {'...': {}, 'bananas': rate(1, 2, {'$': 1, 'banana': -1})},
         '...': {}
       }, 
       {}
@@ -44,7 +41,7 @@ def t_volumes_applezzz():
     'records': [
       {
         '...': {},
-        'volumes': {'applezzz': make_rate(1, 1, {'apple': 1}), '...': {}},
+        'volumes': {'applezzz': rate(1, 1, {'apple': 1}), '...': {}},
       }, 
       {}
     ],
@@ -59,7 +56,7 @@ def t_volumes_bananazzz():
     'records': [
       {
         '...': {},
-        'volumes': {'...': {}, 'bananazzz': make_rate(2, 1,{'banana': 1})}
+        'volumes': {'...': {}, 'bananazzz': rate(2, 1,{'banana': 1})}
       }, 
       {}
     ],
@@ -74,7 +71,7 @@ def t_volumes_pearzzzzzz():
     'records': [
       {
         '...': {},
-        'volumes': {'...': {}, 'pearzzzzzz': make_rate(3, 1, {'pear': 1})}
+        'volumes': {'...': {}, 'pearzzzzzz': rate(3, 1, {'pear': 1})}
       }, 
       {}
     ],
@@ -86,13 +83,7 @@ def t_volumes_pearzzzzzz():
 
 def t_zloops_zloop():  
   x = {
-    'records': [
-      {
-        '...': {},
-        'zloops': {'zloop': make_rate(7, 1, {'zloop': 1})}
-      }, 
-      {}
-    ],
+    'records': [{'...': {}, 'zloops': {'zloop': rate(7, 1, {'zloop': 1})}}, {}],
     'k_branch': 'zloops',
     'k_leaf': 'zloop'
   }
