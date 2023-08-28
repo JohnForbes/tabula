@@ -11,10 +11,7 @@ class Table:
     for (k, v) in record.items():
       self._cells[(k, self.row_count-1)] = Cell(v)
     
-  def get_column(self, column_name):
-    # _cells = [self._cells[(column_name, i)] for i in range(self.row_count)]
-    # return {'name': column_name, 'cells': _cells}
-    return Column(column_name, self)
+  get_column = lambda self, column_name: Column(column_name, self)
 
 f = lambda: Table()
 t = lambda: 1 # Functions externalised in functions directory
