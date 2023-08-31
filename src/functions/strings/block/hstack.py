@@ -1,19 +1,11 @@
 from hak.pxyf import f as pxyf
 from hak.pf import f as pf
-
-_get_max_block_height = lambda blocks: max([len(block) for block in blocks])
-
-def _normalise_block_heights(blocks):
-  max_block_height = _get_max_block_height(blocks)
-  for block in blocks:
-    while len(block) < max_block_height:
-      block.append(' '*len(block[0]))
-  return blocks
+from src.functions.blocks.normalise_heights import f as normalise_block_heights
 
 # hstack
 def f(blocks):
   if not blocks: return []
-  blocks = _normalise_block_heights(blocks)
+  blocks = normalise_block_heights(blocks)
   return ['|'.join([x_i[j] for x_i in blocks]) for j in range(len(blocks[0]))]
 
 def t_a():
