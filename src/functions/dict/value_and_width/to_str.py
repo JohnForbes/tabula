@@ -5,8 +5,8 @@ from hak.pxyf import f as pxyf
 
 def f(x):
   v = str(x['value'])
-  delta = len(v) - len(decolour(v))
-  w = x['width'] + delta
+  δ = len(v) - len(decolour(v))
+  w = x['width'] + δ
   return f" {v:>{w}} "
 
 t_int = lambda: pxyf({'value': 12, 'width': 10}, '         12 ', f)
