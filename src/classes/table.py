@@ -1,7 +1,6 @@
 from src.classes.cell import Cell
 from src.classes.column import Column
 from src.functions.strings.block.hstack import f as hstack
-from src.functions.strings.block.vstack import f as vstack
 from src.functions.strings.block.to_str import f as block_to_str
 from src.functions.dict.record.get_leaf_keypaths import f as get_leaf_keypaths
 from src.functions.dict.record_and_keypath.to_value import f as kp_to_val
