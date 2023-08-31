@@ -8,4 +8,4 @@ class Record:
   __str__ = lambda self: str(self.value)
 
 f = lambda: Record()
-t = lambda: 1 # Functions externalised in functions directory
+
