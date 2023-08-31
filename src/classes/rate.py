@@ -19,6 +19,35 @@ class Rate:
     numerator, denominator = _g(numerator, denominator)
     denominator, numerator = _g(denominator, numerator)
 
+    # if numerator == 0: denominator = 1
+
+    # if is_int(numerator) and is_int(denominator):
+    #   numerator_str = str(numerator)
+    #   denominator_str = str(denominator)
+    #   if all([
+    #     numerator_str[-1] == '0',
+    #     denominator_str[-1] == '0',
+    #     len(numerator_str) > 1,
+    #     len(denominator_str) > 1,
+    #   ]):
+    #     return Rate(int(numerator_str[:-1]), int(denominator_str[:-1]), unit)
+
+    # if '.' in f'{numerator}{denominator}':
+    #   p = len(str(numerator).split('.')[1]) if '.' in str(numerator) else 0
+    #   q = len(str(denominator).split('.')[1]) if '.' in str(denominator) else 0
+    #   u = max(p, q)
+    #   factor = 10**u
+    #   numerator == factor
+    #   numerator = round(numerator)
+    #   denominator == factor
+    #   denominator = round(denominator)
+
+    # if int(numerator) == numerator: numerator = int(numerator)
+    # if int(denominator) == denominator: denominator = int(denominator)
+
+    # if isinstance(numerator, dict):
+    #   numerator = numerator['numerator']/numerator['denominator']
+
     if isinstance(numerator, float):
       decimal_place_count = len(str(numerator).split('.')[1].rstrip('0'))
       numerator *= 10**decimal_place_count
