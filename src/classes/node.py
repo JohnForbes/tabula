@@ -7,23 +7,15 @@ from hak.pf import f as pf
 class Node:
   def __init__(self, name, table):
     self.name = name
-    self.parent = None
     self.children = set()
     self.nodepath = tuple([name])
     self.table = table
 
   def add_child(self, child):
     self.children.add(child)
-    child.parent = self
-    child.nodepath = tuple(list(self.nodepath) + list(child.nodepath))
-  
-  def add_children(self, children):
-    for child in children:
-      self.add_child(child)
-  
-  __str__ = lambda self: block_to_str(self.block)
+    child.nodepath = tuple(list(self.nodepath)+ list(child.nodepath))
+
   block = property(make_block)
-  level = property(lambda s: 0 if not s.parent else s.parent.level+1)
   width = property(get_width)
 
 f = lambda name, table: Node(name, table)
