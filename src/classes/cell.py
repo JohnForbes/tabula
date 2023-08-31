@@ -11,6 +11,7 @@ from hak.one.string.colour.bright.red import f as r
 from hak.one.string.colour.decolour import f as decol
 from hak.pf import f as pf
 from hak.pxyz import f as pxyz
+
 from src.classes.rate import Rate
 
 class Cell:
