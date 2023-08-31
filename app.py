@@ -1,3 +1,4 @@
+# ignore_overlength_lines
 from datetime import date
 from hak.pxyz import f as pxyz
 from src.classes.rate import Rate
