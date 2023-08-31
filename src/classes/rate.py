@@ -1,8 +1,9 @@
-div_int_by_rate = lambda u, v: Rate(u, 1, {'1': 0}) / v
 from hak.one.number.int.is_a import f as is_int
 from hak.one.number.int.primes.prime_factors.get import f as get_prime_factors
 from hak.pf import f as pf
 from hak.pxyz import f as pxyz
+
+div_int_by_rate = lambda u, v: Rate(u, 1, {'1': 0}) / v
 
 def _g(a, b):
   if isinstance(a, float):
