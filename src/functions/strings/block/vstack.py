@@ -1,6 +1,6 @@
 from hak.pxyf import f as pxyf
 
-# hstack
+# vstack
 def f(x):
   result = []
   w = len(x[0][0])
