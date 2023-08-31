@@ -12,7 +12,6 @@ class Table:
     s.cells = {}
     s.row_count = 0
     s.column_keypaths = set()
-    s.last_record = None
   
   def add_tuple(s, keys, tuple):
     d = {keys[i]: tuple[i] for i in range(len(keys))}
@@ -26,7 +25,6 @@ class Table:
       v = kp_to_val({'record': record, 'keypath': kp})
       reference = (kp, s.row_count-1)
       s.cells[reference] = Cell(v)
-
     s.last_record = record
     
   def add_records(s, records):
@@ -46,11 +44,6 @@ class Table:
     nodes = dict_to_node_tree(s.last_record, table=s)
     header_str = block_to_str(nodes[root].block[1:])
     table_str = block_to_str(s.block)
-    result = '\n'.join([
-      header_str,
-      table_str
-    ])
-    return result
+    return '\n'.join([header_str, table_str])
 
 f = lambda: Table()
-t = lambda: 1
