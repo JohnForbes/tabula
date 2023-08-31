@@ -17,7 +17,7 @@ def _g(a, b):
 class Rate:
   def __init__(self, numerator, denominator, unit):
     numerator, denominator = _g(numerator, denominator)
-    numerator, denominator = _g(denominator, numerator)
+    denominator, numerator = _g(denominator, numerator)
 
     if isinstance(numerator, float):
       decimal_place_count = len(str(numerator).split('.')[1].rstrip('0'))
@@ -121,8 +121,15 @@ def t_denominator_float():
   z = f(**x)
   return pxyz(x, y, z)
 
+def t_a():
+  x = {'numerator': 1, 'denominator': 2, 'unit': {'$': 1, 'm': -1}}
+  y = '1/2'
+  z = str(f(**x))
+  return pxyz(x, y, z)
+
 def t():
   if not t_simplifies_at_init(): return pf('!t_simplifies_at_init')
   if not t_numerator_float(): return pf('!t_numerator_float')
   if not t_denominator_float(): return pf('!t_denominator_float')
+  if not t_a(): return pf('!t_a')
   return 1
