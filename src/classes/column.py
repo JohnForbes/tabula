@@ -1,5 +1,7 @@
+from hak.one.string.colour.decolour import f as decolour
+
 from src.functions.dict.char_and_width.to_str import f as make_homogenous_line
-from src.functions.dict.value_and_width.to_str import f as make_line_value
+from src.functions.dict.value_and_width.to_str import f as fvw
 
 class Column:
   def __init__(self, table, keypath):
@@ -13,7 +15,7 @@ class Column:
   w = property(
     lambda s: max([
       len(s._name),
-      *[len(str(c)) for c in s.cells],
+      *[len(decolour(str(c))) for c in s.cells],
       *[len(c.get_unit_str()) for c in s.cells]
     ])
   )
@@ -33,18 +35,13 @@ class Column:
 
   def _to_block(self):
     w = self.width
-    cell_strings = [f" {str(c):>{w}} " for c in self.cells]
+    cell_strings = [fvw({'value': c, 'width': w}) for c in self.cells]
     bar = make_homogenous_line({'char': '-', 'width': w})
-
-    heading = [
-      bar,
-      make_line_value({'value': self._name, 'width': w}),
-      bar,
-    ]
+    heading = [bar, fvw({'value': self._name, 'width': w}), bar]
 
     result_excl_heading = [
       bar,
-      make_line_value({'value': self.cells[0].get_unit_str(), 'width': w}),
+      fvw({'value': self.cells[0].get_unit_str(), 'width': w}),
       bar,
       *cell_strings,
       bar,
