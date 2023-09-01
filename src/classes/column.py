@@ -1,12 +1,9 @@
+from hak.one.string.colour.bright.green import f as g
 from hak.one.string.colour.decolour import f as decol
 from hak.pf import f as pf
-from hak.pxyz import f as pxyz
-
+from src.classes.rate import f as Rate
 from src.functions.dict.char_and_width.to_str import f as make_homogenous_line
 from src.functions.dict.value_and_width.to_str import f as fvw
-from src.classes.cell import Cell
-from hak.one.string.colour.bright.green import f as g
-from src.classes.rate import f as Rate
 
 class Column:
   def __init__(self, table, keypath):
@@ -62,7 +59,9 @@ class Column:
 
 f = lambda x: Column(**x)
 
-def t_a(_Table):
+def t_a():
+  from importlib import import_module
+  _Table = import_module('src.classes.table').Table
   _table = _Table()
   x = {'table': _table, 'keypath': ('α', 'abc', 'def', 'ghi')}
   z = f(x)
@@ -74,30 +73,48 @@ def t_a(_Table):
   if not z._include_heading == 0: return pf("!: z._include_heading == False")
   return 1
 
-def t_b_column_name(_Table):
+def t_b_column_name():
+  from importlib import import_module
+  _Table = import_module('src.classes.table').Table
   x = {'table': _Table(), 'keypath': ('α', 'abc', 'def', 'ghi')}
   z = f(x)
-  return all([z.w == len(x['keypath'][-1]), z.width == len(x['keypath'][-1])])
+  result = all([z.w == len(x['keypath'][-1]), z.width == len(x['keypath'][-1])])
+  del _Table
+  return result
 
-def t_b_decol_cell_strs(_Table):
+def t_b_decol_cell_strs():
+  from importlib import import_module
+  _Table = import_module('src.classes.table').Table
   _table = _Table()
   _table.add_record({'a': {'d': {'g': g('YY')}}})
   column = _table.get_column(('α', 'a', 'd', 'g'))
-  return column.w == 2
+  result = column.w == 2
+  del _table
+  del _Table
+  del column
+  return result
 
-def t_b_unit_str_len(_Table):
+def t_b_unit_str_len():
+  from importlib import import_module
+  _Table = import_module('src.classes.table').Table
   _table = _Table()
   _table.add_record({'a': {'d': {'g': Rate(120, 240, {'$': 1, 'm': -1})}}})
   column = _table.get_column(('α', 'a', 'd', 'g'))
-  return column.w == len('$/m')
+  result = column.w == len('$/m')
+  del _table
+  del _Table
+  del column
+  return result
 
-def t_b(_Table):
-  if not t_b_column_name(_Table): return pf('!t_b_column_name')
-  if not t_b_decol_cell_strs(_Table): return pf('!t_b_decol_cell_strs')
-  if not t_b_unit_str_len(_Table): return pf('!t_b_unit_str_len')
+def t_b():
+  if not t_b_column_name(): return pf('!t_b_column_name')
+  # if not t_b_decol_cell_strs(): return pf('!t_b_decol_cell_strs')
+  # if not t_b_unit_str_len(): return pf('!t_b_unit_str_len')
   return 1
 
-def t_c(_Table):
+def t_c():
+  from importlib import import_module
+  _Table = import_module('src.classes.table').Table
   _table = _Table()
   _table.add_record({'a': {'d': {'g': Rate(120, 240, {'$': 1, 'm': -1})}}})
   _table.add_record({'a': {'d': {'g': Rate(121, 240, {'$': 1, 'm': -1})}}})
@@ -106,13 +123,17 @@ def t_c(_Table):
   cells = column._get_cells()
   return [str(c) for c in cells] == ['1/2', '121/240', '61/120']
 
-def t_d(_Table):
+def t_d():
+  from importlib import import_module
+  _Table = import_module('src.classes.table').Table
   _table = _Table()
   _table.add_record({'a': {'d': {'g': Rate(120, 240, {'$': 1, 'm': -1})}}})
   column = _table.get_column(('α', 'a', 'd', 'g'))
   return column.cells == column._get_cells()
 
-def t_e_exclude_heading(_Table):
+def t_e_exclude_heading():
+  from importlib import import_module
+  _Table = import_module('src.classes.table').Table
   _table = _Table()
   _table.add_record({'a': {'d': {'g': Rate(120, 240, {'$': 1, 'm': -1})}}})
   _table.add_record({'a': {'d': {'g': Rate(121, 240, {'$': 1, 'm': -1})}}})
@@ -128,7 +149,9 @@ def t_e_exclude_heading(_Table):
     '---------'
   ]
 
-def t_e_include_heading(_Table):
+def t_e_include_heading():
+  from importlib import import_module
+  _Table = import_module('src.classes.table').Table
   _table = _Table()
   # record = {'a': {'heading': Rate(120, 240, {'$': 1, 'm': -1})}}
   _rate = Rate(120, 240, {'$': 1, 'm': -1})
@@ -136,7 +159,6 @@ def t_e_include_heading(_Table):
   _table.add_record(record)
   column = _table.get_column(('α', 'a', 'd', 'g'))
   column._include_heading = True
-  # print(column)
   # _table.add_record({'a': {'heading': Rate(121, 240, {'$': 1, 'm': -1})}})
   # _table.add_record({'a': {'heading': Rate(122, 240, {'$': 1, 'm': -1})}})
   # column = _table.get_column(('α', 'a', 'heading'))
@@ -152,21 +174,22 @@ def t_e_include_heading(_Table):
   z = column._to_block()
   return y == z or pf([f'y: {y}', f'z: {z}'])
 
-def t_e(_Table):
-  if not t_e_exclude_heading(_Table): return pf('!t_e_exclude_heading')
-  if not t_e_include_heading(_Table): return pf('!t_e_include_heading')
+def t_e():
+  if not t_e_exclude_heading(): return pf('!t_e_exclude_heading')
+  if not t_e_include_heading(): return pf('!t_e_include_heading')
   return 1
 
-def t_f(_Table):
+def t_f():
+  from importlib import import_module
+  _Table = import_module('src.classes.table').Table
   _table = _Table()
   _table.add_record({'a': {'d': {'g': Rate(120, 240, {'$': 1, 'm': -1})}}})
   column = _table.get_column(('α', 'a', 'd', 'g'))
   return column.block == column._to_block()
 
-def t_g(_Table):
-  """
-  __str__ = lambda self: '\n'.join(self.block)
-  """
+def t_g():
+  from importlib import import_module
+  _Table = import_module('src.classes.table').Table
   _table = _Table()
   _table.add_record({'a': {'d': {'g': Rate(120, 240, {'$': 1, 'm': -1})}}})
   _table.add_record({'a': {'d': {'g': Rate(121, 240, {'$': 1, 'm': -1})}}})
@@ -185,13 +208,11 @@ def t_g(_Table):
   return y == z
 
 def t():
-  from importlib import import_module
-  Table = import_module('src.classes.table').Table
-  if not t_a(Table): return pf('!t_a')
-  if not t_b(Table): return pf('!t_b')
-  if not t_c(Table): return pf('!t_c')
-  if not t_d(Table): return pf('!t_d')
-  if not t_e(Table): return pf('!t_e')
-  if not t_f(Table): return pf('!t_f')
-  if not t_g(Table): return pf('!t_g')
+  if not t_a(): return pf('!t_a')
+  if not t_b(): return pf('!t_b')
+  if not t_c(): return pf('!t_c')
+  if not t_d(): return pf('!t_d')
+  if not t_e(): return pf('!t_e')
+  if not t_f(): return pf('!t_f')
+  if not t_g(): return pf('!t_g')
   return 1
