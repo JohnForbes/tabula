@@ -5,16 +5,14 @@ from src.functions.strings.block.to_str import f as block_to_str
 from src.functions.dict.record.get_leaf_keypaths import f as get_leaf_keypaths
 from src.functions.dict.record_and_keypath.to_value import f as kp_to_val
 from src.functions.dict.to_node_tree import f as dict_to_node_tree
+from hak.pf import f as pf
+from src.classes.rate import Rate
 
 class Table:
   def __init__(s):
     s.cells = {}
     s.row_count = 0
     s.column_keypaths = set()
-  
-  def add_tuple(s, keys, tuple):
-    d = {keys[i]: tuple[i] for i in range(len(keys))}
-    s.add_record(d)
 
   def add_record(s, record):
     record = {'α': record}
@@ -46,3 +44,130 @@ class Table:
     return '\n'.join([header_str, table_str])
 
 f = lambda: Table()
+
+def t___init__():
+  table = Table()
+  return all([
+    table.cells == {},
+    table.row_count == 0,
+    table.column_keypaths == set()
+  ])
+
+def t_add_record():
+  table = Table()
+  record = {'a': {'b': Rate(1, 3, {'$': 1, 'm': -1})}}
+  table.add_record(record)
+
+  if table.column_keypaths != {('α', 'a', 'b')}:
+    return pf("table.column_keypaths != {('α', 'a', 'b')}")
+
+  if table.row_count != 1:
+    return pf("table.row_count != 1")
+  
+  cell = table.cells[(('α', 'a', 'b'), 0)]
+  
+  if cell.value.numerator != 1: return pf('cell.value.numerator != 1')
+  
+  if cell.value.denominator != 3: return pf("cell.value.denominator != 3")
+  
+  if cell.value.unit != {'$': 1, 'm': -1}:
+    return pf("cell.value.unit != {'$': 1, 'm': -1}")
+  
+  if table.last_record != {'α': record}:
+    return pf("table.last_record != {'α': record}")
+
+  return 1
+
+def t_add_records():
+  table = Table()
+  records = [
+    {'a': {'b': Rate(1, 3, {'$': 1, 'm': -1}), 'c': 'abc'}},
+    {'a': {'b': Rate(2, 3, {'$': 1, 'm': -1}), 'c': 'ghi'}}
+  ]
+  table.add_records(records)
+  return len(table.cells) == 4
+
+def t___str__():
+  table = Table()
+  records = [
+    {'a': {'b': Rate(1, 3, {'$': 1, 'm': -1}), 'c': 'abc'}},
+    {'a': {'b': Rate(2, 3, {'$': 1, 'm': -1}), 'c': 'ghi'}}
+  ]
+  table.add_records(records)
+  y = '\n'.join([
+    '-----------',
+    '     a     ',
+    '-----------',
+    '  b  |  c  ',
+    '-----|-----',
+    ' $/m |     ',
+    '-----|-----',
+    ' 1/3 | abc ',
+    ' 2/3 | ghi ',
+    '-----|-----'
+  ])
+  z = str(table)
+  return y == z
+
+def t_get_column():
+  table = Table()
+  records = [
+    {'a': {'b': Rate(1, 3, {'$': 1, 'm': -1}), 'c': 'abc'}},
+    {'a': {'b': Rate(2, 3, {'$': 1, 'm': -1}), 'c': 'ghi'}}
+  ]
+  table.add_records(records)
+  column = table.get_column(('α', 'a', 'b'))
+  return column.block == ['-----', ' $/m ', '-----', ' 1/3 ', ' 2/3 ', '-----']
+
+def t_columns():
+  table = Table()
+  records = [
+    {'a': {'b': Rate(1, 3, {'$': 1, 'm': -1}), 'c': 'abc'}},
+    {'a': {'b': Rate(2, 3, {'$': 1, 'm': -1}), 'c': 'ghi'}}
+  ]
+  table.add_records(records)
+  y_table_column_blocks = [
+    ['-----', '     ', '-----', ' abc ', ' ghi ', '-----'],
+    ['-----', ' $/m ', '-----', ' 1/3 ', ' 2/3 ', '-----'],
+  ]
+  
+  z_table_column_blocks = set([str(c.block) for c in table.columns])
+
+  return all([
+    str(y_table_column_block) in z_table_column_blocks
+    for y_table_column_block
+    in y_table_column_blocks
+  ])
+
+def t_block():
+  # block = property(lambda s: hstack([
+  #   c.block for c in sorted(s.columns, key=lambda x: x._keypath)
+  # ]))
+  table = Table()
+  records = [
+    {'a': {'b': Rate(1, 3, {'$': 1, 'm': -1}), 'c': 'abc'}},
+    {'a': {'b': Rate(2, 3, {'$': 1, 'm': -1}), 'c': 'ghi'}}
+  ]
+  table.add_records(records)
+  y_blocks = [
+    ['-----', '     ', '-----', ' abc ', ' ghi ', '-----'],
+    ['-----', ' $/m ', '-----', ' 1/3 ', ' 2/3 ', '-----'],
+    ['-----', '     ', '-----', ' abc ', ' ghi ', '-----'],
+    ['-----', ' $/m ', '-----', ' 1/3 ', ' 2/3 ', '-----']
+  ]
+  c_blocks = [c.block for c in table.columns]
+  for i in range(len(table.columns)):
+    c = table.columns[i]
+    if y_blocks[i] not in c_blocks:
+      return pf(f'y_blocks[i] != c.block; {y_blocks[i]} != {c.block}')
+  return 1
+
+def t():
+  if not t___init__(): return pf('!t___init__')
+  if not t_add_record(): return pf('!t_add_record')
+  if not t_add_records(): return pf('!t_add_records')
+  if not t___str__(): return pf('!t___str__')
+  if not t_get_column(): return pf('t_get_column')
+  if not t_columns(): return pf('t_columns')
+  if not t_block(): return pf('t_block')
+  return 1
