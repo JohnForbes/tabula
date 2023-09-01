@@ -76,6 +76,8 @@ def t_add_record():
   if table.last_record != {'α': record}:
     return pf("table.last_record != {'α': record}")
 
+  del table
+
   return 1
 
 def t_add_records():
