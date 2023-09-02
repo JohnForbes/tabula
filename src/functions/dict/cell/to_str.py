@@ -7,8 +7,8 @@ from hak.one.dict.rate.to_str_frac import f as rate_to_str
 from hak.one.is_0 import f as is_0
 from hak.one.is_none import f as is_none
 from hak.one.number.float.is_a import f as is_float
-from hak.one.string.colour.bright.green import f as g
-from hak.one.string.colour.bright.red import f as r
+from hak.one.string.colour.bright.green import f as green
+from hak.one.string.colour.bright.red import f as red
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 
@@ -20,7 +20,7 @@ def f(x):
   v = x['value']
   if  is_none(v): return ' '
   if  is_rate(v): return rate_to_str(v)
-  if  is_bool(v): return g('Y') if v else r('N')
+  if  is_bool(v): return green('Y') if v else red('N')
   if     is_0(v): return ' '
   if is_float(v): return f"{v:.2f}"
   return str(v)
@@ -36,15 +36,15 @@ def f(x):
 #   _width = v_or_0(x, 'width')
 #   return ' '*_width + f'{_val_str:>{_width}}'
 
-t_0 = lambda: pxyf(cell({'value':     0, 'name':   'i'}),    ' ', f)
-t_a = lambda: pxyf(cell({'value':     1, 'name':   'b'}),    '1', f)
-t_b = lambda: pxyf(cell({'value':    10, 'name':   'i'}),   '10', f)
-t_c = lambda: pxyf(cell({'value':   '0', 'name':   'b'}),    ' ', f)
-t_d = lambda: pxyf(cell({'value':   'a', 'name':   'A'}),    'a', f)
-t_e = lambda: pxyf(cell({'value':   1.0, 'name': 'foo'}), '1.00', f)
-t_f = lambda: pxyf(cell({'value':  None, 'name': 'foo'}),    ' ', f)
-t_g = lambda: pxyf(cell({'value':  True, 'name':   'B'}), g('Y'), f)
-t_h = lambda: pxyf(cell({'value': False, 'name':   'B'}), r('N'), f)
+t_0 = lambda: pxyf(cell({'value':     0, 'name':   'i'}),        ' ', f)
+t_a = lambda: pxyf(cell({'value':     1, 'name':   'b'}),        '1', f)
+t_b = lambda: pxyf(cell({'value':    10, 'name':   'i'}),       '10', f)
+t_c = lambda: pxyf(cell({'value':   '0', 'name':   'b'}),        ' ', f)
+t_d = lambda: pxyf(cell({'value':   'a', 'name':   'A'}),        'a', f)
+t_e = lambda: pxyf(cell({'value':   1.0, 'name': 'foo'}),     '1.00', f)
+t_f = lambda: pxyf(cell({'value':  None, 'name': 'foo'}),        ' ', f)
+t_g = lambda: pxyf(cell({'value':  True, 'name':   'B'}), green('Y'), f)
+t_h = lambda: pxyf(cell({'value': False, 'name':   'B'}),   red('N'), f)
 
 t_i = lambda: pxyf(
   cell({'value': rate(2, 1, {'a': 1}), 'name': 'a'}),
