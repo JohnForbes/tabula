@@ -28,7 +28,7 @@ def f(x):
 # def f(x):
 #   if is_int(x['value']): return str(x['value'])
 
-#   if is_bool(x['value']): return g('Y') if x['value'] else r('N')
+#   if is_bool(x['value']): return green('Y') if x['value'] else red('N')
 #   if x['value'] is None: return ' '
 #   if x['value'] == 0: return ' '
 #   if is_float(x['value']): return f"{x['value']:.2f}"
