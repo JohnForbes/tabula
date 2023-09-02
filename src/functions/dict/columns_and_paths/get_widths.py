@@ -1,12 +1,12 @@
 from src.functions.dict.column.width.get import f as get_col_width
-from src.functions.ints.cell_value_widths.to_aggregate_width import f as g
+from src.functions.ints.cell_value_widths.to_aggregate_width import f as aw
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 
 # get_path_widths
 f = lambda x: {
   p: max(
-    g([get_col_width(c) for c in x['columns'] if c['path'][0] == p]),
+    aw([get_col_width(c) for c in x['columns'] if c['path'][0] == p]),
     len(p)
   )
   for p in x['paths']
