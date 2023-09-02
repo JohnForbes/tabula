@@ -3,8 +3,6 @@ from hak.many.strings.block.hstack import f as hstack
 from hak.many.strings.block.vstack import f as vstack
 from hak.pf import f as pf
 
-from src.functions.nodes.sort_children_by_nodepath import f as sort_by_nodepath
-
 class Node:
   def __init__(s, name, table):
     s.name = name
@@ -23,7 +21,10 @@ class Node:
   def _make_block(x):
     top_block = [f' {x.name:^{x.width}} ']
     return (
-      vstack([top_block, hstack([c.block for c in sort_by_nodepath(x)])])
+      vstack([
+        top_block,
+        hstack([c.block for c in x.sort_children_by_nodepath()])
+      ])
       if x.children else
       top_block
     )
@@ -42,6 +43,11 @@ class Node:
 
   width = property(_get_width)
 
+  sort_children_by_nodepath = lambda s: sorted(
+    s.children,
+    key=lambda x: x.nodepath
+  )
+
 f = lambda name, table: Node(name, table)
 
 def t_node__init(T):
@@ -54,17 +60,29 @@ def t_node__init(T):
   if node.table != _table: return pf("node.table != _table")
   return 1
 
-def t_node__str(T): return 0
-def t_node_add_child(T): return 0
-def t_node_add_children(T): return 0
-def t_node_block(T): return 0
-def t_node_level(T): return 0
-def t_node_width(T): return 0
+def t_node__str(T): return 0 # TODO
+def t_node_add_child(T): return 0 # TODO
+def t_node_add_children(T): return 0 # TODO
+def t_node_block(T): return 0 # TODO
+def t_node_level(T): return 0 # TODO
+def t_node_width(T): return 0 # TODO
+
+def t_sort_children_by_nodepath(T):
+  _t = T()
+  _n = Node('root', _t)
+  children_names = ['xyz', 'uvw', 'mno', 'abc']
+  children = [Node(child_name, _t) for child_name in children_names]
+  _n.add_children(children)
+  return all([c.name in children_names for c in _n.children])
 
 def t():
   from importlib import import_module
   T = import_module('src.classes.table').Table
   if not t_node__init(T): return pf('!t_node__init')
+
+  if not t_sort_children_by_nodepath(T):
+    return pf('!t_sort_children_by_nodepath')
+
   # if not t_node__str(T): return pf('!t_node__str')
   # if not t_node_add_child(T): return pf('!t_node_add_child')
   # if not t_node_add_children(T): return pf('!t_node_add_children')
