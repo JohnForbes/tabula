@@ -1,9 +1,10 @@
-from hak.one.string.colour.decolour import f as decol
-from src.functions.dict.value_and_width.to_str import f as fvw
-from src.functions.dict.char_and_width.to_str import f as make_homogenous_line
-from hak.pf import f as pf
+from hak.one.dict.value_and_width.to_str import f as fvw
 from hak.one.string.colour.bright.green import f as green
+from hak.one.string.colour.decolour import f as decol
+from hak.pf import f as pf
+
 from src.classes.rate import Rate
+from src.functions.dict.char_and_width.to_str import f as make_homogenous_line
 
 class Column:
   def __init__(self, table, keypath):
