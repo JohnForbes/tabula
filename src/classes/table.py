@@ -1,13 +1,12 @@
-from hak.pf import f as pf
+from hak.many.strings.block.hstack import f as hstack
 from hak.one.dict.record_and_keypath.to_value import f as kp_to_val
+from hak.pf import f as pf
 
 from src.classes.cell import Cell
 from src.classes.column import Column
 from src.classes.rate import Rate
-
 from src.functions.dict.record.get_leaf_keypaths import f as get_leaf_keypaths
 from src.functions.dict.to_node_tree import f as dict_to_node_tree
-from src.functions.strings.block.hstack import f as hstack
 from src.functions.strings.block.to_str import f as block_to_str
 
 class Table:
