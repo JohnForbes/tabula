@@ -1,6 +1,6 @@
 from hak.pf import f as pf
+from hak.many.numbers.ints.cell_value_widths.to_aggregate_width import f as aw
 
-from src.functions.ints.cell_value_widths.to_aggregate_width import f as aw
 from src.functions.nodes.sort_children_by_nodepath import f as sort_by_nodepath
 from src.functions.strings.block.hstack import f as hstack
 from src.functions.strings.block.vstack import f as vstack
