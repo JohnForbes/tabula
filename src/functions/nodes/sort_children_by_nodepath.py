@@ -2,23 +2,13 @@ from hak.pxyz import f as pxyz
 
 f = lambda s: sorted(s.children, key=lambda x: x.nodepath)
 
-class N:
-  def __init__(self, children=[], nodepath=''):
-    self.children = children
-    self.nodepath = nodepath
-  
-  __eq__ = lambda u, v: all([
-    u.nodepath == v.nodepath,
-    u.children == v.children
-  ])
-
 def t():
-  x = N(children=[N([], 'xyz'), N([], 'uvw'), N([], 'mno'), N([], 'abc')])
-  y = [
-    N([], 'abc'),
-    N([], 'mno'),
-    N([], 'uvw'),
-    N([], 'xyz'),
-  ]
-  z = f(x)
-  return pxyz(x, y, z)
+  from importlib import import_module
+  N = import_module('src.classes.node').Node
+  T = import_module('src.classes.table').Table
+  _t = T()
+  _n = N('root', _t)
+  children_names = ['xyz', 'uvw', 'mno', 'abc']
+  children = [N(child_name, _t) for child_name in children_names]
+  _n.add_children(children)
+  return all([c.name in children_names for c in _n.children])
