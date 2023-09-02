@@ -1,9 +1,10 @@
 # ignore_overlength_lines
+
 from datetime import date
+from hak.one.rate.rate import Rate
 from hak.pxyz import f as pxyz
 
 from src.classes.table import Table
-from src.classes.rate import Rate
 
 f = lambda x: str(Table().add_records(x))
 
