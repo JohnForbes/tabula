@@ -6,15 +6,19 @@ from hak.pf import f as pf
 from src.functions.nodes.sort_children_by_nodepath import f as sort_by_nodepath
 
 class Node:
-  def __init__(self, name, table):
-    self.name = name
-    self.children = set()
-    self.nodepath = tuple([name])
-    self.table = table
+  def __init__(s, name, table):
+    s.name = name
+    s.children = set()
+    s.nodepath = tuple([name])
+    s.table = table
 
-  def add_child(self, child):
-    self.children.add(child)
-    child.nodepath = tuple(list(self.nodepath)+ list(child.nodepath))
+  def add_child(s, child):
+    s.children.add(child)
+    child.nodepath = tuple(list(s.nodepath)+ list(child.nodepath))
+
+  def add_children(s, children):
+    for c in children:
+      s.add_child(c)
 
   def _make_block(x):
     top_block = [f' {x.name:^{x.width}} ']
