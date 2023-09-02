@@ -1,3 +1,4 @@
+from hak.one.dict.records_and_keypath.to_values import f as get_values
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 
@@ -5,7 +6,6 @@ from ..char_and_width.to_str import f as make_homogenous_line
 from ..named_vector.width.get import f as get_width
 from ..value_and_width.to_str import f as make_line_value
 from ..values_and_width.get import f as get_value_row_strings
-from .to_values import f as get_values
 
 # make_val_block
 def f(x):
