@@ -25,10 +25,12 @@ class Table:
       reference = (kp, s.row_count-1)
       s.cells[reference] = Cell(v)
     s.last_record = record
+    return s
     
   def add_records(s, records):
     for r in records:
       s.add_record(r)
+    return s
 
   get_column = lambda s, column_keypath: Column(s, column_keypath)
 
