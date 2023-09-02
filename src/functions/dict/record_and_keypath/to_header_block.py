@@ -1,5 +1,6 @@
 from hak.many.dicts.a_into_b import f as a_into_b
 from hak.one.dict.records_and_keypath.to_values import f as get_values
+from hak.one.dict.value_and_width.to_str import f as make_line_value
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 
@@ -8,7 +9,6 @@ from src.functions.dict.record.get_leaf_keypaths import f as get_leaf_keypaths
 from ...ints.cell_value_widths.to_aggregate_width import f as cell_W_to_row_w
 from ..char_and_width.to_str import f as make_homogenous_line
 from ..named_vector.width.get import f as get_width
-from ..value_and_width.to_str import f as make_line_value
 
 records_leaf_paths_to_W = lambda x: [
   get_width({
