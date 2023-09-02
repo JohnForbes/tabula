@@ -1,9 +1,9 @@
 from hak.many.numbers.ints.cell_value_widths.to_aggregate_width import f as aw
 from hak.many.strings.block.hstack import f as hstack
+from hak.many.strings.block.vstack import f as vstack
 from hak.pf import f as pf
 
 from src.functions.nodes.sort_children_by_nodepath import f as sort_by_nodepath
-from src.functions.strings.block.vstack import f as vstack
 
 class Node:
   def __init__(self, name, table):
