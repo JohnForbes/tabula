@@ -1,6 +1,6 @@
 from hak.one.dict.get_or_default import f as get_or_default
-from hak.one.string.colour.bright.green import f as g
-from hak.one.string.colour.bright.red import f as r
+from hak.one.string.colour.bright.green import f as green
+from hak.one.string.colour.bright.red import f as red
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 
@@ -189,7 +189,7 @@ def t_v():
   x_r =      {'a': True, 'b': 1}
   x_names =  ['b', 'a']
   x = {'widths': x_widths, 'record': x_r, 'names': x_names}
-  y = f"|  1 | {g('Y')} |"
+  y = f"|  1 | {green('Y')} |"
   return pxyf(x, y, f)
 
 def t_w():
@@ -197,7 +197,7 @@ def t_w():
   x_r =      {'a': False, 'b': 13}
   x_names =  ['b', 'a']
   x = {'widths': x_widths, 'record': x_r, 'names': x_names}
-  y = f"| 13 | {r('N')} |"
+  y = f"| 13 | {red('N')} |"
   return pxyf(x, y, f)
 
 def t_x():
@@ -205,7 +205,7 @@ def t_x():
   x_r =      {'a': False, 'b': 12, 'c': 15}
   x_names =  ['b', 'a']
   x = {'widths': x_widths, 'record': x_r, 'names': x_names}
-  y = f"| 12 | {r('N')} |"
+  y = f"| 12 | {red('N')} |"
   return pxyf(x, y, f)
 
 def t_y():
@@ -213,7 +213,7 @@ def t_y():
   x_r =      {'is_revenue': True, 'b': 1}
   x_names =  ['b', 'is_revenue']
   x = {'widths': x_widths, 'record': x_r, 'names': x_names}
-  y = f"|  1 |       {g('Y')} |"
+  y = f"|  1 |       {green('Y')} |"
   return pxyf(x, y, f)
 
 def t_z():
@@ -221,7 +221,7 @@ def t_z():
   x_r =      {'is_revenue': False, 'b': 13}
   x_names =  ['b', 'is_revenue']
   x = {'widths': x_widths, 'record': x_r, 'names': x_names}
-  y = f"| 13 |       {r('N')} |"
+  y = f"| 13 |       {red('N')} |"
   return pxyf(x, y, f)
 
 def t_aa():
@@ -229,7 +229,7 @@ def t_aa():
   x_r =      {'is_revenue': False, 'b': 12, 'c': 15}
   x_names =  ['b', 'is_revenue']
   x = {'widths': x_widths, 'record': x_r, 'names': x_names}
-  y = f"| 12 |       {r('N')} |"
+  y = f"| 12 |       {red('N')} |"
   return pxyf(x, y, f)
 
 def t_ab():
