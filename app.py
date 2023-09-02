@@ -1,8 +1,8 @@
 # ignore_overlength_lines
 from datetime import date
 from hak.pxyz import f as pxyz
-from src.classes.rate import Rate
-from src.classes.table import Table
+from src.classes import Rate
+from src.classes import Table
 
 def f(x):
   table = Table()
