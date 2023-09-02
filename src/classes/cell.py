@@ -6,13 +6,12 @@ from hak.one.get_datatype import f as detect_type
 from hak.one.is_0 import f as is_0
 from hak.one.is_none import f as is_none
 from hak.one.number.float.is_a import f as is_float
+from hak.one.rate.rate import Rate
 from hak.one.string.colour.bright.green import f as green
 from hak.one.string.colour.bright.red import f as red
 from hak.one.string.colour.decolour import f as decol
 from hak.pf import f as pf
 from hak.pxyz import f as pxyz
-
-from src.classes.rate import Rate
 
 class Cell:
   def __init__(self, value):
