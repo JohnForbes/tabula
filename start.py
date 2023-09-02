@@ -1,6 +1,7 @@
-from src.classes.table import Table
-from src.classes.rate import Rate
+from src.classes import Rate
 from datetime import date
+
+from app import f as records_to_table
 
 records = [
   {
@@ -35,7 +36,4 @@ records = [
   }
 ]
 
-table = Table()
-table.add_records(records)
-
-print(table)
+print(records_to_table(records))
