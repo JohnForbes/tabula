@@ -40,7 +40,7 @@ class Table:
 
   def __str__(s):
     root = list(s.last_record.keys())[0]
-    nodes = dict_to_node_tree(s.last_record, table=s)
+    nodes = dict_to_node_tree(s.last_record, root=None, nodes={}, table=s)
     header_str = block_to_str(nodes[root].block[1:])
     table_str = block_to_str(s.block)
     return '\n'.join([header_str, table_str])
