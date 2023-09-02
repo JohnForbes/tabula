@@ -1,4 +1,5 @@
 from hak.one.dict.get_or_default import f as get_or_default
+from hak.one.dict.value_and_width.to_str import f as to_fixed_width
 from hak.one.string.colour.bright.green import f as green
 from hak.one.string.colour.bright.red import f as red
 from hak.pf import f as pf
@@ -6,7 +7,6 @@ from hak.pxyf import f as pxyf
 
 from ....dict.cell.make import f as cell
 from ....dict.cell.to_str import f as cell_to_str
-from ....dict.value_and_width.to_str import f as to_fixed_width
 
 v_or_none = lambda d, k: get_or_default(d, k, None)
 
