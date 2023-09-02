@@ -1,14 +1,14 @@
 from datetime import date
 from hak.one.dict.rate.make import f as rate
 from hak.one.dict.unit.to_str import f as unit_to_str
+from hak.one.dict.value_and_width.to_str import f as make_line_value
 from hak.pf import f as pf
 from hak.pxyf import f as pxyf
 
 from src.functions.dict.cell.to_str import f as cell_to_str
+from src.functions.dict.char_and_width.to_str import f as make_homogenous_line
 from src.functions.dict.column.make_from_values import f as column
 from src.functions.dict.column.width.get import f as get_width
-from src.functions.dict.value_and_width.to_str import f as make_line_value
-from src.functions.dict.char_and_width.to_str import f as make_homogenous_line
 
 _f = lambda x: (
   unit_to_str(x['value']['unit']) if x['type'] == 'rate' else ''
