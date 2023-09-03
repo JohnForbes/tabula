@@ -1,7 +1,6 @@
 from datetime import date
 from hak.one.rate.rate import Rate
-
-from src.app import f as records_to_table
+from hak.many.dicts.to_table import f as records_to_table
 
 records = [
   {
